@@ -19,11 +19,7 @@ body { margin: 0; background: var(--bg); color: var(--ink);
 .brand { font-weight: 700; letter-spacing: .2px; }
 select, button { font: inherit; }
 select { padding: 4px 8px; border: 1px solid var(--line); border-radius: 6px; background: var(--panel); color: var(--ink); }
-.tabs { display: flex; gap: 4px; flex-wrap: wrap; }
-.tab { padding: 5px 10px; border-radius: 999px; border: 1px solid var(--line); background: var(--panel);
-  color: var(--ink); cursor: pointer; white-space: nowrap; }
-.tab.on { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
-.tab .prog { opacity: .75; font-size: 11px; margin-left: 4px; }
+#contest { flex: 1 1 240px; min-width: 0; max-width: 420px; }
 main { padding: 16px; max-width: 1400px; margin: 0 auto; }
 h1 { font-size: 20px; margin: 0 0 2px; } h2 { font-size: 14px; margin: 14px 0 6px; }
 .head { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; align-items: flex-start; }
@@ -62,3 +58,19 @@ tr.cur { background: var(--sel); }
 .checkout .sugg { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; margin: 8px 0; }
 .sheet pre { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 12px; white-space: pre-wrap; font: 13px/1.5 ui-monospace, Menlo, Consolas, monospace; }
 .tablewrap { overflow-x: auto; }
+/* an entry's options: one header row, then a tile per option with the rest of
+   the season across its foot */
+.orow { display: grid; grid-template-columns: minmax(58px, 1.1fr) repeat(var(--n), minmax(0, 1fr));
+  gap: 2px 8px; align-items: start; font-variant-numeric: tabular-nums; }
+.orow .num { text-align: right; }
+.ohead { color: var(--muted); font-size: 12px; padding: 0 10px 6px; align-items: end; }
+.opt { border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; margin-bottom: 6px; }
+.opt.cur { background: var(--sel); border-color: var(--accent); }
+.opt .pk .btn { margin-top: 6px; }
+.opt .then { grid-column: 1 / -1; margin-top: 6px; padding-top: 6px; border-top: 1px dashed var(--line); line-height: 1.6; }
+@media (max-width: 520px) {
+  main { padding: 10px; } .top { padding: 8px 10px; gap: 8px; }
+  .detail .box { padding: 10px 8px; }
+  .orow { gap: 2px 5px; font-size: 13px; } .ohead { font-size: 11px; padding: 0 8px 4px; }
+  .opt { padding: 8px; }
+}

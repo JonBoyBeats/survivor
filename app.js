@@ -11,6 +11,8 @@
   const money = v => (Math.abs(v) >= 1000 ? '$' + Math.round(v).toLocaleString()
     : '$' + v.toFixed(2));
   const pct = v => (100 * v).toFixed(1) + '%';
+  // a standard error or a gap in dollars: whole dollars once they reach 100
+  const gap = v => (Math.abs(v) >= 100 ? Math.round(v).toLocaleString() : v.toFixed(2));
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const weekKey = r => r.season + '-' + r.week;
   const lsKey = (doc) => 'sb:' + doc.season + '-' + doc.week + '-' + doc.slug;
@@ -43,12 +45,14 @@
 
   function tabs() {
     const rows = weekRows();
-    $('#tabs').innerHTML = rows.map(r => {
+    const sel = $('#contest');
+    sel.innerHTML = rows.map(r => {
       const st = lsGet('sb:' + r.season + '-' + r.week + '-' + r.slug);
       const n = st && st.summary ? st.summary.banked : 0;
-      return `<button class="tab ${app.cur === r.slug ? 'on' : ''}" data-slug="${r.slug}">${esc(r.name)}<span class="prog">${n}/${r.entries}</span></button>`;
-    }).join('') + `<button class="tab ${app.cur === 'portfolio' ? 'on' : ''}" data-slug="portfolio">Portfolio &amp; cheat sheet</button>`;
-    $('#tabs').querySelectorAll('.tab').forEach(b => b.onclick = () => show(b.dataset.slug));
+      return `<option value="${r.slug}">${esc(r.name)} (${n}/${r.entries} banked)</option>`;
+    }).join('') + '<option value="portfolio">Portfolio &amp; cheat sheet</option>';
+    sel.value = app.cur;
+    sel.onchange = () => show(sel.value);
   }
 
   async function show(slug) {
@@ -178,25 +182,25 @@
       const tie = best && o !== best && (best.mean - o.mean) < 2 * o.seBest;
       if (c.surv[o.cand] === undefined) c.surv[o.cand] = book.survives(o.cand);
       const pick = doc.cands[o.cand].pick;
-      const price = pick.split('+').map(t => doc.price[t] !== undefined ? (100 * doc.price[t]).toFixed(0) + '%' : '').join('+');
-      return `<tr class="${o.cand === cur ? 'cur' : ''}">
-        <td class="pick">${esc(pick)}${o === best ? ' <span class="tie">best</span>' : tie ? ' <span class="tie">tie</span>' : ''}</td>
-        <td class="num">${price}</td>
-        <td class="path" title="spine ${esc(doc.cands[o.cand].spine)}">${pathText(doc, o.cand)}</td>
-        <td class="num">${money(o.mean)} <span class="se">${o === best ? '±' + o.se.toFixed(2) : '−' + (best.mean - o.mean).toFixed(2) + ' ±' + o.seBest.toFixed(2)}</span></td>
-        <td class="num">${money(o.alone)}</td>
-        ${hasAlt ? `<td class="num">${doc.cands[o.cand].alt === null || doc.cands[o.cand].alt === undefined ? '—' : money(doc.cands[o.cand].alt)}</td>` : ''}
-        <td class="num">${pct(c.surv[o.cand])}</td>
-        <td>${o.cand === cur ? '<button class="btn small ghost" data-unbank="1">Unbank</button>'
-          : `<button class="btn small" data-bank="${o.cand}" data-val="${o.mean}">Bank</button>`}</td></tr>`;
+      const price = pick.split('+').map(t => doc.price[t] !== undefined ? (100 * doc.price[t]).toFixed(0) + '%' : '').join('<br>');
+      return `<div class="orow opt ${o.cand === cur ? 'cur' : ''}">
+        <div class="pk"><span class="pick">${esc(pick).replace(/\+/g, '+<wbr>')}</span>${o === best ? ' <span class="tie">best</span>' : tie ? ' <span class="tie">tie</span>' : ''}
+          <div>${o.cand === cur ? '<button class="btn small ghost" data-unbank="1">Unbank</button>'
+            : `<button class="btn small" data-bank="${o.cand}" data-val="${o.mean}">Bank</button>`}</div></div>
+        <div class="num">${price}</div>
+        <div class="num">${money(o.mean)}<div class="se">${o === best ? '±' + gap(o.se) : '−' + gap(best.mean - o.mean) + '<br>±' + gap(o.seBest)}</div></div>
+        <div class="num">${money(o.alone)}</div>
+        ${hasAlt ? `<div class="num">${doc.cands[o.cand].alt === null || doc.cands[o.cand].alt === undefined ? '—' : money(doc.cands[o.cand].alt)}</div>` : ''}
+        <div class="num">${pct(c.surv[o.cand])}</div>
+        <div class="then path" title="spine ${esc(doc.cands[o.cand].spine)}"><span class="muted">Then</span> ${pathText(doc, o.cand)}</div></div>`;
     }).join('');
     box.innerHTML = `<div class="box">
       <h2 style="margin-top:0">${esc(e.name)} <span class="muted small">burned ${esc(e.burned.join(' '))}</span></h2>
       ${flip ? `<div class="note">Without the pins this week's board was built under, the base model's field makes <b>${esc(doc.cands[flip.to].pick)}</b> the better option alone for this burned set, by ${money(flip.gain)} ± ${flip.se.toFixed(2)} over ${esc(doc.cands[flip.frm].pick)}. The pick leans on the pins.</div>` : ''}
       <p class="muted small">Worth now is what this option adds to the book as it stands. Under the best option, ± is its standard error; under every other, the gap to the best and that gap's own standard error, measured on the same worlds. A tie is within two of those. Alone is the option with no other entry beside it. The path is the rest of the season the value map planned behind this pick.${hasAlt ? ' Base field is Alone again with the field the base model projects, without the pins.' : ''}</p>
-      <div class="tablewrap"><table><thead><tr><th>Week ${doc.week}</th><th class="num">Win</th><th>Then</th>
-      <th class="num">Worth now</th><th class="num">Alone</th>${hasAlt ? '<th class="num">Base field</th>' : ''}<th class="num">Survives</th><th></th></tr></thead>
-      <tbody>${rows}</tbody></table></div></div>`;
+      <div class="opts" style="--n:${hasAlt ? 5 : 4}"><div class="orow ohead"><div>Week ${doc.week}</div><div class="num">Win</div>
+      <div class="num">Worth now</div><div class="num">Alone</div>${hasAlt ? '<div class="num">Base field</div>' : ''}<div class="num">Survives</div></div>
+      ${rows}</div></div>`;
     box.querySelectorAll('[data-bank]').forEach(b => b.onclick = () => {
       c.history.push({ id, prev: st.picks[id] });
       c.vals = c.vals || {}; c.vals[id] = +b.dataset.val;
