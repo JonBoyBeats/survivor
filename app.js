@@ -21,6 +21,9 @@
   const lsKey = (doc) => 'sb:' + doc.season + '-' + doc.week + '-' + doc.slug;
 
   function lsGet(k) { try { return JSON.parse(localStorage.getItem(k) || 'null'); } catch (e) { return null; } }
+  // the chalk the operator types, one list per week, read by every contest
+  const chalkKey = () => 'sb:chalk:' + app.week;
+  function chalk() { return new Set(lsGet(chalkKey()) || []); }
   function lsSet(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) { /* private window */ } }
 
   async function init() {
@@ -125,6 +128,14 @@
     $('#main').appendChild(root);
     const sec = $('#main .contest');
     sec.querySelectorAll('[data-act]').forEach(b => b.onclick = () => act(c, b.dataset.act));
+    const ci = $('.chalkin', sec);
+    ci.value = [...chalk()].join(' ');
+    ci.onchange = () => {
+      const ts = [...new Set(ci.value.toUpperCase().split(/[^A-Z]+/).filter(Boolean))];
+      lsSet(chalkKey(), ts);
+      ci.value = ts.join(' ');
+      paint(c);
+    };
     paint(c);
   }
 
@@ -165,22 +176,36 @@
     tabs();
   }
 
-  // the teams at least half of an entry's options play in each later week
-  function consensus(doc, cands) {
+  // THE NEXT SIX WEEKS, the stretch where an entry's options mostly agree;
+  // past it the plans scatter and the colouring would only say so
+  const NEAR = 6;
+  // per later week inside NEAR: each team's share of the entry's options
+  function shares(doc, cands) {
     const out = {};
     cands.forEach(c => Object.entries(doc.cands[c].path).forEach(([w, ts]) => {
-      if (+w <= doc.week) return;
+      if (+w <= doc.week || +w > doc.week + NEAR) return;
       out[w] = out[w] || {};
       ts.forEach(t => out[w][t] = (out[w][t] || 0) + 1);
     }));
-    Object.keys(out).forEach(w => out[w] = new Set(Object.keys(out[w]).filter(t => 2 * out[w][t] >= cands.length)));
+    Object.values(out).forEach(o => Object.keys(o).forEach(t => o[t] /= cands.length));
     return out;
   }
+  // the teams at least half of the options play that week
+  function consensus(sh) {
+    const out = {};
+    Object.keys(sh).forEach(w => out[w] = new Set(Object.keys(sh[w]).filter(t => sh[w][t] >= 0.5)));
+    return out;
+  }
+  function commonLine(sh, ch) {
+    return Object.keys(sh).map(Number).sort((a, b) => a - b).map(w => `<b>${w}</b> ` +
+      Object.entries(sh[w]).sort((a, b) => b[1] - a[1]).filter(([, v], i) => i === 0 || v >= 0.25).slice(0, 3)
+        .map(([t, v]) => `<span class="${v >= 0.5 ? 'agree' : 'differ'}${ch.has(t) ? ' chalk' : ''}">${esc(t)}</span> ${Math.round(100 * v)}%`).join(', ')).join(' · ');
+  }
 
-  function pathText(doc, cand, cons) {
+  function pathText(doc, cand, cons, ch) {
     const p = doc.cands[cand].path;
     return Object.keys(p).map(Number).filter(w => w > doc.week).sort((a, b) => a - b)
-      .map(w => `<b>${w}</b> ` + p[w].map(t => `<span class="${cons[w] && cons[w].has(t) ? 'agree' : 'differ'}">${esc(t)}</span>`).join('+')).join(' · ');
+      .map(w => `<b>${w}</b> ` + p[w].map(t => `<span class="${!cons[w] ? '' : cons[w].has(t) ? 'agree' : 'differ'}${ch.has(t) ? ' chalk' : ''}">${esc(t)}</span>`).join('+')).join(' · ');
   }
 
   function detail(c, id) {
@@ -195,7 +220,12 @@
     const hasAlt = doc.cands.some(x => x.alt !== undefined && x.alt !== null);
     // one entry in the contest: Alone is always Worth now, so it is not shown
     const one = book.entries.length === 1;
-    const cons = consensus(doc, opts.map(o => o.cand));
+    const sh = shares(doc, opts.map(o => o.cand));
+    const cons = consensus(sh);
+    const ch = chalk();
+    const off = [...ch].filter(t => doc.price[t] === undefined);
+    $('#main .chalknote').textContent = !ch.size ? 'type the week\'s chalk teams to see where a path spends them'
+      : 'highlighted in the paths' + (off.length ? '; not playing this week: ' + off.join(' ') : '');
     const flip = doc.groups[book.groupOf[id]].alt_flip;
     const rows = opts.map(o => {
       const tie = best && o !== best && (best.mean - o.mean) < 2 * o.seBest;
@@ -211,13 +241,14 @@
         ${one ? '' : `<div class="num">${money(o.alone)}</div>`}
         ${hasAlt ? `<div class="num">${doc.cands[o.cand].alt === null || doc.cands[o.cand].alt === undefined ? '—' : money(doc.cands[o.cand].alt)}</div>` : ''}
         <div class="num">${pct(c.surv[o.cand])}</div>
-        <div class="then path" title="spine ${esc(doc.cands[o.cand].spine)}"><span class="muted">Then</span> ${pathText(doc, o.cand, cons)}</div></div>`;
+        <div class="then path" title="spine ${esc(doc.cands[o.cand].spine)}"><span class="muted">Then</span> ${pathText(doc, o.cand, cons, ch)}</div></div>`;
     }).join('');
     box.innerHTML = `<div class="box">
       <h2 style="margin-top:0">${esc(e.name)} <span class="muted small">burned ${esc(e.burned.join(' '))}</span></h2>
       ${flip ? `<div class="note">Without the pins this week's board was built under, the base model's field makes <b>${esc(doc.cands[flip.to].pick)}</b> the better option alone for this burned set, by ${money(flip.gain)} ± ${flip.se.toFixed(2)} over ${esc(doc.cands[flip.frm].pick)}. The pick leans on the pins.</div>` : ''}
       <p class="muted small">Worth now is what this option adds to the book as it stands. Under the best option, ± is its standard error; under every other, the gap to the best and that gap's own standard error, measured on the same worlds. A tie is within two of those. Alone is the option with no other entry beside it. The path is the rest of the season the value map planned behind this pick.${hasAlt ? ' Base field is Alone again with the field the base model projects, without the pins.' : ''}</p>
-      <p class="muted small">In the path, <span class="agree">a team in this colour</span> is played that week by at least half of this entry's options; <span class="differ">this colour</span> is a week where the option goes its own way.</p>
+      <div class="common path"><span class="muted">Common picks, the next ${NEAR} weeks</span> ${commonLine(sh, ch)}</div>
+      <p class="muted small">The share of this entry's ${opts.length} options that play each team. In the paths, over the same ${NEAR} weeks, <span class="agree">this colour</span> is a team at least half of them play that week and <span class="differ">this colour</span> is an option going its own way.</p>
       <div class="opts" style="--n:${3 + (one ? 0 : 1) + (hasAlt ? 1 : 0)}"><div class="orow ohead"><div>Week ${doc.week}</div><div class="num">Win</div>
       <div class="num">Worth now</div>${one ? '' : '<div class="num">Alone</div>'}${hasAlt ? '<div class="num">Base field</div>' : ''}<div class="num">Survives</div></div>
       ${rows}</div></div>`;
