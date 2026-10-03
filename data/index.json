@@ -1,0 +1,253 @@
+{
+ "contests": [
+  {
+   "file": "2026_w04_wc.json",
+   "season": 2026,
+   "week": 4,
+   "slug": "wc",
+   "name": "Splash World Championship",
+   "pot": 21000000.0,
+   "ours": 1,
+   "field": 5601,
+   "k": 1,
+   "scaled": false,
+   "built": "2026-10-02T22:31:22+00:00",
+   "entries": 1,
+   "cands": 24,
+   "notes": []
+  },
+  {
+   "file": "2026_w04_splash.json",
+   "season": 2026,
+   "week": 4,
+   "slug": "splash",
+   "name": "Big Splash",
+   "pot": 3000000.0,
+   "ours": 3,
+   "field": 3814,
+   "k": 1,
+   "scaled": false,
+   "built": "2026-10-02T23:19:07+00:00",
+   "entries": 3,
+   "cands": 72,
+   "notes": []
+  },
+  {
+   "file": "2026_w04_walker.json",
+   "season": 2026,
+   "week": 4,
+   "slug": "walker",
+   "name": "Walker",
+   "pot": 1125000.0,
+   "ours": 2,
+   "field": 12192,
+   "k": 1,
+   "scaled": false,
+   "built": "2026-10-03T01:45:59+00:00",
+   "entries": 2,
+   "cands": 54,
+   "notes": [
+    "the board carries no pins, so there is no base field to check against"
+   ]
+  },
+  {
+   "file": "2026_w04_wave.json",
+   "season": 2026,
+   "week": 4,
+   "slug": "wave",
+   "name": "The Wave",
+   "pot": 500000.0,
+   "ours": 1,
+   "field": 2644,
+   "k": 1,
+   "scaled": true,
+   "built": "2026-10-02T23:19:09+00:00",
+   "entries": 1,
+   "cands": 27,
+   "notes": [
+    "priced on the splash board (no wave board this week), its field scaled to wave's 2644 alive"
+   ]
+  },
+  {
+   "file": "2026_w04_ryan.json",
+   "season": 2026,
+   "week": 4,
+   "slug": "ryan",
+   "name": "Jim Ryan",
+   "pot": 183475.0,
+   "ours": 2,
+   "field": 2102,
+   "k": 1,
+   "scaled": false,
+   "built": "2026-10-02T23:51:11+00:00",
+   "entries": 2,
+   "cands": 54,
+   "notes": []
+  },
+  {
+   "file": "2026_w04_cheese.json",
+   "season": 2026,
+   "week": 4,
+   "slug": "cheese",
+   "name": "Cheese Bowl",
+   "pot": 135000.0,
+   "ours": 3,
+   "field": 1191,
+   "k": 1,
+   "scaled": true,
+   "built": "2026-10-02T23:51:06+00:00",
+   "entries": 3,
+   "cands": 81,
+   "notes": [
+    "priced on the ryan board (no cheese board this week), its field scaled to cheese's 1191 alive"
+   ]
+  },
+  {
+   "file": "2026_w04_gross.json",
+   "season": 2026,
+   "week": 4,
+   "slug": "gross",
+   "name": "Jeff Gross",
+   "pot": 100125.0,
+   "ours": 1,
+   "field": 129,
+   "k": 1,
+   "scaled": true,
+   "built": "2026-10-02T23:51:00+00:00",
+   "entries": 1,
+   "cands": 24,
+   "notes": [
+    "priced on the ryan board (no gross board this week), its field scaled to gross's 129 alive"
+   ]
+  },
+  {
+   "file": "2026_w04_ripple.json",
+   "season": 2026,
+   "week": 4,
+   "slug": "ripple",
+   "name": "The Ripple",
+   "pot": 100000.0,
+   "ours": 9,
+   "field": 2751,
+   "k": 1,
+   "scaled": true,
+   "built": "2026-10-02T23:19:13+00:00",
+   "entries": 9,
+   "cands": 192,
+   "notes": [
+    "priced on the splash board (no ripple board this week), its field scaled to ripple's 2751 alive"
+   ]
+  },
+  {
+   "file": "2026_w04_w2k100.json",
+   "season": 2026,
+   "week": 4,
+   "slug": "w2k100",
+   "name": "Week 2 $100k",
+   "pot": 100000.0,
+   "ours": 2,
+   "field": 1633,
+   "k": 1,
+   "scaled": false,
+   "built": "2026-10-03T01:53:17+00:00",
+   "entries": 2,
+   "cands": 57,
+   "notes": [
+    "the board carries no pins, so there is no base field to check against"
+   ]
+  },
+  {
+   "file": "2026_w04_fifty.json",
+   "season": 2026,
+   "week": 4,
+   "slug": "fifty",
+   "name": "Splash $50k",
+   "pot": 50004.0,
+   "ours": 22,
+   "field": 1479,
+   "k": 1,
+   "scaled": true,
+   "built": "2026-10-02T23:51:33+00:00",
+   "entries": 22,
+   "cands": 399,
+   "notes": [
+    "priced on the ryan board (no fifty board this week), its field scaled to fifty's 1479 alive"
+   ]
+  },
+  {
+   "file": "2026_w04_w2k50.json",
+   "season": 2026,
+   "week": 4,
+   "slug": "w2k50",
+   "name": "Week 2 $50k",
+   "pot": 50000.0,
+   "ours": 7,
+   "field": 3755,
+   "k": 1,
+   "scaled": true,
+   "built": "2026-10-03T01:53:20+00:00",
+   "entries": 5,
+   "cands": 57,
+   "notes": [
+    "priced on the w2k100 board (no w2k50 board this week), its field scaled to w2k50's 3755 alive",
+    "2 entries with a burned set the value map does not carry, left out: Entry 21, Entry 22",
+    "the board carries no pins, so there is no base field to check against"
+   ]
+  },
+  {
+   "file": "2026_w04_w4k50.json",
+   "season": 2026,
+   "week": 4,
+   "slug": "w4k50",
+   "name": "Week 4 $50k",
+   "pot": 50000.0,
+   "ours": 20,
+   "field": 11112,
+   "k": 1,
+   "scaled": false,
+   "built": "2026-10-03T02:25:12+00:00",
+   "entries": 20,
+   "cands": 30,
+   "notes": [
+    "the board carries no pins, so there is no base field to check against"
+   ]
+  },
+  {
+   "file": "2026_w04_w4k25.json",
+   "season": 2026,
+   "week": 4,
+   "slug": "w4k25",
+   "name": "Week 4 $25k",
+   "pot": 25000.0,
+   "ours": 3,
+   "field": 2778,
+   "k": 1,
+   "scaled": true,
+   "built": "2026-10-03T02:25:14+00:00",
+   "entries": 3,
+   "cands": 30,
+   "notes": [
+    "priced on the w4k50 board (no w4k25 board this week), its field scaled to w4k25's 2778 alive",
+    "the board carries no pins, so there is no base field to check against"
+   ]
+  },
+  {
+   "file": "2026_w04_fivek.json",
+   "season": 2026,
+   "week": 4,
+   "slug": "fivek",
+   "name": "Splash $5k",
+   "pot": 5000.0,
+   "ours": 2,
+   "field": 240,
+   "k": 1,
+   "scaled": true,
+   "built": "2026-10-03T01:46:02+00:00",
+   "entries": 2,
+   "cands": 54,
+   "notes": [
+    "priced on the ryan board (no fivek board this week), its field scaled to fivek's 240 alive"
+   ]
+  }
+ ]
+}

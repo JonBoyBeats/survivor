@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Survivor Book</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <div class="brand">Survivor Book</div>
+  <select id="week" aria-label="Week"></select>
+  <nav id="tabs" class="tabs" aria-label="Contests"></nav>
+</header>
+<main id="main"><p class="muted pad">Loading…</p></main>
+<template id="t-contest">
+  <section class="contest">
+    <div class="head">
+      <div>
+        <h1 class="cname"></h1>
+        <div class="meta muted"></div>
+      </div>
+      <div class="actions">
+        <button class="btn" data-act="autofill" title="Bank every remaining entry on its best option, most valuable first">Auto-fill the rest</button>
+        <button class="btn" data-act="check" title="Single swaps that would improve the book by more than two standard errors">Check my book</button>
+        <button class="btn ghost" data-act="undo">Undo</button>
+        <button class="btn ghost" data-act="reset">Reset</button>
+      </div>
+    </div>
+    <div class="notes"></div>
+    <div class="cards"></div>
+    <div class="checkout"></div>
+    <div class="grid">
+      <div class="col entries">
+        <h2>Entries <span class="muted small">worth now, given what is banked</span></h2>
+        <ol class="elist todo"></ol>
+        <h2 class="bh">Banked</h2>
+        <ol class="elist done"></ol>
+      </div>
+      <div class="col detail"></div>
+    </div>
+  </section>
+</template>
+<script src="engine.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
