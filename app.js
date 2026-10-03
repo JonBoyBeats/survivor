@@ -79,22 +79,22 @@
     renderContest(app.docs[key]);
   }
 
-  /* ---- persistence: picks by candidate, re-matched by path if the data was rebuilt ---- */
+  /* ---- persistence: picks by team (or one path), re-matched if the data was rebuilt ---- */
   function restore(c) {
     const saved = lsGet(lsKey(c.doc));
     if (!saved || !saved.picks) return;
-    const sameBuild = saved.built === c.doc.built;
     for (const id of saved.order || Object.keys(saved.picks)) {
       const p = saved.picks[id];
-      if (!p || c.book.groupOf[id] === undefined) { c.stale.push(p ? p.pick + ' (' + id + ')' : id); continue; }
-      let cand = sameBuild ? p.cand : undefined;
-      if (cand === undefined || !c.doc.groups[c.book.groupOf[id]].cands.includes(cand)) {
-        cand = c.doc.groups[c.book.groupOf[id]].cands.find(x => JSON.stringify(c.doc.cands[x].path) === JSON.stringify(p.path));
+      const gi = c.book.groupOf[id];
+      if (!p || gi === undefined) { c.stale.push(p ? p.pick + ' (' + id + ')' : id); continue; }
+      let key = 't:' + p.pick;   // a team, and every pick saved before teams existed
+      if (p.key && p.key.startsWith('p:')) {
+        // one path: matched by its plan, since a rebuild can move its id
+        const ci = c.doc.groups[gi].cands.find(x => JSON.stringify(c.doc.cands[x].path) === JSON.stringify(p.path));
+        key = ci === undefined ? null : 'p:' + ci;
       }
-      if (cand === undefined) { c.stale.push(p.pick + ' for ' + (p.name || id)); continue; }
-      c.st.bank(id, cand);
-      c.vals = c.vals || {};
-      c.vals[id] = p.value;
+      if (!key || !c.st.bank(id, key)) { c.stale.push(p.pick + ' for ' + (p.name || id)); continue; }
+      c.vals = c.vals || {}; c.vals[id] = p.value;
     }
     save(c);
   }
@@ -102,14 +102,17 @@
   function save(c) {
     const picks = {};
     for (const id of c.st.order) {
-      const cand = c.st.picks[id];
+      const t = c.st.picks[id];
       const e = c.book.entries.find(x => x.id === id);
-      picks[id] = { cand, pick: c.doc.cands[cand].pick, path: c.doc.cands[cand].path,
+      picks[id] = { key: t.key, pick: t.pick, path: t.key.startsWith('p:') ? c.doc.cands[t.cands[0]].path : undefined,
         name: e ? e.name : id, value: (c.vals || {})[id] };
     }
     lsSet(lsKey(c.doc), { built: c.doc.built, name: c.doc.name, slug: c.doc.slug, pot: c.doc.pot,
       order: c.st.order, picks, summary: c.st.summary(), saved: new Date().toISOString() });
   }
+
+  // a bank target's label: the team, or the team and "one path"
+  const label = (doc, key) => key.startsWith('t:') ? key.slice(2) : doc.cands[+key.slice(2)].pick + ' (one path)';
 
   /* ---- the contest page ---- */
   function renderContest(c) {
@@ -149,7 +152,7 @@
       <div class="card"><div class="k">Book, expected</div><div class="v">${money(sm.dollars)}</div></div>
       <div class="card"><div class="k">Fair share per entry</div><div class="v">${money(fair(doc))}</div><div class="k">pot ÷ ${doc.field.toLocaleString()} alive</div></div>
       <div class="card"><div class="k">Banked</div><div class="v">${sm.banked} / ${sm.total}</div></div>
-      <div class="card"><div class="k">Any of ours standing at the end</div><div class="v">${pct(sm.any)}</div></div>
+      <div class="card"><div class="k">Ours alive into week ${sm.horizon}, expected</div><div class="v">${sm.alive.toFixed(2)}</div></div>
       <div class="card"><div class="k">This week's exposure</div><div class="chips">${exp}</div></div>`;
     const rows = st.worthNow();
     const todo = $('.todo', sec), done = $('.done', sec);
@@ -157,14 +160,14 @@
       <li data-id="${esc(r.entry.id)}"><div><div class="n">${esc(r.entry.name)}</div>
       <div class="b">burned ${esc(r.entry.burned.join(' '))}${doc.groups[r.entry.group].alt_flip ? ' · <b>leans on the pins</b>' : ''}</div></div>
       <div class="r"><div>${r.best ? money(r.best.mean) + ' <span class="x">' + times(r.best.mean, doc) + '</span>' : '—'}</div>
-      <div class="b">${r.best ? esc(doc.cands[r.best.cand].pick) : 'no option'}</div></div></li>`).join('')
+      <div class="b">${r.best ? esc(r.best.pick) : 'no option'}</div></div></li>`).join('')
       : '<li class="empty">Every entry is banked.</li>';
     done.innerHTML = st.order.length ? st.order.map((id, i) => {
       const e = book.entries.find(x => x.id === id);
       const v = (c.vals || {})[id];
       return `<li data-id="${esc(id)}"><div><div class="n">${i + 1}. ${esc(e.name)}</div>
         <div class="b">burned ${esc(e.burned.join(' '))}</div></div>
-        <div class="r"><div class="pick">${esc(doc.cands[st.picks[id]].pick)}</div>
+        <div class="r"><div class="pick">${esc(label(doc, st.picks[id].key))}</div>
         <div class="b">${v !== undefined && v !== null ? money(v) + ' when banked' : ''}</div></div></li>`;
     }).join('') : '<li class="empty">Nothing banked yet.</li>';
     sec.querySelectorAll('.elist li[data-id]').forEach(li => li.onclick = () => { app.sel[doc.slug] = li.dataset.id; paint(c); });
@@ -178,12 +181,12 @@
 
   // THE NEXT SIX WEEKS, the stretch where an entry's options mostly agree;
   // past it the plans scatter and the colouring would only say so
-  const NEAR = 6;
-  // per later week inside NEAR: each team's share of the entry's options
-  function shares(doc, cands) {
+  const NEAR = E.NEAR;
+  // per later week from the stand to `upto`: each team's share of the paths
+  function shares(doc, cands, upto) {
     const out = {};
     cands.forEach(c => Object.entries(doc.cands[c].path).forEach(([w, ts]) => {
-      if (+w <= doc.week || +w > doc.week + NEAR) return;
+      if (+w <= doc.week || +w > upto) return;
       out[w] = out[w] || {};
       ts.forEach(t => out[w][t] = (out[w][t] || 0) + 1);
     }));
@@ -196,10 +199,11 @@
     Object.keys(sh).forEach(w => out[w] = new Set(Object.keys(sh[w]).filter(t => sh[w][t] >= 0.5)));
     return out;
   }
-  function commonLine(sh, ch) {
+  // a week by week line: the teams the paths play, the share where it is not all of them
+  function commonLine(sh, ch, all) {
     return Object.keys(sh).map(Number).sort((a, b) => a - b).map(w => `<b>${w}</b> ` +
       Object.entries(sh[w]).sort((a, b) => b[1] - a[1]).filter(([, v], i) => i === 0 || v >= 0.25).slice(0, 3)
-        .map(([t, v]) => `<span class="${v >= 0.5 ? 'agree' : 'differ'}${ch.has(t) ? ' chalk' : ''}">${esc(t)}</span> ${Math.round(100 * v)}%`).join(', ')).join(' · ');
+        .map(([t, v]) => `<span class="${all ? (v >= 0.5 ? 'agree' : 'differ') : ''}${ch.has(t) ? ' chalk' : ''}">${esc(t)}</span>${v > 0.995 ? '' : ' ' + Math.round(100 * v) + '%'}`).join(', ')).join(' · ');
   }
 
   function pathText(doc, cand, cons, ch) {
@@ -215,54 +219,65 @@
     const e = book.entries.find(x => x.id === id);
     const opts = st.options(id, true);
     const best = opts[0];
-    c.surv = c.surv || {};
-    const cur = st.picks[id];
+    const cur = st.picks[id] ? st.picks[id].key : null;
     const hasAlt = doc.cands.some(x => x.alt !== undefined && x.alt !== null);
     // one entry in the contest: Alone is always Worth now, so it is not shown
     const one = book.entries.length === 1;
-    const sh = shares(doc, opts.map(o => o.cand));
+    const H = book.H, H2 = book.H2;
+    const allCands = opts.flatMap(o => o.cands);
+    const sh = shares(doc, allCands, doc.week + NEAR);
     const cons = consensus(sh);
     const ch = chalk();
     const off = [...ch].filter(t => doc.price[t] === undefined);
     $('#main .chalknote').textContent = !ch.size ? 'type the week\'s chalk teams to see where a path spends them'
       : 'highlighted in the paths' + (off.length ? '; not playing this week: ' + off.join(' ') : '');
     const flip = doc.groups[book.groupOf[id]].alt_flip;
+    const bankBtn = (key, val, text) => key === cur ? '<button class="btn small ghost" data-unbank="1">Unbank</button>'
+      : `<button class="btn small" data-bank="${key}" data-val="${val}">${text}</button>`;
     const rows = opts.map(o => {
       const tie = best && o !== best && (best.mean - o.mean) < 2 * o.seBest;
-      if (c.surv[o.cand] === undefined) c.surv[o.cand] = book.survives(o.cand);
-      const pick = doc.cands[o.cand].pick;
-      const price = pick.split('+').map(t => doc.price[t] !== undefined ? (100 * doc.price[t]).toFixed(0) + '%' : '').join('<br>');
-      return `<div class="orow opt ${o.cand === cur ? 'cur' : ''}">
-        <div class="pk"><span class="pick">${esc(pick).replace(/\+/g, '+<wbr>')}</span>${o === best ? ' <span class="tie">best</span>' : tie ? ' <span class="tie">tie</span>' : ''}
-          <div>${o.cand === cur ? '<button class="btn small ghost" data-unbank="1">Unbank</button>'
-            : `<button class="btn small" data-bank="${o.cand}" data-val="${o.mean}">Bank</button>`}</div></div>
+      const price = o.pick.split('+').map(t => doc.price[t] !== undefined ? (100 * doc.price[t]).toFixed(0) + '%' : '').join('<br>');
+      const end = o.cands.reduce((s, ci) => s + book.endAlone(ci), 0) / o.cands.length;
+      const alts = o.cands.map(ci => doc.cands[ci].alt).filter(x => x !== null && x !== undefined);
+      const noPins = hasAlt && alts.length === o.cands.length && end > 0
+        ? ' · without the pins ×' + (alts.reduce((s, x) => s + x, 0) / alts.length / end).toFixed(2) : '';
+      const apart = o.paths.filter(p => p.apart).length;
+      const paths = o.paths.map(p => `<div class="pth ${p.key === cur ? 'cur' : ''}">
+          <div class="pv">${money(p.mean)} <span class="se">${(p.gap >= 0 ? '+' : '−') + gap(Math.abs(p.gap))} ±${gap(p.seGap)} vs the mix</span>
+          ${p.apart ? '<span class="tie">stands apart</span>' : ''} ${bankBtn(p.key, p.mean, 'Bank this path')}</div>
+          <div class="path" title="spine ${esc(doc.cands[p.cands[0]].spine)}">${pathText(doc, p.cands[0], cons, ch)}</div></div>`).join('');
+      return `<div class="orow opt ${o.key === cur || (cur && cur.startsWith('p:') && o.cands.includes(+cur.slice(2))) ? 'cur' : ''}">
+        <div class="pk"><span class="pick">${esc(o.pick).replace(/\+/g, '+<wbr>')}</span>${o === best ? ' <span class="tie">best</span>' : tie ? ' <span class="tie">tie</span>' : ''}
+          <div>${bankBtn(o.key, o.mean, 'Bank')}</div></div>
         <div class="num">${price}</div>
         <div class="num">${money(o.mean)}<div class="se">${o === best ? '±' + gap(o.se) : '−' + gap(best.mean - o.mean) + '<br>±' + gap(o.seBest)}</div></div>
         ${one ? '' : `<div class="num">${money(o.alone)}</div>`}
-        ${hasAlt ? `<div class="num">${doc.cands[o.cand].alt === null || doc.cands[o.cand].alt === undefined ? '—' : money(doc.cands[o.cand].alt)}</div>` : ''}
-        <div class="num">${pct(c.surv[o.cand])}</div>
-        <div class="then path" title="spine ${esc(doc.cands[o.cand].spine)}"><span class="muted">Then</span> ${pathText(doc, o.cand, cons, ch)}</div></div>`;
+        <div class="num">${pct(o.reach)}</div>
+        <div class="num">${o.strength.toFixed(2)}</div>
+        <div class="then path"><span class="muted">Typical</span> ${commonLine(shares(doc, o.cands, H2), ch, false)}
+          <div class="muted small foot">${o.cands.length} path${o.cands.length === 1 ? '' : 's'} · end-of-season reading ${money(end)}${noPins}</div>
+          ${o.cands.length > 1 || apart ? `<details${apart ? ' open' : ''}><summary>${apart ? apart + ' path' + (apart === 1 ? '' : 's') + ' stand' + (apart === 1 ? 's' : '') + ' apart · ' : ''}the ${o.cands.length} paths</summary>${paths}</details>` : ''}</div></div>`;
     }).join('');
     box.innerHTML = `<div class="box">
       <h2 style="margin-top:0">${esc(e.name)} <span class="muted small">burned ${esc(e.burned.join(' '))}</span></h2>
-      ${flip ? `<div class="note">Without the pins this week's board was built under, the base model's field makes <b>${esc(doc.cands[flip.to].pick)}</b> the better option alone for this burned set, by ${money(flip.gain)} ± ${flip.se.toFixed(2)} over ${esc(doc.cands[flip.frm].pick)}. The pick leans on the pins.</div>` : ''}
-      <p class="muted small">Worth now is what this option adds to the book as it stands. Under the best option, ± is its standard error; under every other, the gap to the best and that gap's own standard error, measured on the same worlds. A tie is within two of those. Alone is the option with no other entry beside it. The path is the rest of the season the value map planned behind this pick.${hasAlt ? ' Base field is Alone again with the field the base model projects, without the pins.' : ''}</p>
-      <div class="common path"><span class="muted">Common picks, the next ${NEAR} weeks</span> ${commonLine(sh, ch)}</div>
-      <p class="muted small">The share of this entry's ${opts.length} options that play each team. In the paths, over the same ${NEAR} weeks, <span class="agree">this colour</span> is a team at least half of them play that week and <span class="differ">this colour</span> is an option going its own way.</p>
-      <div class="opts" style="--n:${3 + (one ? 0 : 1) + (hasAlt ? 1 : 0)}"><div class="orow ohead"><div>Week ${doc.week}</div><div class="num">Win</div>
-      <div class="num">Worth now</div>${one ? '' : '<div class="num">Alone</div>'}${hasAlt ? '<div class="num">Base field</div>' : ''}<div class="num">Survives</div></div>
+      ${flip ? `<div class="note">On the end-of-season reading, the base model's field without this week's pins makes <b>${esc(doc.cands[flip.to].pick)}</b> the better option alone for this burned set, by ${money(flip.gain)} ± ${flip.se.toFixed(2)} over ${esc(doc.cands[flip.frm].pick)}. The pick leans on the pins.</div>` : ''}
+      <p class="muted small">Each option is this week's team, priced as an even mix of the futures the value map planned behind it, since the rest of the season is re-solved every week. Worth now is what it adds to the book at week ${H}: in every simulated season where the entry is alive going into week ${H}, it takes an equal cut of the pot with everyone else still alive, counted as more than one entry when its plans have better teams left. Teams left is that count: how much more often than the field its plans survive weeks ${H} to ${H2}. Under the best option, ± is its standard error; under every other, the gap to the best and that gap's own standard error, measured on the same seasons. A tie is within two of those.${one ? '' : ' Alone is the option with no other entry beside it.'} Reaches is the chance the entry is alive going into week ${H}. Every path can be banked on its own; one that stands apart beats the best team's mix by more than two standard errors, a season plan worth following as it is.</p>
+      <div class="common path"><span class="muted">Common picks, the next ${NEAR} weeks</span> ${commonLine(sh, ch, true)}</div>
+      <p class="muted small">The share of this entry's ${allCands.length} planned paths that play each team. In the paths, over the same ${NEAR} weeks, <span class="agree">this colour</span> is a team at least half of them play that week and <span class="differ">this colour</span> is a path going its own way.</p>
+      <div class="opts" style="--n:${4 + (one ? 0 : 1)}"><div class="orow ohead"><div>Week ${doc.week}</div><div class="num">Win</div>
+      <div class="num">Worth now</div>${one ? '' : '<div class="num">Alone</div>'}<div class="num">Reaches wk ${H}</div><div class="num">Teams left</div></div>
       ${rows}</div></div>`;
     box.querySelectorAll('[data-bank]').forEach(b => b.onclick = () => {
-      c.history.push({ id, prev: st.picks[id] });
+      c.history.push({ id, prev: st.picks[id] ? st.picks[id].key : undefined });
       c.vals = c.vals || {}; c.vals[id] = +b.dataset.val;
-      st.bank(id, +b.dataset.bank);
+      st.bank(id, b.dataset.bank);
       save(c);
       const next = st.worthNow()[0];
       app.sel[doc.slug] = next ? next.entry.id : id;
       paint(c);
     });
     box.querySelectorAll('[data-unbank]').forEach(b => b.onclick = () => {
-      c.history.push({ id, prev: st.picks[id] });
+      c.history.push({ id, prev: st.picks[id] ? st.picks[id].key : undefined });
       st.unbank(id); save(c); paint(c);
     });
   }
@@ -276,7 +291,7 @@
         const r = st.worthNow()[0];
         if (!r || !r.best) break;
         c.vals = c.vals || {}; c.vals[r.entry.id] = r.best.mean;
-        st.bank(r.entry.id, r.best.cand);
+        st.bank(r.entry.id, r.best.key);
       }
       c.history.push({ autofill: st.order.filter(x => !before.has(x)) });
       save(c); paint(c);
@@ -297,8 +312,8 @@
       const sw = st.check(2);
       out.innerHTML = `<div class="sugg"><b>Check my book:</b> ${sw.length ? '' : 'no single swap improves the book by more than two standard errors.'}
         ${sw.map((s, i) => { const e = c.book.entries.find(x => x.id === s.entry);
-          return `<div>${esc(e.name)}: ${esc(doc.cands[s.from].pick)} → <b>${esc(doc.cands[s.to].pick)}</b>
-            adds ${money(s.gain)} ± ${s.se.toFixed(2)} <button class="btn small" data-sw="${i}">Apply</button></div>`; }).join('')}</div>`;
+          return `<div>${esc(e.name)}: ${esc(label(doc, s.from))} → <b>${esc(label(doc, s.to))}</b>
+            adds ${money(s.gain)} ± ${gap(s.se)} <button class="btn small" data-sw="${i}">Apply</button></div>`; }).join('')}</div>`;
       out.querySelectorAll('[data-sw]').forEach(b => b.onclick = () => {
         const s = sw[+b.dataset.sw];
         c.history.push({ id: s.entry, prev: s.from });
@@ -361,10 +376,10 @@
         <div class="card"><div class="k">All books, expected</div><div class="v">${money(total)}</div></div>
         <div class="card"><div class="k">Banked</div><div class="v">${banked} / ${entries}</div></div>
         <div class="card"><div class="k">Exposure, every contest</div><div class="chips">${expHtml}</div></div></div>
-      <div class="tablewrap"><table><thead><tr><th>Contest</th><th class="num">Pot</th><th class="num">Banked</th><th class="num">Book</th><th class="num">Any standing at the end</th></tr></thead><tbody>
+      <div class="tablewrap"><table><thead><tr><th>Contest</th><th class="num">Pot</th><th class="num">Banked</th><th class="num">Book</th><th class="num">Ours alive at the horizon, expected</th></tr></thead><tbody>
       ${saved.map(({ r, s }) => `<tr><td><a href="#${app.week}/${r.slug}">${esc(r.name)}</a></td><td class="num">${money(r.pot)}</td>
         <td class="num">${s && s.summary ? s.summary.banked : 0} / ${r.entries}</td><td class="num">${s && s.summary ? money(s.summary.dollars) : '—'}</td>
-        <td class="num">${s && s.summary ? pct(s.summary.any) : '—'}</td></tr>`).join('')}</tbody></table></div>
+        <td class="num">${s && s.summary && s.summary.alive !== undefined ? s.summary.alive.toFixed(2) + ' into wk ' + s.summary.horizon : '—'}</td></tr>`).join('')}</tbody></table></div>
       ${hitHtml}
       <h2>Cheat sheet, by contest (most valuable entry first)</h2><pre id="sheet">${esc(sheet || 'Nothing banked yet.')}</pre>
       <h2>Every pick, most valuable first</h2><pre>${esc(byWorth || 'Nothing banked yet.')}</pre></section>`;

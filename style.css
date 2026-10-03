@@ -79,3 +79,8 @@ tr.cur { background: var(--sel); }
   .orow { gap: 2px 5px; font-size: 13px; } .ohead { font-size: 11px; padding: 0 8px 4px; }
   .opt { padding: 8px; }
 }
+/* a team's paths, opened under its tile */
+.opt details { margin-top: 6px; } .opt summary { cursor: pointer; color: var(--muted); font-size: 12px; }
+.opt .foot { margin-top: 4px; }
+.pth { border-top: 1px dashed var(--line); padding: 6px 0 2px; } .pth.cur { background: var(--sel); }
+.pth .pv { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; font-variant-numeric: tabular-nums; margin-bottom: 2px; }
