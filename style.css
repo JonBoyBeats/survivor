@@ -67,6 +67,8 @@ tr.cur { background: var(--sel); }
 .opt { border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; margin-bottom: 6px; }
 .opt.cur { background: var(--sel); border-color: var(--accent); }
 .opt .pk .btn { margin-top: 6px; }
+.agree { color: var(--good); } .differ { color: var(--tie); }
+.elist .x { color: var(--muted); font-size: 12px; }
 .opt .then { grid-column: 1 / -1; margin-top: 6px; padding-top: 6px; border-top: 1px dashed var(--line); line-height: 1.6; }
 @media (max-width: 520px) {
   main { padding: 10px; } .top { padding: 8px 10px; gap: 8px; }

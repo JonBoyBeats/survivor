@@ -11,6 +11,9 @@
   const money = v => (Math.abs(v) >= 1000 ? '$' + Math.round(v).toLocaleString()
     : '$' + v.toFixed(2));
   const pct = v => (100 * v).toFixed(1) + '%';
+  // the yardstick: every alive entry's equal cut of the pot, and a value as a multiple of it
+  const fair = doc => doc.pot / doc.field;
+  const times = (v, doc) => (v / fair(doc)).toFixed(1) + '×';
   // a standard error or a gap in dollars: whole dollars once they reach 100
   const gap = v => (Math.abs(v) >= 100 ? Math.round(v).toLocaleString() : v.toFixed(2));
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -133,6 +136,7 @@
       .map(([t, n]) => `<span class="chip">${esc(t)} ${n}</span>`).join('') || '<span class="muted small">nothing banked</span>';
     $('.cards', sec).innerHTML = `
       <div class="card"><div class="k">Book, expected</div><div class="v">${money(sm.dollars)}</div></div>
+      <div class="card"><div class="k">Fair share per entry</div><div class="v">${money(fair(doc))}</div><div class="k">pot ÷ ${doc.field.toLocaleString()} alive</div></div>
       <div class="card"><div class="k">Banked</div><div class="v">${sm.banked} / ${sm.total}</div></div>
       <div class="card"><div class="k">Any of ours standing at the end</div><div class="v">${pct(sm.any)}</div></div>
       <div class="card"><div class="k">This week's exposure</div><div class="chips">${exp}</div></div>`;
@@ -141,7 +145,7 @@
     todo.innerHTML = rows.length ? rows.map(r => `
       <li data-id="${esc(r.entry.id)}"><div><div class="n">${esc(r.entry.name)}</div>
       <div class="b">burned ${esc(r.entry.burned.join(' '))}${doc.groups[r.entry.group].alt_flip ? ' · <b>leans on the pins</b>' : ''}</div></div>
-      <div class="r"><div>${r.best ? money(r.best.mean) : '—'}</div>
+      <div class="r"><div>${r.best ? money(r.best.mean) + ' <span class="x">' + times(r.best.mean, doc) + '</span>' : '—'}</div>
       <div class="b">${r.best ? esc(doc.cands[r.best.cand].pick) : 'no option'}</div></div></li>`).join('')
       : '<li class="empty">Every entry is banked.</li>';
     done.innerHTML = st.order.length ? st.order.map((id, i) => {
@@ -161,10 +165,22 @@
     tabs();
   }
 
-  function pathText(doc, cand) {
+  // the teams at least half of an entry's options play in each later week
+  function consensus(doc, cands) {
+    const out = {};
+    cands.forEach(c => Object.entries(doc.cands[c].path).forEach(([w, ts]) => {
+      if (+w <= doc.week) return;
+      out[w] = out[w] || {};
+      ts.forEach(t => out[w][t] = (out[w][t] || 0) + 1);
+    }));
+    Object.keys(out).forEach(w => out[w] = new Set(Object.keys(out[w]).filter(t => 2 * out[w][t] >= cands.length)));
+    return out;
+  }
+
+  function pathText(doc, cand, cons) {
     const p = doc.cands[cand].path;
     return Object.keys(p).map(Number).filter(w => w > doc.week).sort((a, b) => a - b)
-      .map(w => `<b>${w}</b> ${esc(p[w].join('+'))}`).join(' · ');
+      .map(w => `<b>${w}</b> ` + p[w].map(t => `<span class="${cons[w] && cons[w].has(t) ? 'agree' : 'differ'}">${esc(t)}</span>`).join('+')).join(' · ');
   }
 
   function detail(c, id) {
@@ -177,6 +193,9 @@
     c.surv = c.surv || {};
     const cur = st.picks[id];
     const hasAlt = doc.cands.some(x => x.alt !== undefined && x.alt !== null);
+    // one entry in the contest: Alone is always Worth now, so it is not shown
+    const one = book.entries.length === 1;
+    const cons = consensus(doc, opts.map(o => o.cand));
     const flip = doc.groups[book.groupOf[id]].alt_flip;
     const rows = opts.map(o => {
       const tie = best && o !== best && (best.mean - o.mean) < 2 * o.seBest;
@@ -189,17 +208,18 @@
             : `<button class="btn small" data-bank="${o.cand}" data-val="${o.mean}">Bank</button>`}</div></div>
         <div class="num">${price}</div>
         <div class="num">${money(o.mean)}<div class="se">${o === best ? '±' + gap(o.se) : '−' + gap(best.mean - o.mean) + '<br>±' + gap(o.seBest)}</div></div>
-        <div class="num">${money(o.alone)}</div>
+        ${one ? '' : `<div class="num">${money(o.alone)}</div>`}
         ${hasAlt ? `<div class="num">${doc.cands[o.cand].alt === null || doc.cands[o.cand].alt === undefined ? '—' : money(doc.cands[o.cand].alt)}</div>` : ''}
         <div class="num">${pct(c.surv[o.cand])}</div>
-        <div class="then path" title="spine ${esc(doc.cands[o.cand].spine)}"><span class="muted">Then</span> ${pathText(doc, o.cand)}</div></div>`;
+        <div class="then path" title="spine ${esc(doc.cands[o.cand].spine)}"><span class="muted">Then</span> ${pathText(doc, o.cand, cons)}</div></div>`;
     }).join('');
     box.innerHTML = `<div class="box">
       <h2 style="margin-top:0">${esc(e.name)} <span class="muted small">burned ${esc(e.burned.join(' '))}</span></h2>
       ${flip ? `<div class="note">Without the pins this week's board was built under, the base model's field makes <b>${esc(doc.cands[flip.to].pick)}</b> the better option alone for this burned set, by ${money(flip.gain)} ± ${flip.se.toFixed(2)} over ${esc(doc.cands[flip.frm].pick)}. The pick leans on the pins.</div>` : ''}
       <p class="muted small">Worth now is what this option adds to the book as it stands. Under the best option, ± is its standard error; under every other, the gap to the best and that gap's own standard error, measured on the same worlds. A tie is within two of those. Alone is the option with no other entry beside it. The path is the rest of the season the value map planned behind this pick.${hasAlt ? ' Base field is Alone again with the field the base model projects, without the pins.' : ''}</p>
-      <div class="opts" style="--n:${hasAlt ? 5 : 4}"><div class="orow ohead"><div>Week ${doc.week}</div><div class="num">Win</div>
-      <div class="num">Worth now</div><div class="num">Alone</div>${hasAlt ? '<div class="num">Base field</div>' : ''}<div class="num">Survives</div></div>
+      <p class="muted small">In the path, <span class="agree">a team in this colour</span> is played that week by at least half of this entry's options; <span class="differ">this colour</span> is a week where the option goes its own way.</p>
+      <div class="opts" style="--n:${3 + (one ? 0 : 1) + (hasAlt ? 1 : 0)}"><div class="orow ohead"><div>Week ${doc.week}</div><div class="num">Win</div>
+      <div class="num">Worth now</div>${one ? '' : '<div class="num">Alone</div>'}${hasAlt ? '<div class="num">Base field</div>' : ''}<div class="num">Survives</div></div>
       ${rows}</div></div>`;
     box.querySelectorAll('[data-bank]').forEach(b => b.onclick = () => {
       c.history.push({ id, prev: st.picks[id] });
