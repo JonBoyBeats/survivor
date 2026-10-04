@@ -340,7 +340,8 @@
       (s.order || []).forEach(id => { const p = s.picks[id]; all.push({ contest: r.name, slug: r.slug, name: p.name, pick: p.pick, value: p.value }); });
     });
     const sheet = saved.filter(x => x.s && x.s.order && x.s.order.length).map(({ r, s }) => {
-      const lines = s.order.map(id => s.picks[id]).sort((a, b) => (b.value || 0) - (a.value || 0))
+      // by entry number, Entry 7 before Entry 16, the order the site lists them in
+      const lines = s.order.map(id => s.picks[id]).sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true }))
         .map(p => `  ${p.name.padEnd(24)} ${p.pick}`);
       return `${r.name.toUpperCase()}  (${s.order.length} of ${r.entries}, book ${money(s.summary.dollars)})\n${lines.join('\n')}`;
     }).join('\n\n');
@@ -382,7 +383,7 @@
         <td class="num">${s && s.summary ? s.summary.banked : 0} / ${r.entries}</td><td class="num">${s && s.summary ? money(s.summary.dollars) : '—'}</td>
         <td class="num">${s && s.summary && s.summary.alive !== undefined ? s.summary.alive.toFixed(2) + ' into wk ' + s.summary.horizon : '—'}</td></tr>`).join('')}</tbody></table></div>
       ${hitHtml}
-      <h2>Cheat sheet, by contest (most valuable entry first)</h2><pre id="sheet">${esc(sheet || 'Nothing banked yet.')}</pre>
+      <h2>Cheat sheet, by contest (by entry number)</h2><pre id="sheet">${esc(sheet || 'Nothing banked yet.')}</pre>
       <h2>Every pick, most valuable first</h2><pre>${esc(byWorth || 'Nothing banked yet.')}</pre></section>`;
     $('#copy').onclick = () => navigator.clipboard && navigator.clipboard.writeText(sheet).then(() => { $('#copy').textContent = 'Copied'; });
     $('#exp').onclick = () => {
