@@ -149,7 +149,7 @@
     const exp = Object.entries(sm.exposure).sort((a, b) => b[1] - a[1])
       .map(([t, n]) => `<span class="chip">${esc(t)} ${n}</span>`).join('') || '<span class="muted small">nothing banked</span>';
     $('.cards', sec).innerHTML = `
-      <div class="card"><div class="k">Book, expected</div><div class="v">${money(sm.dollars)}</div></div>
+      <div class="card"><div class="k">Book, expected at week ${sm.horizon}</div><div class="v">${money(sm.dollars)}</div><div class="k">${money(sm.endDollars)} on the week 18 reading</div></div>
       <div class="card"><div class="k">Fair share per entry</div><div class="v">${money(fair(doc))}</div><div class="k">pot ÷ ${doc.field.toLocaleString()} alive</div></div>
       <div class="card"><div class="k">Banked</div><div class="v">${sm.banked} / ${sm.total}</div></div>
       <div class="card"><div class="k">Ours alive into week ${sm.horizon}, expected</div><div class="v">${sm.alive.toFixed(2)}</div></div>
@@ -243,29 +243,30 @@
         ? ' · without the pins ×' + (alts.reduce((s, x) => s + x, 0) / alts.length / end).toFixed(2) : '';
       const apart = o.paths.filter(p => p.apart).length;
       const paths = o.paths.map(p => `<div class="pth ${p.key === cur ? 'cur' : ''}">
-          <div class="pv">${money(p.mean)} <span class="se">${(p.gap >= 0 ? '+' : '−') + gap(Math.abs(p.gap))} ±${gap(p.seGap)} vs the mix</span>
+          <div class="pv">${money(p.mean)} <span class="se">${(p.gap >= 0 ? '+' : '−') + gap(Math.abs(p.gap))} ±${gap(p.seGap)} vs the mix · week 18 ${money(p.end)}</span>
           ${p.apart ? '<span class="tie">stands apart</span>' : ''} ${bankBtn(p.key, p.mean, 'Bank this path')}</div>
           <div class="path" title="spine ${esc(doc.cands[p.cands[0]].spine)}">${pathText(doc, p.cands[0], cons, ch)}</div></div>`).join('');
       return `<div class="orow opt ${o.key === cur || (cur && cur.startsWith('p:') && o.cands.includes(+cur.slice(2))) ? 'cur' : ''}">
         <div class="pk"><span class="pick">${esc(o.pick).replace(/\+/g, '+<wbr>')}</span>${o === best ? ' <span class="tie">best</span>' : tie ? ' <span class="tie">tie</span>' : ''}
+          <div class="se">${price.replace('<br>', ' + ')} to win</div>
           <div>${bankBtn(o.key, o.mean, 'Bank')}</div></div>
-        <div class="num">${price}</div>
         <div class="num">${money(o.mean)}<div class="se">${o === best ? '±' + gap(o.se) : '−' + gap(best.mean - o.mean) + '<br>±' + gap(o.seBest)}</div></div>
         ${one ? '' : `<div class="num">${money(o.alone)}</div>`}
         <div class="num">${pct(o.reach)}</div>
         <div class="num">${o.strength.toFixed(2)}</div>
+        <div class="num">${money(o.end)}</div>
         <div class="then path"><span class="muted">Typical</span> ${commonLine(shares(doc, o.cands, H2), ch, false)}
-          <div class="muted small foot">${o.cands.length} path${o.cands.length === 1 ? '' : 's'} · end-of-season reading ${money(end)}${noPins}</div>
+          <div class="muted small foot">${o.cands.length} path${o.cands.length === 1 ? '' : 's'}${noPins}</div>
           ${o.cands.length > 1 || apart ? `<details${apart ? ' open' : ''}><summary>${apart ? apart + ' path' + (apart === 1 ? '' : 's') + ' stand' + (apart === 1 ? 's' : '') + ' apart · ' : ''}the ${o.cands.length} paths</summary>${paths}</details>` : ''}</div></div>`;
     }).join('');
     box.innerHTML = `<div class="box">
       <h2 style="margin-top:0">${esc(e.name)} <span class="muted small">burned ${esc(e.burned.join(' '))}</span></h2>
       ${flip ? `<div class="note">On the end-of-season reading, the base model's field without this week's pins makes <b>${esc(doc.cands[flip.to].pick)}</b> the better option alone for this burned set, by ${money(flip.gain)} ± ${flip.se.toFixed(2)} over ${esc(doc.cands[flip.frm].pick)}. The pick leans on the pins.</div>` : ''}
-      <p class="muted small">Each option is this week's team, priced as an even mix of the futures the value map planned behind it, since the rest of the season is re-solved every week. Worth now is what it adds to the book at week ${H}: in every simulated season where the entry is alive going into week ${H}, it takes an equal cut of the pot with everyone else still alive, counted as more than one entry when its plans have better teams left. Teams left is that count: how much more often than the field its plans survive weeks ${H} to ${H2}. Under the best option, ± is its standard error; under every other, the gap to the best and that gap's own standard error, measured on the same seasons. A tie is within two of those.${one ? '' : ' Alone is the option with no other entry beside it.'} Reaches is the chance the entry is alive going into week ${H}. Every path can be banked on its own; one that stands apart beats the best team's mix by more than two standard errors, a season plan worth following as it is.</p>
+      <p class="muted small">Each option is this week's team, priced as an even mix of the futures the value map planned behind it, since the rest of the season is re-solved every week. Worth now is what it adds to the book at week ${H}: in every simulated season where the entry is alive going into week ${H}, it takes an equal cut of the pot with everyone else still alive, counted as more than one entry when its plans have better teams left. Teams left is that count: how much more often than the field its plans survive weeks ${H} to ${H2}. Under the best option, ± is its standard error; under every other, the gap to the best and that gap's own standard error, measured on the same seasons. A tie is within two of those.${one ? '' : ' Alone is the option with no other entry beside it.'} Reaches is the chance the entry is alive going into week ${H}. Worth week 18 is the old reading, the pot to whoever is alive at the end, kept for comparison: it rests on a handful of seasons and swings by thousands. Worth, Alone aside, is what the option adds to the book as it stands, so it moves as you bank this contest's other entries; Reaches and Teams left never do. Every path can be banked on its own; one that stands apart beats the best team's mix by more than two standard errors, a season plan worth following as it is.</p>
       <div class="common path"><span class="muted">Common picks, the next ${NEAR} weeks</span> ${commonLine(sh, ch, true)}</div>
       <p class="muted small">The share of this entry's ${allCands.length} planned paths that play each team. In the paths, over the same ${NEAR} weeks, <span class="agree">this colour</span> is a team at least half of them play that week and <span class="differ">this colour</span> is a path going its own way.</p>
-      <div class="opts" style="--n:${4 + (one ? 0 : 1)}"><div class="orow ohead"><div>Week ${doc.week}</div><div class="num">Win</div>
-      <div class="num">Worth now</div>${one ? '' : '<div class="num">Alone</div>'}<div class="num">Reaches wk ${H}</div><div class="num">Teams left</div></div>
+      <div class="opts" style="--n:${4 + (one ? 0 : 1)}"><div class="orow ohead"><div>Week ${doc.week}</div>
+      <div class="num">Worth wk ${H}</div>${one ? '' : '<div class="num">Alone</div>'}<div class="num">Reaches wk ${H}</div><div class="num">Teams left wk ${H}–${H2}</div><div class="num">Worth wk 18</div></div>
       ${rows}</div></div>`;
     box.querySelectorAll('[data-bank]').forEach(b => b.onclick = () => {
       c.history.push({ id, prev: st.picks[id] ? st.picks[id].key : undefined });

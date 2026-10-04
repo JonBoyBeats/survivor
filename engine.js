@@ -96,6 +96,47 @@
     return x;
   };
 
+  /* the same target on the last-survivor reading: the mix's share of an
+   * entry alive into every week of every world */
+  Book.prototype.contribEnd = function (cands) {
+    const N = this.N, W = this.W, x = new Float32Array(W * N), w = 1 / cands.length;
+    for (const ci of cands) {
+      const d = this.death[ci];
+      for (let i = 0; i < W; i++) {
+        const wk = this.weeks[i], row = i * N;
+        for (let n = 0; n < N; n++) if (d[n] >= wk) x[row + n] += w;
+      }
+    }
+    return x;
+  };
+
+  /* our share in every world on the last survivor: the pot to the entries
+   * alive into the last week anyone is */
+  Book.prototype.shareEnd = function (ours) {
+    const N = this.N, W = this.W, o = this.others, out = new Float64Array(N);
+    for (let n = 0; n < N; n++) {
+      for (let i = W - 1; i >= 0; i--) {
+        const k = i * N + n, tot = o[k] + ours[k];
+        if (tot >= 1) { out[n] = ours[k] / tot; break; }
+      }
+    }
+    return out;
+  };
+
+  Book.prototype.marginalEnd = function (ours, base, x) {
+    const N = this.N, W = this.W, o = this.others;
+    let sum = 0;
+    for (let n = 0; n < N; n++) {
+      let s = 0;
+      for (let i = W - 1; i >= 0; i--) {
+        const k = i * N + n, mine = ours[k] + x[k], tot = o[k] + mine;
+        if (tot >= 1) { s = mine / tot; break; }
+      }
+      sum += s - base[n];
+    }
+    return this.pot * sum / N;
+  };
+
   Book.prototype.empty = function () { return new Float64Array(this.N); };
 
   Book.prototype.add = function (ours, x, sign) {
@@ -138,13 +179,15 @@
     return Math.sqrt(Math.max(0, q / N - m * m)) / Math.sqrt(N);
   }
 
-  /* a target alone, cached: its worth before any other entry is banked */
+  /* a target alone, cached by its paths (a team's key is shared by every
+   * burned set, its paths are not): its worth before any other entry */
   Book.prototype.aloneOf = function (key, cands) {
-    if (this.alone[key] === undefined) {
+    const id = cands.join(',');
+    if (this.alone[id] === undefined) {
       const z = this.empty();
-      this.alone[key] = this.marginal(z, z, this.contrib(cands)).mean;
+      this.alone[id] = this.marginal(z, z, this.contrib(cands)).mean;
     }
-    return this.alone[key];
+    return this.alone[id];
   };
 
   /* the old reading, kept beside the new: one path alone priced on the last
@@ -188,6 +231,10 @@
     return { key: key, pick: this.doc.cands[ci].pick, cands: [ci] };
   };
 
+  function addEnd(ours, x, sign) {
+    for (let i = 0; i < ours.length; i++) ours[i] += sign * x[i];
+  }
+
   function mean(a) {
     let s = 0;
     for (let i = 0; i < a.length; i++) s += a[i];
@@ -202,6 +249,10 @@
     this.order = [];          // entry ids in the order banked
     this.ours = book.empty();
     this.base = book.share(this.ours);
+    // the end-of-season reading kept alongside, for the week 18 column
+    this.xe = {};
+    this.oursEnd = new Float32Array(book.W * book.N);
+    this.baseEnd = book.shareEnd(this.oursEnd);
   }
 
   State.prototype.bank = function (entryId, key) {
@@ -210,18 +261,23 @@
     if (this.picks[entryId] !== undefined) this.unbank(entryId);
     this.picks[entryId] = t;
     this.x[entryId] = this.book.contrib(t.cands);
+    this.xe[entryId] = this.book.contribEnd(t.cands);
     this.order.push(entryId);
     this.book.add(this.ours, this.x[entryId], +1);
     this.base = this.book.share(this.ours);
+    addEnd(this.oursEnd, this.xe[entryId], +1);
+    this.baseEnd = this.book.shareEnd(this.oursEnd);
     return true;
   };
 
   State.prototype.unbank = function (entryId) {
     if (this.picks[entryId] === undefined) return;
     this.book.add(this.ours, this.x[entryId], -1);
-    delete this.picks[entryId]; delete this.x[entryId];
+    addEnd(this.oursEnd, this.xe[entryId], -1);
+    delete this.picks[entryId]; delete this.x[entryId]; delete this.xe[entryId];
     this.order = this.order.filter(x => x !== entryId);
     this.base = this.book.share(this.ours);
+    this.baseEnd = this.book.shareEnd(this.oursEnd);
   };
 
   /* one entry's options, the team mixes, priced against the book as it
@@ -229,14 +285,19 @@
    * team's paths too, and every gap's paired standard error */
   State.prototype.options = function (entryId, paired) {
     const bk = this.book, gi = bk.groupOf[entryId];
-    let ours = this.ours, base = this.base;
+    let ours = this.ours, base = this.base, oursE = this.oursEnd, baseE = this.baseEnd;
     const mine = this.picks[entryId];
     if (mine !== undefined) {
       ours = ours.slice(); bk.add(ours, this.x[entryId], -1); base = bk.share(ours);
+      if (paired) { oursE = oursE.slice(); addEnd(oursE, this.xe[entryId], -1); baseE = bk.shareEnd(oursE); }
     }
     const price = (key, cands) => {
       const m = bk.marginal(ours, base, bk.contrib(cands), paired);
       return { key: key, cands: cands, mean: m.mean, se: m.se, arr: m.arr,
+        // the week 18 reading only where the page shows it, each path priced
+        // whole and averaged: near the end the field is a handful and a
+        // fraction of an entry would read as nobody
+        end: paired ? cands.reduce((s, c) => s + bk.marginalEnd(oursE, baseE, bk.contribEnd([c])), 0) / cands.length : null,
         alone: bk.aloneOf(key, cands), reach: bk.reachOf(cands), strength: bk.strengthOf(cands) };
     };
     const out = bk.options[gi].map(o => Object.assign(price(o.key, o.cands), { pick: o.pick }))
@@ -315,6 +376,7 @@
     }
     return {
       dollars: bk.pot * mean(this.base),
+      endDollars: bk.pot * mean(this.baseEnd),
       ifLoses: ifLoses,
       alive: alive,
       horizon: bk.H,
