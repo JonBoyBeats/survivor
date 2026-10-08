@@ -1,6 +1,181 @@
 {
  "contests": [
   {
+   "file": "2026_w05_wc.json",
+   "season": 2026,
+   "week": 5,
+   "slug": "wc",
+   "name": "Splash World Championship",
+   "pot": 21000000.0,
+   "ours": 1,
+   "field": 5078,
+   "k": 1,
+   "scaled": false,
+   "built": "2026-10-08T06:50:05+00:00",
+   "entries": 1,
+   "cands": 54,
+   "notes": []
+  },
+  {
+   "file": "2026_w05_splash.json",
+   "season": 2026,
+   "week": 5,
+   "slug": "splash",
+   "name": "Big Splash",
+   "pot": 3000000.0,
+   "ours": 3,
+   "field": 3545,
+   "k": 1,
+   "scaled": false,
+   "built": "2026-10-08T08:12:22+00:00",
+   "entries": 3,
+   "cands": 168,
+   "notes": []
+  },
+  {
+   "file": "2026_w05_walker.json",
+   "season": 2026,
+   "week": 5,
+   "slug": "walker",
+   "name": "Walker",
+   "pot": 1125000.0,
+   "ours": 2,
+   "field": 11153,
+   "k": 1,
+   "scaled": false,
+   "built": "2026-10-08T11:21:31+00:00",
+   "entries": 2,
+   "cands": 102,
+   "notes": [
+    "the board carries no pins, so there is no base field to check against"
+   ]
+  },
+  {
+   "file": "2026_w05_w5walker.json",
+   "season": 2026,
+   "week": 5,
+   "slug": "w5walker",
+   "name": "Week 5 Walker",
+   "pot": 787500.0,
+   "ours": 24,
+   "field": 35000,
+   "k": 1,
+   "scaled": false,
+   "built": "2026-10-08T14:12:38+00:00",
+   "entries": 24,
+   "cands": 60,
+   "notes": [
+    "the board carries no pins, so there is no base field to check against"
+   ]
+  },
+  {
+   "file": "2026_w05_wave.json",
+   "season": 2026,
+   "week": 5,
+   "slug": "wave",
+   "name": "The Wave",
+   "pot": 500000.0,
+   "ours": 1,
+   "field": 2456,
+   "k": 1,
+   "scaled": true,
+   "built": "2026-10-08T08:12:25+00:00",
+   "entries": 1,
+   "cands": 60,
+   "notes": [
+    "priced on the splash board (no wave board this week), its field scaled to wave's 2456 alive"
+   ]
+  },
+  {
+   "file": "2026_w05_ripple.json",
+   "season": 2026,
+   "week": 5,
+   "slug": "ripple",
+   "name": "The Ripple",
+   "pot": 100000.0,
+   "ours": 9,
+   "field": 2488,
+   "k": 1,
+   "scaled": false,
+   "built": "2026-10-08T09:17:45+00:00",
+   "entries": 9,
+   "cands": 486,
+   "notes": []
+  },
+  {
+   "file": "2026_w05_w2k100.json",
+   "season": 2026,
+   "week": 5,
+   "slug": "w2k100",
+   "name": "Week 2 $100k",
+   "pot": 100000.0,
+   "ours": 2,
+   "field": 1496,
+   "k": 1,
+   "scaled": false,
+   "built": "2026-10-08T11:34:56+00:00",
+   "entries": 2,
+   "cands": 60,
+   "notes": [
+    "the board carries no pins, so there is no base field to check against"
+   ]
+  },
+  {
+   "file": "2026_w05_w2k50.json",
+   "season": 2026,
+   "week": 5,
+   "slug": "w2k50",
+   "name": "Week 2 $50k",
+   "pot": 50000.0,
+   "ours": 6,
+   "field": 3333,
+   "k": 1,
+   "scaled": false,
+   "built": "2026-10-08T12:06:18+00:00",
+   "entries": 6,
+   "cands": 288,
+   "notes": [
+    "the board carries no pins, so there is no base field to check against"
+   ]
+  },
+  {
+   "file": "2026_w05_w4k50.json",
+   "season": 2026,
+   "week": 5,
+   "slug": "w4k50",
+   "name": "Week 4 $50k",
+   "pot": 50000.0,
+   "ours": 20,
+   "field": 7697,
+   "k": 1,
+   "scaled": false,
+   "built": "2026-10-08T12:36:47+00:00",
+   "entries": 20,
+   "cands": 189,
+   "notes": [
+    "the board carries no pins, so there is no base field to check against"
+   ]
+  },
+  {
+   "file": "2026_w05_w4k25.json",
+   "season": 2026,
+   "week": 5,
+   "slug": "w4k25",
+   "name": "Week 4 $25k",
+   "pot": 25000.0,
+   "ours": 3,
+   "field": 2182,
+   "k": 1,
+   "scaled": true,
+   "built": "2026-10-08T12:36:48+00:00",
+   "entries": 3,
+   "cands": 129,
+   "notes": [
+    "priced on the w4k50 board (no w4k25 board this week), its field scaled to w4k25's 2182 alive",
+    "the board carries no pins, so there is no base field to check against"
+   ]
+  },
+  {
    "file": "2026_w04_wc.json",
    "season": 2026,
    "week": 4,

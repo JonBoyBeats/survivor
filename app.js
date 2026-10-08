@@ -100,6 +100,7 @@
   }
 
   function save(c) {
+    app.port = null;          // the portfolio is read again after any bank
     const picks = {};
     for (const id of c.st.order) {
       const t = c.st.picks[id];
@@ -232,29 +233,53 @@
     $('#main .chalknote').textContent = !ch.size ? 'type the week\'s chalk teams to see where a path spends them'
       : 'highlighted in the paths' + (off.length ? '; not playing this week: ' + off.join(' ') : '');
     const flip = doc.groups[book.groupOf[id]].alt_flip;
+    // THE PORTFOLIO TIE-BREAK (D328): among the options within one standard
+    // error of the best, a statistical tie, the one that leaves the whole
+    // portfolio's worst tenth of seasons highest. Read off the other books
+    // season by season, so it needs them on the same seasons (D327).
+    const port = app.port && app.port.week === app.week ? app.port : null;
+    if (!port && !app.portLoading) {
+      app.portLoading = true;
+      portfolioContext().then(() => { app.portLoading = false; if (app.cur === doc.slug) paint(c); })
+        .catch(() => { app.portLoading = false; });
+    }
+    const tb = {};
+    if (port && port.aligned && port.eq[doc.slug] && best) {
+      const N = port.N, own = port.eq[doc.slug], other = new Float64Array(N);
+      for (let n = 0; n < N; n++) other[n] = port.total[n] - own[n];
+      opts.filter(o => o === best || (best.mean - o.mean) < o.seBest).forEach(o => {
+        const e = st.equityIf(id, o.key), tot = new Float64Array(N);
+        for (let n = 0; n < N; n++) tot[n] = other[n] + e[n];
+        tb[o.key] = E.tail(tot, 0.1);
+      });
+      const keys = Object.keys(tb);
+      if (keys.length > 1) tb._best = keys.reduce((a, b) => tb[a] >= tb[b] ? a : b);
+    }
     const bankBtn = (key, val, text) => key === cur ? '<button class="btn small ghost" data-unbank="1">Unbank</button>'
       : `<button class="btn small" data-bank="${key}" data-val="${val}">${text}</button>`;
     const rows = opts.map(o => {
       const tie = best && o !== best && (best.mean - o.mean) < 2 * o.seBest;
       const price = o.pick.split('+').map(t => doc.price[t] !== undefined ? (100 * doc.price[t]).toFixed(0) + '%' : '').join('<br>');
-      const end = o.cands.reduce((s, ci) => s + book.endAlone(ci), 0) / o.cands.length;
       const alts = o.cands.map(ci => doc.cands[ci].alt).filter(x => x !== null && x !== undefined);
-      const noPins = hasAlt && alts.length === o.cands.length && end > 0
-        ? ' · without the pins ×' + (alts.reduce((s, x) => s + x, 0) / alts.length / end).toFixed(2) : '';
+      // the base-field check at the horizon (D318): the mix's worth alone
+      // without the pins over its worth alone with them, the same reading
+      const noPins = hasAlt && alts.length === o.cands.length && o.alone > 0
+        ? ' · without the pins ×' + (alts.reduce((s, x) => s + x, 0) / alts.length / o.alone).toFixed(2) : '';
       const apart = o.paths.filter(p => p.apart).length;
       const paths = o.paths.map(p => `<div class="pth ${p.key === cur ? 'cur' : ''}">
-          <div class="pv">${money(p.mean)} <span class="se">${(p.gap >= 0 ? '+' : '−') + gap(Math.abs(p.gap))} ±${gap(p.seGap)} vs the mix · week 18 ${money(p.end)}</span>
+          <div class="pv">${money(p.mean)} <span class="se">${(p.gap >= 0 ? '+' : '−') + gap(Math.abs(p.gap))} ±${gap(p.seGap)} vs the mix · to week 18 ${money(p.season)}</span>
           ${p.apart ? '<span class="tie">stands apart</span>' : ''} ${bankBtn(p.key, p.mean, 'Bank this path')}</div>
           <div class="path" title="spine ${esc(doc.cands[p.cands[0]].spine)}">${pathText(doc, p.cands[0], cons, ch)}</div></div>`).join('');
       return `<div class="orow opt ${o.key === cur || (cur && cur.startsWith('p:') && o.cands.includes(+cur.slice(2))) ? 'cur' : ''}">
         <div class="pk"><span class="pick">${esc(o.pick).replace(/\+/g, '+<wbr>')}</span>${o === best ? ' <span class="tie">best</span>' : tie ? ' <span class="tie">tie</span>' : ''}
           <div class="se">${price.replace('<br>', ' + ')} to win</div>
+          ${tb[o.key] !== undefined && tb._best ? `<div class="se">portfolio's worst 10%: ${money(tb[o.key])}${tb._best === o.key ? ' <span class="tie">diversifies best</span>' : ''}</div>` : ''}
           <div>${bankBtn(o.key, o.mean, 'Bank')}</div></div>
         <div class="num">${money(o.mean)}<div class="se">${o === best ? '±' + gap(o.se) : '−' + gap(best.mean - o.mean) + '<br>±' + gap(o.seBest)}</div></div>
         ${one ? '' : `<div class="num">${money(o.alone)}</div>`}
         <div class="num">${pct(o.reach)}</div>
         <div class="num">${o.strength.toFixed(2)}</div>
-        <div class="num">${money(o.end)}</div>
+        <div class="num">${money(o.season)}<div class="se">±${gap(o.seasonSe)}<br>raw ${money(o.end)}</div></div>
         <div class="then path"><span class="muted">Typical</span> ${commonLine(shares(doc, o.cands, H2), ch, false)}
           <div class="muted small foot">${o.cands.length} path${o.cands.length === 1 ? '' : 's'}${noPins}</div>
           ${o.cands.length > 1 || apart ? `<details${apart ? ' open' : ''}><summary>${apart ? apart + ' path' + (apart === 1 ? '' : 's') + ' stand' + (apart === 1 ? 's' : '') + ' apart · ' : ''}the ${o.cands.length} paths</summary>${paths}</details>` : ''}</div></div>`;
@@ -262,11 +287,11 @@
     box.innerHTML = `<div class="box">
       <h2 style="margin-top:0">${esc(e.name)} <span class="muted small">burned ${esc(e.burned.join(' '))}</span></h2>
       ${flip ? `<div class="note">On the end-of-season reading, the base model's field without this week's pins makes <b>${esc(doc.cands[flip.to].pick)}</b> the better option alone for this burned set, by ${money(flip.gain)} ± ${flip.se.toFixed(2)} over ${esc(doc.cands[flip.frm].pick)}. The pick leans on the pins.</div>` : ''}
-      <p class="muted small">Each option is this week's team, priced as an even mix of the futures the value map planned behind it, since the rest of the season is re-solved every week. Worth now is what it adds to the book at week ${H}: in every simulated season where the entry is alive going into week ${H}, it takes an equal cut of the pot with everyone else still alive, counted as more than one entry when its plans have better teams left. Teams left is that count: how much more often than the field its plans survive weeks ${H} to ${H2}. Under the best option, ± is its standard error; under every other, the gap to the best and that gap's own standard error, measured on the same seasons. A tie is within two of those.${one ? '' : ' Alone is the option with no other entry beside it.'} Reaches is the chance the entry is alive going into week ${H}. Worth week 18 is the old reading, the pot to whoever is alive at the end, kept for comparison: it rests on a handful of seasons and swings by thousands. Worth, Alone aside, is what the option adds to the book as it stands, so it moves as you bank this contest's other entries; Reaches and Teams left never do. Every path can be banked on its own; one that stands apart beats the best team's mix by more than two standard errors, a season plan worth following as it is.</p>
+      <p class="muted small">Each option is this week's team, priced as an even mix of the futures the value map planned behind it, since the rest of the season is re-solved every week. Worth now is what it adds to the book at week ${H}: in every simulated season where the entry is alive going into week ${H}, it takes an equal cut of the pot with everyone else still alive, counted as more than one entry when its plans have better teams left. Teams left is that count: how much more often than the field its plans survive weeks ${H} to ${H2}. Under the best option, ± is its standard error; under every other, the gap to the best and that gap's own standard error, measured on the same seasons. A tie is within two of those.${one ? '' : ' Alone is the option with no other entry beside it.'} Reaches is the chance the entry is alive going into week ${H}. Worth to week 18 is the same cut at week ${H} with the count read from what the paths have left all the way to the end, so the last weeks count (D324); it leans against plans that only survive when the favourites fall, which is why the decision stays on Worth wk ${H}. Raw under it is the old reading, the pot to whoever is alive at the end: it rests on a handful of seasons and swings by thousands. Worth, Alone aside, is what the option adds to the book as it stands, so it moves as you bank this contest's other entries; Reaches and Teams left never do. Every path can be banked on its own; one that stands apart beats the best team's mix by more than two standard errors, a season plan worth following as it is.</p>
       <div class="common path"><span class="muted">Common picks, the next ${NEAR} weeks</span> ${commonLine(sh, ch, true)}</div>
       <p class="muted small">The share of this entry's ${allCands.length} planned paths that play each team. In the paths, over the same ${NEAR} weeks, <span class="agree">this colour</span> is a team at least half of them play that week and <span class="differ">this colour</span> is a path going its own way.</p>
       <div class="opts" style="--n:${4 + (one ? 0 : 1)}"><div class="orow ohead"><div>Week ${doc.week}</div>
-      <div class="num">Worth wk ${H}</div>${one ? '' : '<div class="num">Alone</div>'}<div class="num">Reaches wk ${H}</div><div class="num">Teams left wk ${H}–${H2}</div><div class="num">Worth wk 18</div></div>
+      <div class="num">Worth wk ${H}</div>${one ? '' : '<div class="num">Alone</div>'}<div class="num">Reaches wk ${H}</div><div class="num">Teams left wk ${H}–${H2}</div><div class="num">Worth to wk 18</div></div>
       ${rows}</div></div>`;
     box.querySelectorAll('[data-bank]').forEach(b => b.onclick = () => {
       c.history.push({ id, prev: st.picks[id] ? st.picks[id].key : undefined });
@@ -324,8 +349,45 @@
     }
   }
 
+  /* ---- THE PORTFOLIO ACROSS CONTESTS (D328) ----
+   * Every contest of the week loaded with its saved picks, and where their
+   * worlds are the same NFL seasons (the same game_seed and world count,
+   * D327) the books added world by world: what the whole portfolio is
+   * worth in each simulated season, not only on average. */
+  async function portfolioContext() {
+    if (app.port && app.port.week === app.week) return app.port;
+    const rows = weekRows(), list = [];
+    for (const r of rows) {
+      const key = app.week + '/' + r.slug;
+      if (!app.docs[key]) {
+        try {
+          const doc = await (await fetch('data/' + r.file, { cache: 'no-cache' })).json();
+          const book = new E.Book(doc);
+          app.docs[key] = { doc, book, st: new E.State(book), history: [], stale: [] };
+          restore(app.docs[key]);
+        } catch (e) { continue; }
+      }
+      list.push({ r, c: app.docs[key] });
+    }
+    const seeds = new Set(list.map(x => x.c.doc.game_seed));
+    const ns = new Set(list.map(x => x.c.doc.worlds));
+    const aligned = list.length > 0 && seeds.size === 1 && !seeds.has(undefined) && !seeds.has(null) && ns.size === 1;
+    const port = { week: app.week, list, aligned, eq: {} };
+    if (aligned) {
+      const N = list[0].c.doc.worlds, total = new Float64Array(N);
+      list.forEach(({ r, c }) => { const e = c.st.equity(); port.eq[r.slug] = e; for (let n = 0; n < N; n++) total[n] += e[n]; });
+      port.total = total; port.N = N;
+    }
+    app.port = port;
+    return port;
+  }
+
+  const guardKey = () => 'sb:guard';
+
   /* ---- the portfolio page and the cheat sheet ---- */
-  function renderPortfolio() {
+  async function renderPortfolio() {
+    $('#main').innerHTML = '<p class="muted pad">Loading every contest of the week…</p>';
+    const port = await portfolioContext();
     const rows = weekRows();
     const saved = rows.map(r => ({ r, s: lsGet('sb:' + r.season + '-' + r.week + '-' + r.slug) }));
     let total = 0, banked = 0, entries = 0;
@@ -369,15 +431,85 @@
       <div class="tablewrap"><table><thead><tr><th>Team</th><th class="num">Loses</th><th class="num">Our entries</th>
       <th class="num">All books if it loses</th><th class="num">Change</th><th>Where</th></tr></thead><tbody>${hitRows}</tbody></table></div>` : '';
     const expHtml = Object.entries(exp).sort((a, b) => b[1] - a[1]).map(([t, n]) => `<span class="chip">${esc(t)} ${n}</span>`).join('') || '<span class="muted small">nothing banked</span>';
+    // ---- THE WHOLE PORTFOLIO, WORLD BY WORLD (D328) ----
+    let portHtml = '';
+    const guard = lsGet(guardKey()) || {};
+    if (!port.aligned) {
+      portHtml = `<h2>The whole portfolio</h2><p class="muted small">The books of this week were not built on the same simulated seasons (they need the same game seed, D327: rebuild them together with <code>book ${esc(app.week.split('-')[1])} --all</code>), so they can only be added on average, not season by season.</p>`;
+    } else {
+      const T = port.total, N = port.N, mean = T.reduce((a, b) => a + b, 0) / N;
+      const stand = +app.week.split('-')[1];
+      const under = f => T.filter(v => v <= f * mean).length / N;
+      const deadRows = [];
+      const H = port.list[0].c.book.H;
+      for (let w = stand + 1; w <= H; w++) {
+        const all = new Float64Array(N).fill(1);
+        port.list.forEach(({ c }) => { const d = c.st.deadBy(w); for (let n = 0; n < N; n++) all[n] *= d[n]; });
+        deadRows.push([w, all.reduce((a, b) => a + b, 0) / N]);
+      }
+      const endAll = new Float64Array(N).fill(1);
+      port.list.forEach(({ c }) => { const d = c.st.deadBy(c.doc.end); for (let n = 0; n < N; n++) endAll[n] *= d[n]; });
+      const pAny = 1 - endAll.reduce((a, b) => a + b, 0) / N;
+      // dollars each team carries this week: the portfolio less the same
+      // portfolio without the entries banked on it, world by world
+      const teams = new Set();
+      port.list.forEach(({ c }) => Object.values(c.st.picks).forEach(t => t.pick.split('+').forEach(x => teams.add(x))));
+      const carry = [...teams].map(t => {
+        let d = 0;
+        port.list.forEach(({ r, c }) => { const w = c.st.equityWithout(t), e = port.eq[r.slug]; for (let n = 0; n < N; n++) d += e[n] - w[n]; });
+        return [t, d / N];
+      }).sort((a, b) => b[1] - a[1]);
+      const X = guard.x, Y = guard.y;
+      const breach = [];
+      if (X) carry.forEach(([t, d]) => { if (mean > 0 && 100 * d / mean > X) breach.push(`<b>${esc(t)}</b> carries ${(100 * d / mean).toFixed(0)}% of the portfolio's expected dollars, over your ${X}% limit`); });
+      const p75 = under(0.25);
+      if (Y && 100 * p75 > Y) breach.push(`the chance of keeping a quarter or less of the expected dollars at week ${H} is ${(100 * p75).toFixed(1)}%, over your ${Y}% limit`);
+      // the cheapest moves off an over-limit team: each entry on it, its best
+      // option without that team, and what the move costs in this book
+      let swaps = '';
+      if (X) {
+        const over = carry.filter(([, d]) => mean > 0 && 100 * d / mean > X).map(([t]) => t);
+        const moves = [];
+        over.forEach(t => port.list.forEach(({ r, c }) => Object.keys(c.st.picks).forEach(id => {
+          if (!c.st.picks[id].pick.split('+').includes(t)) return;
+          const opts = c.st.options(id);
+          const cur = opts.find(o => o.key === c.st.picks[id].key);
+          const alt = opts.find(o => !o.pick.split('+').includes(t));
+          if (cur && alt) moves.push({ r, id, t, from: cur.pick, to: alt.pick, cost: cur.mean - alt.mean,
+            name: (c.book.entries.find(e => e.id === id) || {}).name || id });
+        })));
+        moves.sort((a, b) => a.cost - b.cost);
+        if (moves.length) swaps = '<p class="small">The cheapest moves off it, in expected dollars of the entry\'s own book: ' +
+          moves.slice(0, 6).map(m => `${esc(m.r.name)} · ${esc(m.name)}: ${esc(m.from)} → <b>${esc(m.to)}</b> ${m.cost < 0 ? 'gains ' + money(-m.cost) : 'costs ' + money(m.cost)}`).join('; ') + '.</p>';
+      }
+      portHtml = `<h2>The whole portfolio, season by season</h2>
+        <p class="muted small">Every contest's book priced on the same ${N.toLocaleString()} simulated seasons (D327), so the books add up season by season: the spread of what the whole portfolio is worth at week ${H}, and how often everything we hold is out. Over the entries banked so far.</p>
+        <div class="cards">
+          <div class="card"><div class="k">Expected, all books</div><div class="v">${money(mean)}</div></div>
+          <div class="card"><div class="k">Middle of the spread</div><div class="v">${money(E.quantile(T, 0.5))}</div><div class="k">1 in 10 under ${money(E.quantile(T, 0.1))}</div></div>
+          <div class="card"><div class="k">Worst 10% of seasons, average</div><div class="v">${money(E.tail(T, 0.1))}</div></div>
+          <div class="card"><div class="k">Keep half or less</div><div class="v">${pct(under(0.5))}</div><div class="k">a quarter or less ${pct(p75)}</div></div>
+          <div class="card"><div class="k">At least one entry alive at the end</div><div class="v">${pct(pAny)}</div></div></div>
+        <div class="tablewrap"><table><thead><tr><th>Everything out before week</th>${deadRows.map(([w]) => `<th class="num">${w}</th>`).join('')}</tr></thead>
+          <tbody><tr><td>chance</td>${deadRows.map(([, p]) => `<td class="num">${pct(p)}</td>`).join('')}</tr></tbody></table></div>
+        <h3>What each team carries this week, in dollars</h3>
+        <div class="chips">${carry.map(([t, d]) => `<span class="chip">${esc(t)} ${money(d)}${mean > 0 ? ' · ' + (100 * d / mean).toFixed(0) + '%' : ''}</span>`).join('') || '<span class="muted small">nothing banked</span>'}</div>
+        <h3>Guardrails</h3>
+        <p class="small">Most a team may carry, % of expected dollars <input id="gx" type="number" min="1" max="100" value="${X || ''}" style="width:4em">
+          · most the chance of keeping a quarter or less may be, % <input id="gy" type="number" min="0" max="100" value="${Y || ''}" style="width:4em">
+          <button class="btn small" id="gsave">Set</button> <span class="muted">blank is off</span></p>
+        ${breach.length ? '<div class="note">' + breach.join('<br>') + '</div>' + swaps : (X || Y ? '<p class="small muted">Inside both limits.</p>' : '')}`;
+    }
     $('#main').innerHTML = `<section class="sheet">
       <div class="head"><div><h1>Portfolio, ${esc(app.week.replace('-', ' week '))}</h1>
-      <div class="muted">Contests never share a pot, so their dollars add; the exposure is shown and nothing is optimised across contests.</div></div>
+      <div class="muted">Contests never share a pot, so their dollars add. Where the books stand on the same simulated seasons they are also added season by season, and the guardrails read that.</div></div>
       <div class="actions"><button class="btn" id="copy">Copy cheat sheet</button>
       <button class="btn ghost" id="exp">Export picks</button><label class="btn ghost">Import<input id="imp" type="file" accept=".json" hidden></label></div></div>
       <div class="cards">
         <div class="card"><div class="k">All books, expected</div><div class="v">${money(total)}</div></div>
         <div class="card"><div class="k">Banked</div><div class="v">${banked} / ${entries}</div></div>
-        <div class="card"><div class="k">Exposure, every contest</div><div class="chips">${expHtml}</div></div></div>
+        <div class="card"><div class="k">Entries per team, every contest</div><div class="chips">${expHtml}</div></div></div>
+      ${portHtml}
       <div class="tablewrap"><table><thead><tr><th>Contest</th><th class="num">Pot</th><th class="num">Banked</th><th class="num">Book</th><th class="num">Ours alive at the horizon, expected</th></tr></thead><tbody>
       ${saved.map(({ r, s }) => `<tr><td><a href="#${app.week}/${r.slug}">${esc(r.name)}</a></td><td class="num">${money(r.pot)}</td>
         <td class="num">${s && s.summary ? s.summary.banked : 0} / ${r.entries}</td><td class="num">${s && s.summary ? money(s.summary.dollars) : '—'}</td>
@@ -385,6 +517,10 @@
       ${hitHtml}
       <h2>Cheat sheet, by contest (by entry number)</h2><pre id="sheet">${esc(sheet || 'Nothing banked yet.')}</pre>
       <h2>Every pick, most valuable first</h2><pre>${esc(byWorth || 'Nothing banked yet.')}</pre></section>`;
+    if ($('#gsave')) $('#gsave').onclick = () => {
+      const x = +$('#gx').value || null, y = +$('#gy').value || null;
+      lsSet(guardKey(), { x, y }); renderPortfolio();
+    };
     $('#copy').onclick = () => navigator.clipboard && navigator.clipboard.writeText(sheet).then(() => { $('#copy').textContent = 'Copied'; });
     $('#exp').onclick = () => {
       const out = {}; saved.forEach(({ r, s }) => { if (s) out[r.slug] = s; });

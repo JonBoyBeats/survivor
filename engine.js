@@ -68,13 +68,26 @@
     for (let n = 0; n < this.N; n++) { f1 += this.others[iH * this.N + n]; f2 += this.others[i2 * this.N + n]; }
     this.fieldAhead = f1 > 0 ? f2 / f1 : 0;
     // per path: how often it reaches the horizon, and its strength
-    this.reach = []; this.k = [];
+    // THE SEASON READING (D324): the same horizon cut, with the strength
+    // read over every week from the horizon to the end instead of four, so
+    // what a path has left for the last weeks counts without resting on
+    // the dozen seasons the raw last-survivor reading stands on
+    const iE = this.weeks.indexOf(doc.end);
+    let fE = 0;
+    for (let n = 0; n < this.N; n++) fE += this.others[iE * this.N + n];
+    this.fieldEnd = f1 > 0 ? fE / f1 : 0;
+    this.reach = []; this.k = []; this.kE = [];
     doc.cands.forEach((c, ci) => {
       const d = this.death[ci];
-      let a = 0, b = 0;
-      for (let n = 0; n < this.N; n++) { if (d[n] >= this.H) a++; if (d[n] >= this.H2) b++; }
+      let a = 0, b = 0, e = 0;
+      for (let n = 0; n < this.N; n++) {
+        if (d[n] >= this.H) a++;
+        if (d[n] >= this.H2) b++;
+        if (d[n] >= doc.end) e++;
+      }
       this.reach[ci] = a / this.N;
       this.k[ci] = this.H2 > this.H && a && this.fieldAhead > 0 ? (b / a) / this.fieldAhead : 1;
+      this.kE[ci] = doc.end > this.H && a && this.fieldEnd > 0 ? (e / a) / this.fieldEnd : 1;
     });
     // the options: per group, one per pick, each the even mix of its paths
     this.options = doc.groups.map(g => {
@@ -87,10 +100,10 @@
 
   /* what one bank target puts at the horizon in every world: the mix's
    * weighted share of an entry alive there */
-  Book.prototype.contrib = function (cands) {
+  Book.prototype.contrib = function (cands, season) {
     const N = this.N, x = new Float64Array(N), w = 1 / cands.length;
     for (const ci of cands) {
-      const d = this.death[ci], k = this.k[ci] * w, H = this.H;
+      const d = this.death[ci], k = (season ? this.kE[ci] : this.k[ci]) * w, H = this.H;
       for (let n = 0; n < N; n++) if (d[n] >= H) x[n] += k;
     }
     return x;
@@ -249,6 +262,11 @@
     this.order = [];          // entry ids in the order banked
     this.ours = book.empty();
     this.base = book.share(this.ours);
+    // the season reading's own book (D324): the same banks, each weighted by
+    // what its paths have left to the end
+    this.xs = {};
+    this.oursS = book.empty();
+    this.baseS = book.share(this.oursS);
     // the end-of-season reading kept alongside, for the week 18 column
     this.xe = {};
     this.oursEnd = new Float32Array(book.W * book.N);
@@ -261,10 +279,13 @@
     if (this.picks[entryId] !== undefined) this.unbank(entryId);
     this.picks[entryId] = t;
     this.x[entryId] = this.book.contrib(t.cands);
+    this.xs[entryId] = this.book.contrib(t.cands, true);
     this.xe[entryId] = this.book.contribEnd(t.cands);
     this.order.push(entryId);
     this.book.add(this.ours, this.x[entryId], +1);
     this.base = this.book.share(this.ours);
+    this.book.add(this.oursS, this.xs[entryId], +1);
+    this.baseS = this.book.share(this.oursS);
     addEnd(this.oursEnd, this.xe[entryId], +1);
     this.baseEnd = this.book.shareEnd(this.oursEnd);
     return true;
@@ -273,10 +294,12 @@
   State.prototype.unbank = function (entryId) {
     if (this.picks[entryId] === undefined) return;
     this.book.add(this.ours, this.x[entryId], -1);
+    this.book.add(this.oursS, this.xs[entryId], -1);
     addEnd(this.oursEnd, this.xe[entryId], -1);
-    delete this.picks[entryId]; delete this.x[entryId]; delete this.xe[entryId];
+    delete this.picks[entryId]; delete this.x[entryId]; delete this.xe[entryId]; delete this.xs[entryId];
     this.order = this.order.filter(x => x !== entryId);
     this.base = this.book.share(this.ours);
+    this.baseS = this.book.share(this.oursS);
     this.baseEnd = this.book.shareEnd(this.oursEnd);
   };
 
@@ -286,14 +309,18 @@
   State.prototype.options = function (entryId, paired) {
     const bk = this.book, gi = bk.groupOf[entryId];
     let ours = this.ours, base = this.base, oursE = this.oursEnd, baseE = this.baseEnd;
+    let oursS = this.oursS, baseS = this.baseS;
     const mine = this.picks[entryId];
     if (mine !== undefined) {
       ours = ours.slice(); bk.add(ours, this.x[entryId], -1); base = bk.share(ours);
+      oursS = oursS.slice(); bk.add(oursS, this.xs[entryId], -1); baseS = bk.share(oursS);
       if (paired) { oursE = oursE.slice(); addEnd(oursE, this.xe[entryId], -1); baseE = bk.shareEnd(oursE); }
     }
     const price = (key, cands) => {
       const m = bk.marginal(ours, base, bk.contrib(cands), paired);
+      const ms = bk.marginal(oursS, baseS, bk.contrib(cands, true), false);
       return { key: key, cands: cands, mean: m.mean, se: m.se, arr: m.arr,
+        season: ms.mean, seasonSe: ms.se,
         // the week 18 reading only where the page shows it, each path priced
         // whole and averaged: near the end the field is a handful and a
         // fraction of an entry would read as nobody
@@ -376,6 +403,7 @@
     }
     return {
       dollars: bk.pot * mean(this.base),
+      seasonDollars: bk.pot * mean(this.baseS),
       endDollars: bk.pot * mean(this.baseEnd),
       ifLoses: ifLoses,
       alive: alive,
@@ -386,12 +414,72 @@
     };
   };
 
+  /* ---- THE PORTFOLIO (D328): what one contest's book is in every world,
+   * so books whose worlds are the same NFL seasons (D327: the same
+   * game_seed and world count) can be added up world by world ---- */
+
+  /* the book's horizon dollars in every world */
+  State.prototype.equity = function () {
+    const N = this.book.N, out = new Float64Array(N);
+    for (let n = 0; n < N; n++) out[n] = this.book.pot * this.base[n];
+    return out;
+  };
+
+  /* per world, the chance every banked entry is already out going into
+   * `week`: each entry's paths weighed evenly, the entries multiplied */
+  State.prototype.deadBy = function (week) {
+    const bk = this.book, N = bk.N, out = new Float64Array(N).fill(1);
+    for (const id of Object.keys(this.picks)) {
+      const cands = this.picks[id].cands, w = 1 / cands.length;
+      const pd = new Float64Array(N);
+      for (const ci of cands) { const d = bk.death[ci]; for (let n = 0; n < N; n++) if (d[n] < week) pd[n] += w; }
+      for (let n = 0; n < N; n++) out[n] *= pd[n];
+    }
+    return out;
+  };
+
+  /* the book's horizon dollars per world with the entries banked on `team`
+   * this week taken out: what that team carries */
+  State.prototype.equityWithout = function (team) {
+    const bk = this.book, ours = this.ours.slice();
+    for (const id of Object.keys(this.picks)) {
+      if (this.picks[id].pick.split('+').includes(team)) bk.add(ours, this.x[id], -1);
+    }
+    const sh = bk.share(ours), N = bk.N, out = new Float64Array(N);
+    for (let n = 0; n < N; n++) out[n] = bk.pot * sh[n];
+    return out;
+  };
+
+  /* the book's horizon dollars per world with one entry moved to `key` */
+  State.prototype.equityIf = function (entryId, key) {
+    const bk = this.book, t = bk.target(bk.groupOf[entryId], key);
+    const ours = this.ours.slice();
+    if (this.picks[entryId] !== undefined) bk.add(ours, this.x[entryId], -1);
+    if (t) bk.add(ours, bk.contrib(t.cands), +1);
+    const sh = bk.share(ours), N = bk.N, out = new Float64Array(N);
+    for (let n = 0; n < N; n++) out[n] = bk.pot * sh[n];
+    return out;
+  };
+
+  /* the mean of the worst `q` share of a per-world total */
+  function tail(arr, q) {
+    const v = Array.from(arr).sort((a, b) => a - b);
+    const k = Math.max(1, Math.floor(q * v.length));
+    let s = 0; for (let i = 0; i < k; i++) s += v[i];
+    return s / k;
+  }
+  function quantile(arr, q) {
+    const v = Array.from(arr).sort((a, b) => a - b);
+    return v[Math.min(v.length - 1, Math.max(0, Math.floor(q * (v.length - 1))))];
+  }
+
   /* does `team` lose this week in world n (one bit a world, high bit first) */
   Book.prototype.lost = function (team, n) {
     return (this.loses[team][n >> 3] >> (7 - (n & 7))) & 1;
   };
 
-  const api = { Book: Book, State: State, b64bytes: b64bytes, NEAR: NEAR, AHEAD: AHEAD };
+  const api = { Book: Book, State: State, b64bytes: b64bytes, NEAR: NEAR, AHEAD: AHEAD,
+    tail: tail, quantile: quantile };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   else root.SurvivorEngine = api;
 })(this);
