@@ -87,6 +87,54 @@
    ]
   },
   {
+   "file": "2026_w05_ryan.json",
+   "season": 2026,
+   "week": 5,
+   "slug": "ryan",
+   "name": "Jim Ryan",
+   "pot": 183475.0,
+   "ours": 2,
+   "field": 1949,
+   "k": 1,
+   "scaled": false,
+   "built": "2026-10-08T15:35:36+00:00",
+   "entries": 2,
+   "cands": 120,
+   "notes": []
+  },
+  {
+   "file": "2026_w05_cheese.json",
+   "season": 2026,
+   "week": 5,
+   "slug": "cheese",
+   "name": "Cheese Bowl",
+   "pot": 135000.0,
+   "ours": 3,
+   "field": 1101,
+   "k": 1,
+   "scaled": false,
+   "built": "2026-10-08T14:57:36+00:00",
+   "entries": 3,
+   "cands": 180,
+   "notes": []
+  },
+  {
+   "file": "2026_w05_gross.json",
+   "season": 2026,
+   "week": 5,
+   "slug": "gross",
+   "name": "Jeff Gross",
+   "pot": 100125.0,
+   "ours": 1,
+   "field": 122,
+   "k": 1,
+   "scaled": false,
+   "built": "2026-10-08T14:53:03+00:00",
+   "entries": 1,
+   "cands": 54,
+   "notes": []
+  },
+  {
    "file": "2026_w05_ripple.json",
    "season": 2026,
    "week": 5,
@@ -119,6 +167,22 @@
    "notes": [
     "the board carries no pins, so there is no base field to check against"
    ]
+  },
+  {
+   "file": "2026_w05_fifty.json",
+   "season": 2026,
+   "week": 5,
+   "slug": "fifty",
+   "name": "Splash $50k",
+   "pot": 50004.0,
+   "ours": 21,
+   "field": 1302,
+   "k": 1,
+   "scaled": false,
+   "built": "2026-10-08T15:41:17+00:00",
+   "entries": 21,
+   "cands": 1015,
+   "notes": []
   },
   {
    "file": "2026_w05_w2k50.json",
@@ -173,6 +237,24 @@
    "notes": [
     "priced on the w4k50 board (no w4k25 board this week), its field scaled to w4k25's 2182 alive",
     "the board carries no pins, so there is no base field to check against"
+   ]
+  },
+  {
+   "file": "2026_w05_fivek.json",
+   "season": 2026,
+   "week": 5,
+   "slug": "fivek",
+   "name": "Splash $5k",
+   "pot": 5000.0,
+   "ours": 2,
+   "field": 222,
+   "k": 1,
+   "scaled": true,
+   "built": "2026-10-08T15:41:19+00:00",
+   "entries": 2,
+   "cands": 114,
+   "notes": [
+    "priced on the ryan board (no fivek board this week), its field scaled to fivek's 222 alive"
    ]
   },
   {

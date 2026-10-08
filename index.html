@@ -5,14 +5,22 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Survivor Book</title>
 <link rel="icon" href="data:,">
-<link rel="stylesheet" href="style.css?v=03c6c57fd2">
+<link rel="stylesheet" href="style.css?v=3f466ef052">
 </head>
 <body>
 <header class="top">
   <div class="brand">Survivor Book</div>
   <select id="week" aria-label="Week"></select>
   <select id="contest" aria-label="Contest"></select>
+  <button class="btn ghost small" id="syncBtn" type="button">Sync</button>
 </header>
+<div id="syncPanel" class="syncpanel" hidden>
+  <div id="syncStatus" class="small"></div>
+  <div id="syncConnectRow"><input id="syncToken" type="password" autocomplete="off" spellcheck="false" placeholder="GitHub token, gist scope">
+    <button class="btn small" id="syncConnect" type="button">Connect</button>
+    <span class="muted small">Kept in this browser; sent only to GitHub.</span></div>
+  <button class="btn ghost small" id="syncForget" type="button">Disconnect this device</button>
+</div>
 <main id="main"><p class="muted pad">Loading…</p></main>
 <template id="t-contest">
   <section class="contest">
@@ -44,6 +52,6 @@
   </section>
 </template>
 <script src="engine.js?v=08b129fce4"></script>
-<script src="app.js?v=afe15b0a4e"></script>
+<script src="app.js?v=c1e8d177c0"></script>
 </body>
 </html>

@@ -1,6 +1,7 @@
 /* app.js - the pick loop. One portfolio per contest: pick the most valuable
  * entry, see its options priced against the book as it stands, bank one, and
- * every other entry re-prices. Picks live in this browser (localStorage) and
+ * every other entry re-prices. Picks live in this browser (localStorage),
+ * follow you to every device holding a gist token (the Sync button, D337), and
  * leave it as a cheat sheet or an exported file. */
 (function () {
   'use strict';
@@ -24,7 +25,22 @@
   // the chalk the operator types, one list per week, read by every contest
   const chalkKey = () => 'sb:chalk:' + app.week;
   function chalk() { return new Set(lsGet(chalkKey()) || []); }
-  function lsSet(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) { /* private window */ } }
+  // a write that changes what a key holds is an edit the other devices should
+  // see; the page re-saving the same picks on load (with a new `saved` stamp) is not
+  function lsSet(k, v) {
+    let changed;
+    try {
+      const nv = JSON.stringify(v);
+      changed = stripSaved(localStorage.getItem(k)) !== stripSaved(nv);
+      localStorage.setItem(k, nv);
+    } catch (e) { return; /* private window */ }
+    if (changed && k.startsWith('sb:')) markLocal(k);
+  }
+  function stripSaved(raw) {
+    if (raw == null) return raw;
+    try { const o = JSON.parse(raw); if (o && typeof o === 'object' && !Array.isArray(o)) delete o.saved; return JSON.stringify(o); }
+    catch (e) { return raw; }
+  }
 
   async function init() {
     let idx;
@@ -40,6 +56,8 @@
     sel.onchange = () => { app.week = sel.value; go(null); };
     window.onhashchange = () => { const p = location.hash.slice(1).split('/'); if (p[1] && p[1] !== app.cur) show(p[1]); };
     go(h[1] || null);
+    paintSync();
+    autoSync();
   }
 
   function weekRows() { return app.index.filter(r => weekKey(r) === app.week); }
@@ -537,6 +555,152 @@
       renderPortfolio(); tabs();
     };
   }
+
+  /* ---- every device, one book: a private gist, as br_rankings does it ----
+   * Everything the page keeps under `sb:` (the picks of every contest and week,
+   * the chalk, the guardrails) is mirrored into one file of a private gist. A
+   * token with the gist scope is all a device needs; one already saved on this
+   * site for br_rankings is used as it is. Each key carries the time it last
+   * changed and the newer side wins: an edit goes up a couple of seconds after
+   * it is made, and opening or returning to the page brings down whatever
+   * another device saved since. The token never leaves this browser except to
+   * api.github.com. */
+  const GH = 'https://api.github.com', GIST_FILE = 'survivor_book.json', GIST_DESC = 'survivor book picks';
+  const SK = { token: 'sbsync:token', gist: 'sbsync:gist', mod: 'sbsync:mod', device: 'sbsync:device' };
+  const sync = { timer: null, busy: false, msg: '', open: false };
+  function rawGet(k) { try { return JSON.parse(localStorage.getItem(k) || 'null'); } catch (e) { return null; } }
+  function rawSet(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) { /* private window */ } }
+  const token = () => rawGet(SK.token) || rawGet('brr:gh:token');
+  function device() {
+    let d = rawGet(SK.device);
+    if (!d) {
+      const u = navigator.userAgent;
+      d = /iPhone/.test(u) ? 'iPhone' : /iPad/.test(u) ? 'iPad' : /Android/.test(u) ? 'Android'
+        : /Mac/.test(u) ? 'Mac' : /Windows/.test(u) ? 'Windows' : 'a browser';
+      rawSet(SK.device, d);
+    }
+    return d;
+  }
+  function markLocal(k) {
+    const mods = rawGet(SK.mod) || {};
+    mods[k] = new Date().toISOString();
+    rawSet(SK.mod, mods);
+    scheduleSync(2000);
+  }
+  function scheduleSync(ms) {
+    if (!token()) return;
+    clearTimeout(sync.timer);
+    sync.timer = setTimeout(autoSync, ms);
+  }
+  async function gh(path, opts) {
+    opts = opts || {};
+    const headers = { Authorization: 'Bearer ' + token(), Accept: 'application/vnd.github+json',
+      'X-GitHub-Api-Version': '2022-11-28' };
+    if (opts.body) headers['Content-Type'] = 'application/json';
+    let r;
+    try { r = await fetch(GH + path, { method: opts.method || 'GET', headers, body: opts.body, cache: 'no-store' }); }
+    catch (e) { throw new Error('could not reach GitHub; the page still works on this device'); }
+    if (r.status === 401 || r.status === 403) throw new Error('GitHub refused the token; it needs the gist scope');
+    if (!r.ok) throw new Error('GitHub returned HTTP ' + r.status);
+    return r.json();
+  }
+  async function readGist() {
+    let id = rawGet(SK.gist);
+    if (!id) {
+      const list = await gh('/gists?per_page=100');
+      const g = list.find(x => x.files && x.files[GIST_FILE]);
+      if (g) { id = g.id; rawSet(SK.gist, id); }
+    }
+    if (!id) return { id: null, keys: {} };
+    const g = await gh('/gists/' + id);
+    const f = (g.files || {})[GIST_FILE];
+    let doc = null;
+    try { doc = f && JSON.parse(f.content); } catch (e) { doc = null; }
+    return { id, keys: (doc && doc.keys) || {} };
+  }
+  async function writeGist(id, keys) {
+    const body = { description: GIST_DESC, files: { [GIST_FILE]: { content: JSON.stringify({ version: 1, keys }) } } };
+    if (id) return gh('/gists/' + id, { method: 'PATCH', body: JSON.stringify(body) });
+    body.public = false;
+    const g = await gh('/gists', { method: 'POST', body: JSON.stringify(body) });
+    rawSet(SK.gist, g.id);
+    return g;
+  }
+  async function autoSync() {
+    clearTimeout(sync.timer); sync.timer = null;
+    if (!token()) return paintSync();
+    if (sync.busy) { scheduleSync(1500); return; }
+    sync.busy = true;
+    try {
+      const cur = await readGist();
+      const mods = rawGet(SK.mod) || {};
+      const local = new Set();
+      for (let i = 0; i < localStorage.length; i++) { const k = localStorage.key(i); if (k && k.startsWith('sb:')) local.add(k); }
+      const out = Object.assign({}, cur.keys), took = [];
+      let pushed = 0;
+      for (const k of new Set([...Object.keys(cur.keys), ...local])) {
+        const r = cur.keys[k];
+        const lv = local.has(k) ? rawGet(k) : null;
+        // the time of this device's last real edit; picks never edited since
+        // sync came in carry none, so another device's save wins over them
+        const lm = local.has(k) ? (mods[k] || '') : '';
+        if (r && (!local.has(k) || r.saved_at > lm)) {
+          if (stripSaved(JSON.stringify(r.value)) !== stripSaved(localStorage.getItem(k))) { rawSet(k, r.value); took.push(k); }
+          mods[k] = r.saved_at;
+        } else if (local.has(k) && (!r || lm > r.saved_at)) {
+          out[k] = { value: lv, saved_at: lm || new Date().toISOString(), device: device() };
+          mods[k] = out[k].saved_at;
+          pushed++;
+        }
+      }
+      rawSet(SK.mod, mods);
+      if (pushed) await writeGist(cur.id, out);
+      const when = new Date().toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+      sync.msg = 'Synced ' + when + (took.length ? ', brought in ' + took.length + ' change(s) from another device' : '')
+        + (pushed ? ', sent ' + pushed : '');
+      if (took.length) {
+        app.docs = {}; app.port = null;
+        if (app.cur) show(app.cur);
+      }
+    } catch (e) {
+      sync.msg = 'Sync: ' + e.message;
+    } finally {
+      sync.busy = false;
+      paintSync();
+    }
+  }
+  function paintSync() {
+    const b = $('#syncBtn'), p = $('#syncPanel');
+    if (!b || !p) return;
+    const on = !!token();
+    b.textContent = on ? 'Synced' : 'Sync';
+    b.title = on ? (sync.msg || 'Syncing every device through a private gist') : 'Keep picks the same on every device';
+    p.hidden = !sync.open;
+    $('#syncStatus').textContent = on
+      ? (sync.msg || 'Checking the gist…') + '. Picks, chalk and guardrails follow you to every device holding the token. This device is ' + device() + '.'
+      : 'Not connected. Paste a GitHub token with the gist scope (the one br_rankings uses works) and every device with it sees the same picks.';
+    $('#syncConnectRow').hidden = on;
+    $('#syncForget').hidden = !on;
+  }
+  $('#syncBtn').onclick = () => { sync.open = !sync.open; paintSync(); };
+  $('#syncConnect').onclick = async () => {
+    const t = $('#syncToken').value.trim();
+    if (!t) return;
+    rawSet(SK.token, t);
+    $('#syncToken').value = '';
+    sync.msg = 'Checking the token…'; paintSync();
+    await autoSync();
+    if (/refused|reach/.test(sync.msg)) { try { localStorage.removeItem(SK.token); } catch (e) { /* ignore */ } paintSync(); }
+  };
+  $('#syncForget').onclick = () => {
+    try { localStorage.removeItem(SK.token); localStorage.removeItem(SK.gist); } catch (e) { /* ignore */ }
+    sync.msg = ''; paintSync();
+  };
+  // coming back to the page pulls; leaving it sends anything still waiting
+  document.addEventListener('visibilitychange', () => {
+    if (!token()) return;
+    if (document.visibilityState === 'visible' || sync.timer) autoSync();
+  });
 
   init();
 })();
