@@ -331,21 +331,25 @@
       .sort((a, b) => b.mean - a.mean);
     if (paired && out.length) {
       const cur = mine ? out.find(o => o.key === mine.key) : null;
+      let top = null;  // the best team's best path, the bar another team's path clears
       for (const o of out) {
         o.seBest = pairedSE(out[0].arr, o.arr);
         o.seCur = cur ? pairedSE(o.arr, cur.arr) : null;
         // the team's paths, each against the team's own mix; one of another
-        // team STANDS APART where it beats the best team's mix, the robust
-        // choice, by more than two standard errors: a season plan worth
-        // banking on its own
+        // team STANDS APART where it beats the best team's own best path,
+        // best against best so the luck of topping several cancels, by more
+        // than three standard errors, since many paths are tried: a season
+        // plan worth banking on its own
         o.paths = o.cands.map(c => price('p:' + c, [c])).sort((a, b) => b.mean - a.mean);
+        if (o === out[0]) top = o.paths[0];
         for (const p of o.paths) {
           p.gap = p.mean - o.mean;
           p.seGap = pairedSE(p.arr, o.arr);
-          p.apart = o !== out[0] && o.cands.length > 1 && p.mean - out[0].mean > 2 * pairedSE(p.arr, out[0].arr);
-          p.arr = null;
+          p.apart = !!top && o !== out[0] && o.cands.length > 1 && p.mean - top.mean > 3 * pairedSE(p.arr, top.arr);
+          if (p !== top) p.arr = null;
         }
       }
+      if (top) top.arr = null;
       for (const o of out) o.arr = null;
     }
     return out;
