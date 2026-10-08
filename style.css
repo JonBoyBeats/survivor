@@ -87,3 +87,16 @@ tr.cur { background: var(--sel); }
 .syncpanel { padding: 10px 16px; border-bottom: 1px solid var(--line); display: flex; flex-direction: column; gap: 8px; }
 .syncpanel input { padding: 5px 8px; border: 1px solid var(--line); border-radius: 6px; width: min(320px, 100%); }
 #syncForget { align-self: flex-start; }
+/* the compact option rows: one line a team, the numbers in columns, the bank button under the team */
+.orow { grid-template-columns: minmax(48px, 0.9fr) repeat(var(--n), minmax(0, 1fr)); align-items: start; column-gap: 8px; }
+.orow .num { white-space: nowrap; font-variant-numeric: tabular-nums; }
+.opt { padding: 5px 8px; margin-bottom: 4px; }
+.opt .pk .pick { font-weight: 600; }
+.opt .pk .se { white-space: nowrap; }
+.opt .bk { margin-top: 3px; } .opt .bk .btn { padding: 2px 8px; font-size: 12px; margin: 0; }
+.opt .then { grid-column: 1 / -1; margin-top: 2px; padding-top: 2px; border-top: 0; }
+.opt .then > summary { font-size: 11px; color: var(--muted); }
+@media (max-width: 480px) { .orow .num { font-size: 13px; } }
+.orow.ohead .num { white-space: normal; font-size: 11px; line-height: 1.25; }
+.howto { margin: 0 0 6px; } .howto > summary { cursor: pointer; color: var(--muted); font-size: 12px; }
+
