@@ -307,7 +307,7 @@
     }).join('');
     box.innerHTML = `<div class="box">
       <h2 style="margin-top:0">${esc(e.name)} <span class="muted small">burned ${esc(e.burned.join(' '))}</span></h2>
-      ${flip ? `<div class="note">On the end-of-season reading, the base model's field without this week's pins makes <b>${esc(doc.cands[flip.to].pick)}</b> the better option alone for this burned set, by ${money(flip.gain)} ± ${flip.se.toFixed(2)} over ${esc(doc.cands[flip.frm].pick)}. The pick leans on the pins.</div>` : ''}
+      ${flip ? `<div class="note">On the end-of-season reading, the base model's field without this week's pins makes <b>${esc(flip.to)}</b> the better option alone for this burned set, by ${money(flip.gain)} ± ${flip.se.toFixed(2)} over ${esc(flip.frm)}. The pick leans on the pins.</div>` : ''}
       <details class="howto"><summary>How to read this</summary><p class="muted small">Each option is this week's team, priced as an even mix of the futures the value map planned behind it, since the rest of the season is re-solved every week. Worth now is what it adds to the book at week ${H}: in every simulated season where the entry is alive going into week ${H}, it takes an equal cut of the pot with everyone else still alive, counted as more than one entry when its plans have better teams left. Teams left is that count: how much more often than the field its plans survive weeks ${H} to ${H2}. Under the best option, ± is its standard error; under every other, the gap to the best and that gap's own standard error, measured on the same seasons. A tie is within two of those, and div marks the tie that diversifies the portfolio best.${one ? '' : ' Alone, under plans, is the option with no other entry beside it.'} Reaches is the chance the entry is alive going into week ${H}. Worth to week 18 is the same cut at week ${H} with the count read from what the paths have left all the way to the end, so the last weeks count (D324); it leans against plans that only survive when the favourites fall, which is why the decision stays on Worth wk ${H}. Raw under it is the old reading, the pot to whoever is alive at the end: it rests on a handful of seasons and swings by thousands. Worth, Alone aside, is what the option adds to the book as it stands, so it moves as you bank this contest's other entries; Reaches and Teams left never do. Every path can be banked on its own; one that stands apart beats the best team's own best path by more than three standard errors, best against best, so the luck of being the top of several cancels, a season plan worth following as it is. Under each option, plans opens the typical line, every path behind it, the gap's standard error, the raw last-survivor reading and the portfolio's worst tenth of seasons.</p>
       <p class="muted small">Common picks is the share of this entry's ${allCands.length} planned paths that play each team. In the paths, over the same ${NEAR} weeks, <span class="agree">this colour</span> is a team at least half of them play that week and <span class="differ">this colour</span> is a path going its own way.</p></details>
       <div class="common path"><span class="muted">Common picks, the next ${NEAR} weeks</span> ${commonLine(sh, ch, true)}</div>
@@ -372,9 +372,12 @@
 
   /* ---- THE PORTFOLIO ACROSS CONTESTS (D328) ----
    * Every contest of the week loaded with its saved picks, and where their
-   * worlds are the same NFL seasons (the same game_seed and world count,
-   * D327) the books added world by world: what the whole portfolio is
-   * worth in each simulated season, not only on average. */
+   * worlds are the same NFL seasons (the same game_seed, D327) the books
+   * added world by world: what the whole portfolio is worth in each
+   * simulated season, not only on average. A book on 12,800 worlds and one
+   * on 25,600 share their first 12,800 (each world carries its own seed off
+   * the game seed, so the smaller set is the larger one's first half), and
+   * the books are added over the worlds they share. */
   async function portfolioContext() {
     if (app.port && app.port.week === app.week) return app.port;
     const rows = weekRows(), list = [];
@@ -391,11 +394,10 @@
       list.push({ r, c: app.docs[key] });
     }
     const seeds = new Set(list.map(x => x.c.doc.game_seed));
-    const ns = new Set(list.map(x => x.c.doc.worlds));
-    const aligned = list.length > 0 && seeds.size === 1 && !seeds.has(undefined) && !seeds.has(null) && ns.size === 1;
+    const aligned = list.length > 0 && seeds.size === 1 && !seeds.has(undefined) && !seeds.has(null);
     const port = { week: app.week, list, aligned, eq: {} };
     if (aligned) {
-      const N = list[0].c.doc.worlds, total = new Float64Array(N);
+      const N = Math.min(...list.map(x => x.c.doc.worlds)), total = new Float64Array(N);
       list.forEach(({ r, c }) => { const e = c.st.equity(); port.eq[r.slug] = e; for (let n = 0; n < N; n++) total[n] += e[n]; });
       port.total = total; port.N = N;
     }
