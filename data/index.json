@@ -161,12 +161,10 @@
    "field": 1496,
    "k": 1,
    "scaled": false,
-   "built": "2026-10-08T11:34:56+00:00",
+   "built": "2026-10-09T17:25:40+00:00",
    "entries": 2,
-   "cands": 60,
-   "notes": [
-    "the board carries no pins, so there is no base field to check against"
-   ]
+   "cands": 120,
+   "notes": []
   },
   {
    "file": "2026_w05_fifty.json",
@@ -179,9 +177,9 @@
    "field": 1302,
    "k": 1,
    "scaled": false,
-   "built": "2026-10-08T15:41:17+00:00",
+   "built": "2026-10-09T17:40:33+00:00",
    "entries": 21,
-   "cands": 1015,
+   "cands": 1064,
    "notes": []
   },
   {
@@ -195,12 +193,10 @@
    "field": 3333,
    "k": 1,
    "scaled": false,
-   "built": "2026-10-08T12:06:18+00:00",
+   "built": "2026-10-09T17:35:07+00:00",
    "entries": 6,
-   "cands": 288,
-   "notes": [
-    "the board carries no pins, so there is no base field to check against"
-   ]
+   "cands": 348,
+   "notes": []
   },
   {
    "file": "2026_w05_w4k50.json",
