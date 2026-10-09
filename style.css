@@ -100,3 +100,5 @@ tr.cur { background: var(--sel); }
 .orow.ohead .num { white-space: normal; font-size: 11px; line-height: 1.25; }
 .howto { margin: 0 0 6px; } .howto > summary { cursor: pointer; color: var(--muted); font-size: 12px; }
 
+.resbar { margin: 6px 0; } .resbar input { padding: 3px 6px; border: 1px solid var(--line); border-radius: 6px; background: var(--panel); color: var(--ink); }
+.pick.out { text-decoration: line-through; color: var(--muted); }

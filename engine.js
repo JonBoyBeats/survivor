@@ -41,7 +41,13 @@
     return new Uint8Array(Buffer.from(s, 'base64'));
   }
 
-  function Book(doc) {
+  /* `res`, the week's games already played (D341): {lost: [...], won: [...],
+   * share: {team: realised % of this contest's entries on it}}. The book
+   * keeps only the worlds those games went that way in, as `pins --played`
+   * does on the board (D278), and where a lost team's realised share is
+   * given, every later week's field is scaled by (1 - realised) over
+   * (1 - projected), so the dead are as many as they were (D281). */
+  function Book(doc, res) {
     this.doc = doc;
     this.N = doc.worlds;
     this.weeks = doc.weeks;
@@ -59,6 +65,7 @@
     }));
     this.loses = {};
     for (const t of Object.keys(doc.loses || {})) this.loses[t] = b64bytes(doc.loses[t]);
+    this.settle(res);
     // the horizon and the field there
     this.H = Math.min(doc.week + NEAR, doc.end);
     this.H2 = Math.min(this.H + AHEAD, doc.end);
@@ -97,6 +104,42 @@
     });
     this.alone = {};
   }
+
+  Book.prototype.settle = function (res) {
+    const lost = (res && res.lost) || [], won = (res && res.won) || [];
+    this.played = new Set(lost.concat(won));
+    this.settled = null;
+    if (!this.played.size) return;
+    const N = this.N, bit = (t, n) => (this.loses[t][n >> 3] >> (7 - (n & 7))) & 1;
+    // a team none of this contest's plans pick this week carries no record;
+    // it is still off the menu, but the worlds cannot be read on it
+    const L = lost.filter(t => this.loses[t]), Wn = won.filter(t => this.loses[t]);
+    const keep = [];
+    for (let n = 0; n < N; n++) if (L.every(t => bit(t, n)) && Wn.every(t => !bit(t, n))) keep.push(n);
+    const M = keep.length;
+    this.settled = { kept: M, of: N, lost: lost, won: won, read: L.concat(Wn), scale: {} };
+    if (M < 200 || M === N) { this.settled.thin = M < 200; return; }
+    const others = new Float32Array(this.W * M);
+    for (let w = 0; w < this.W; w++) for (let i = 0; i < M; i++) others[w * M + i] = this.others[w * N + keep[i]];
+    this.others = others;
+    const half = new Uint8Array(M); for (let i = 0; i < M; i++) half[i] = this.half[keep[i]]; this.half = half;
+    this.death = this.death.map(d => { const o = new Uint8Array(M); for (let i = 0; i < M; i++) o[i] = d[keep[i]]; return o; });
+    for (const t of Object.keys(this.loses)) {
+      const o = new Uint8Array((M + 7) >> 3);
+      for (let i = 0; i < M; i++) if (bit(t, keep[i])) o[i >> 3] |= 1 << (7 - (i & 7));
+      this.loses[t] = o;
+    }
+    this.N = M;
+    // the realised share of a lost team: every later week's field scaled
+    const own = this.doc.own || {}, share = (res && res.share) || {};
+    for (const t of L) {
+      const r = +share[t], p = +own[t];
+      if (!(r >= 0 && r < 100) || !(p >= 0 && p < 100)) continue;
+      const f = (100 - r) / (100 - p);
+      this.weeks.forEach((wk, w) => { if (wk > this.doc.week) for (let i = 0; i < M; i++) this.others[w * M + i] *= f; });
+      this.settled.scale[t] = { realised: r, projected: p, by: f };
+    }
+  };
 
   /* what one bank target puts at the horizon in every world: the mix's
    * weighted share of an entry alive there */
@@ -327,7 +370,8 @@
         end: paired ? cands.reduce((s, c) => s + bk.marginalEnd(oursE, baseE, bk.contribEnd([c])), 0) / cands.length : null,
         alone: bk.aloneOf(key, cands), reach: bk.reachOf(cands), strength: bk.strengthOf(cands) };
     };
-    const out = bk.options[gi].map(o => Object.assign(price(o.key, o.cands), { pick: o.pick }))
+    const out = bk.options[gi].filter(o => !o.pick.split('+').some(t => bk.played.has(t)))
+      .map(o => Object.assign(price(o.key, o.cands), { pick: o.pick }))
       .sort((a, b) => b.mean - a.mean);
     if (paired && out.length) {
       const cur = mine ? out.find(o => o.key === mine.key) : null;
@@ -398,7 +442,7 @@
     // read over only the worlds where it lost
     const ifLoses = {};
     for (const t of Object.keys(exp).join('+').split('+')) {
-      if (!t || ifLoses[t] || !bk.loses[t]) continue;
+      if (!t || ifLoses[t] || !bk.loses[t] || bk.played.has(t)) continue;
       let k = 0, s = 0;
       for (let n = 0; n < N; n++) if (bk.lost(t, n)) { k++; s += this.base[n]; }
       let entries = 0;

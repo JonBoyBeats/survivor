@@ -25,6 +25,12 @@
   // the chalk the operator types, one list per week, read by every contest
   const chalkKey = () => 'sb:chalk:' + app.week;
   function chalk() { return new Set(lsGet(chalkKey()) || []); }
+  // THE WEEK'S GAMES ALREADY PLAYED (D341), one record a week: the teams that
+  // lost and won, and per contest the realised share of entries on a loser;
+  // every book of the week is read over the worlds where they went that way
+  const resKey = () => 'sb:results:' + app.week;
+  function results() { const r = lsGet(resKey()) || {}; return { lost: r.lost || [], won: r.won || [], share: r.share || {} }; }
+  function resFor(doc) { const r = results(); return { lost: r.lost, won: r.won, share: r.share[doc.slug] || {} }; }
   // a write that changes what a key holds is an edit the other devices should
   // see; the page re-saving the same picks on load (with a new `saved` stamp) is not
   function lsSet(k, v) {
@@ -89,7 +95,7 @@
     const key = app.week + '/' + slug;
     if (!app.docs[key]) {
       const doc = await (await fetch('data/' + row.file, { cache: 'no-cache' })).json();
-      const book = new E.Book(doc);
+      const book = new E.Book(doc, resFor(doc));
       const st = new E.State(book);
       app.docs[key] = { doc, book, st, history: [], stale: [] };
       restore(app.docs[key]);
@@ -130,6 +136,14 @@
       order: c.st.order, picks, summary: c.st.summary(), saved: new Date().toISOString() });
   }
 
+  // an entry banked on a team already played: 'lost' or 'locked'
+  function outOf(c, id) {
+    const t = c.st.picks[id], s = c.book.settled;
+    if (!t || !s) return '';
+    const ts = t.pick.split('+');
+    return ts.some(x => s.lost.includes(x)) ? 'lost' : ts.some(x => s.won.includes(x)) ? 'locked' : '';
+  }
+
   // a bank target's label: the team, or the team and "one path"
   const label = (doc, key) => key.startsWith('t:') ? key.slice(2) : doc.cands[+key.slice(2)].pick + ' (one path)';
 
@@ -146,10 +160,12 @@
     const notes = (doc.notes || []).map(n => `<div class="note">${esc(n)}</div>`)
       .concat(c.stale.length ? [`<div class="note">Saved picks that no longer match this data and were dropped: ${esc(c.stale.join(', '))}. Re-bank them.</div>`] : []);
     $('.notes', root).innerHTML = notes.join('');
+    $('.resbar', root).innerHTML = resBar(c);
     $('#main').innerHTML = '';
     $('#main').appendChild(root);
     const sec = $('#main .contest');
     sec.querySelectorAll('[data-act]').forEach(b => b.onclick = () => act(c, b.dataset.act));
+    resWire(c, sec);
     const ci = $('.chalkin', sec);
     ci.value = [...chalk()].join(' ');
     ci.onchange = () => {
@@ -159,6 +175,46 @@
       paint(c);
     };
     paint(c);
+  }
+
+  /* the played games on the contest page: set once a week, the realised
+   * share typed per contest, either one re-reads the books */
+  function resBar(c) {
+    const R = results(), bk = c.book, st8 = bk.settled, own = c.doc.own || {};
+    const shares = R.lost.map(t => `<label>real share on ${esc(t)} here <input class="rsh" data-t="${esc(t)}" type="number" min="0" max="100" step="0.1" value="${(R.share[c.doc.slug] || {})[t] ?? ''}" style="width:4.5em">%</label>`
+      + (own[t] !== undefined ? ` <span class="muted">model ${(+own[t]).toFixed(1)}%</span>` : '')).join(' · ');
+    let read = '';
+    if (st8) {
+      const sc = Object.entries(st8.scale).map(([t, x]) => `${esc(t)}'s dead set to ${x.realised}% of the field (model ${x.projected.toFixed(1)}%)`).join('; ');
+      const missing = st8.lost.concat(st8.won).filter(t => !st8.read.includes(t));
+      read = st8.thin ? `<div class="note">Only ${st8.kept} simulated seasons went that way, too few to read; the book is shown unsettled.</div>`
+        : `<div class="muted small">Read over the ${st8.kept.toLocaleString()} of ${st8.of.toLocaleString()} simulated seasons where it went that way${sc ? '; ' + sc : ''}.${missing.length ? ' No plan here picks ' + esc(missing.join(' ')) + ', so its result is off the menu but not read.' : ''}</div>`;
+    }
+    return `<div class="small">Played this week: lost <input class="rlost" type="text" autocapitalize="characters" spellcheck="false" value="${esc(R.lost.join(' '))}" placeholder="DAL" style="width:6em">
+      won <input class="rwon" type="text" autocapitalize="characters" spellcheck="false" value="${esc(R.won.join(' '))}" placeholder="NYJ" style="width:6em">
+      <button class="btn small rset">Set</button>${shares ? ' · ' + shares : ''}</div>${read}`;
+  }
+
+  function resWire(c, sec) {
+    const teams = v => [...new Set(v.toUpperCase().split(/[^A-Z]+/).filter(Boolean))];
+    const reread = all => {
+      if (all) app.docs = {}; else delete app.docs[app.week + '/' + c.doc.slug];
+      app.port = null; show(c.doc.slug);
+    };
+    const set = $('.rset', sec);
+    if (set) set.onclick = () => {
+      const R = results();
+      lsSet(resKey(), { lost: teams($('.rlost', sec).value), won: teams($('.rwon', sec).value), share: R.share });
+      reread(true);
+    };
+    sec.querySelectorAll('.rsh').forEach(i => i.onchange = () => {
+      const R = results(), v = i.value === '' ? null : +i.value;
+      const mine = Object.assign({}, R.share[c.doc.slug] || {});
+      if (v === null || !(v >= 0 && v < 100)) delete mine[i.dataset.t]; else mine[i.dataset.t] = v;
+      R.share[c.doc.slug] = mine;
+      lsSet(resKey(), R);
+      reread(false);
+    });
   }
 
   function paint(c) {
@@ -186,7 +242,7 @@
       const v = (c.vals || {})[id];
       return `<li data-id="${esc(id)}"><div><div class="n">${i + 1}. ${esc(e.name)}</div>
         <div class="b">burned ${esc(e.burned.join(' '))}</div></div>
-        <div class="r"><div class="pick">${esc(label(doc, st.picks[id].key))}</div>
+        <div class="r"><div class="pick${outOf(c, id) ? ' out' : ''}">${esc(label(doc, st.picks[id].key))}</div>${outOf(c, id) ? '<div class="b"><span class="tie">' + outOf(c, id) + '</span></div>' : ''}
         <div class="b">${v !== undefined && v !== null ? money(v) + ' when banked' : ''}</div></div></li>`;
     }).join('') : '<li class="empty">Nothing banked yet.</li>';
     sec.querySelectorAll('.elist li[data-id]').forEach(li => li.onclick = () => { app.sel[doc.slug] = li.dataset.id; paint(c); });
@@ -236,6 +292,13 @@
     const box = $('#main .detail');
     if (!id) { box.innerHTML = ''; return; }
     const e = book.entries.find(x => x.id === id);
+    const gone = outOf(c, id);
+    if (gone) {
+      const t = st.picks[id].pick;
+      box.innerHTML = `<div class="box"><h2 style="margin-top:0">${esc(e.name)} <span class="muted small">burned ${esc(e.burned.join(' '))}</span></h2>
+        <p>${gone === 'lost' ? 'Out: lost with <b>' + esc(t) + '</b> this week.' : 'Locked in: <b>' + esc(t) + '</b> has played and won.'}</p></div>`;
+      return;
+    }
     const opts = st.options(id, true);
     const best = opts[0];
     const cur = st.picks[id] ? st.picks[id].key : null;
@@ -386,7 +449,7 @@
       if (!app.docs[key]) {
         try {
           const doc = await (await fetch('data/' + r.file, { cache: 'no-cache' })).json();
-          const book = new E.Book(doc);
+          const book = new E.Book(doc, resFor(doc));
           app.docs[key] = { doc, book, st: new E.State(book), history: [], stale: [] };
           restore(app.docs[key]);
         } catch (e) { continue; }
@@ -397,7 +460,7 @@
     const aligned = list.length > 0 && seeds.size === 1 && !seeds.has(undefined) && !seeds.has(null);
     const port = { week: app.week, list, aligned, eq: {} };
     if (aligned) {
-      const N = Math.min(...list.map(x => x.c.doc.worlds)), total = new Float64Array(N);
+      const N = Math.min(...list.map(x => x.c.book.N)), total = new Float64Array(N);
       list.forEach(({ r, c }) => { const e = c.st.equity(); port.eq[r.slug] = e; for (let n = 0; n < N; n++) total[n] += e[n]; });
       port.total = total; port.N = N;
     }
