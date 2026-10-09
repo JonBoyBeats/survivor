@@ -407,6 +407,108 @@
 
   const guardKey = () => 'sb:guard';
 
+  /* ---- WHAT SPREADING OUT COSTS (D340) ----
+   * For each cap on the share of the portfolio's expected dollars one team
+   * may carry, the cheapest moves that bring every team under it: while a
+   * team is over, the entry on it whose best option on a team still under
+   * the cap costs least in its own book moves there. The moves are made on
+   * the live books, the whole portfolio is read again season by season, and
+   * the books are put back as they were; only Use this keeps them. The
+   * order of the moves is read off each entry's options the first time it
+   * is looked at; the cost and the worst tenth are the portfolio's own. */
+  const CAPS = [60, 50, 40, 30];
+  function capTable(port) {
+    const box = $('#captable');
+    const N = port.N, list = port.list.map(x => x.c);
+    const avg = T => { let s = 0; for (let n = 0; n < N; n++) s += T[n]; return s / N; };
+    const totalNow = () => {
+      const T = new Float64Array(N);
+      list.forEach(c => { const e = c.st.equity(); for (let n = 0; n < N; n++) T[n] += e[n]; });
+      return T;
+    };
+    // per contest, its book's mean and its mean without each team it holds;
+    // a move re-reads only the contest it was made in
+    const read = new Map();
+    const refresh = c => {
+      const ts = new Set();
+      Object.values(c.st.picks).forEach(t => t.pick.split('+').forEach(x => ts.add(x)));
+      const without = {};
+      ts.forEach(t => without[t] = avg(c.st.equityWithout(t)));
+      read.set(c, { mean: avg(c.st.equity()), without });
+    };
+    list.forEach(refresh);
+    const carries = () => {
+      let mean = 0; const d = {};
+      read.forEach(r => { mean += r.mean; Object.entries(r.without).forEach(([t, w]) => d[t] = (d[t] || 0) + r.mean - w); });
+      return Object.entries(d).map(([t, x]) => [t, mean > 0 ? 100 * x / mean : 0]).sort((a, b) => b[1] - a[1]);
+    };
+    // the books as they stand, to put back
+    const keep = list.map(c => ({ c, picks: Object.fromEntries(Object.entries(c.st.picks).map(([id, t]) => [id, t.key])),
+      order: c.st.order.slice() }));
+    const T0 = totalNow(), mean0 = avg(T0), tail0 = E.tail(T0, 0.1);
+    // an entry's options, shared by every entry of its burned set on the same pick
+    const opts = new Map();
+    const optionsOf = (c, id) => {
+      const k = c.doc.slug + '/' + c.book.groupOf[id] + '/' + c.st.picks[id].key;
+      if (!opts.has(k)) opts.set(k, c.st.options(id));
+      return opts.get(k);
+    };
+    const moved = new Map(), rows = [];
+    let car = carries();
+    const top0 = car[0];
+    for (const cap of CAPS) {
+      for (;;) {
+        const over = car.filter(([, x]) => x > cap);
+        if (!over.length) break;
+        const full = new Set(car.filter(([, x]) => x >= cap).map(([t]) => t));
+        let best = null;
+        over.forEach(([t]) => list.forEach(c => Object.keys(c.st.picks).forEach(id => {
+          const cur = c.st.picks[id];
+          // each entry moves once, and only off a team, never off a path
+          if (moved.has(c.doc.slug + '/' + id) || !cur.key.startsWith('t:') || !cur.pick.split('+').includes(t)) return;
+          const os = optionsOf(c, id), now = os.find(o => o.key === cur.key);
+          const alt = os.find(o => o.key !== cur.key && !o.pick.split('+').some(x => full.has(x)));
+          if (!now || !alt) return;
+          const cost = now.mean - alt.mean;
+          if (!best || cost < best.cost) best = { c, id, from: cur.pick, to: alt.pick, key: alt.key, val: alt.mean, cost };
+        })));
+        if (!best) break;
+        best.c.st.bank(best.id, best.key);
+        moved.set(best.c.doc.slug + '/' + best.id, best);
+        refresh(best.c);
+        car = carries();
+      }
+      const T = totalNow(), top = car[0];
+      rows.push({ cap, moves: [...moved.values()], cost: mean0 - avg(T), tail: E.tail(T, 0.1),
+        top: top ? top[0] + ' ' + top[1].toFixed(0) + '%' : '', ok: !top || top[1] <= cap + 0.5 });
+    }
+    // put every book back as it was
+    keep.forEach(({ c, picks, order }) => {
+      Object.entries(picks).forEach(([id, key]) => { if (c.st.picks[id].key !== key) c.st.bank(id, key); });
+      c.st.order = order;
+    });
+    const name = (c, id) => (c.book.entries.find(e => e.id === id) || {}).name || id;
+    box.innerHTML = `<p class="muted small">Each row caps the share of the portfolio's expected dollars any one team may carry and makes the cheapest moves that get every team under it, each entry moved to its best option on a team still under the cap. Cost is what the portfolio gives up on average, the worst tenth what it keeps in its worst 10% of seasons. Read down to where the cost stops being worth what it buys.</p>
+      <div class="tablewrap"><table><thead><tr><th>Cap</th><th class="num">Entries moved</th><th class="num">Costs</th><th class="num">Worst 10%</th><th>Most on one team</th><th></th></tr></thead><tbody>
+      <tr><td>as banked</td><td class="num">0</td><td class="num">—</td><td class="num">${money(tail0)}</td><td>${top0 ? esc(top0[0]) + ' ' + top0[1].toFixed(0) + '%' : ''}</td><td></td></tr>
+      ${rows.map((r, i) => (r.n = r.moves.length, `<tr><td>${r.cap}%</td><td class="num">${r.n}</td>
+        <td class="num">${r.n ? (r.cost >= 0 ? money(r.cost) : 'gains ' + money(-r.cost)) : '—'}</td>
+        <td class="num">${money(r.tail)}</td><td>${esc(r.top)}${r.ok ? '' : ' <span class="muted">(as low as moves go)</span>'}</td>
+        <td>${r.n ? `<button class="btn small" data-cap="${i}">Use this</button>` : ''}</td></tr>
+        ${r.n ? `<tr><td colspan="6" class="small"><details><summary class="muted">the ${r.n} entr${r.n === 1 ? 'y' : 'ies'} moved</summary>${r.moves.map(m => `${esc(m.c.doc.name)} · ${esc(name(m.c, m.id))}: ${esc(m.from)} → <b>${esc(m.to)}</b>`).join('<br>')}</details></td></tr>` : ''}`)).join('')}
+      </tbody></table></div>`;
+    box.querySelectorAll('[data-cap]').forEach(b => b.onclick = () => {
+      const r = rows[+b.dataset.cap], touched = new Set();
+      r.moves.forEach(m => {
+        m.c.history.push({ id: m.id, prev: m.c.st.picks[m.id] ? m.c.st.picks[m.id].key : undefined });
+        m.c.vals = m.c.vals || {}; m.c.vals[m.id] = m.val;
+        m.c.st.bank(m.id, m.key); touched.add(m.c);
+      });
+      touched.forEach(c => save(c));
+      renderPortfolio();
+    });
+  }
+
   /* ---- the portfolio page and the cheat sheet ---- */
   async function renderPortfolio() {
     $('#main').innerHTML = '<p class="muted pad">Loading every contest of the week…</p>';
@@ -517,6 +619,8 @@
           <tbody><tr><td>chance</td>${deadRows.map(([, p]) => `<td class="num">${pct(p)}</td>`).join('')}</tr></tbody></table></div>
         <h3>What each team carries this week, in dollars</h3>
         <div class="chips">${carry.map(([t, d]) => `<span class="chip">${esc(t)} ${money(d)}${mean > 0 ? ' · ' + (100 * d / mean).toFixed(0) + '%' : ''}</span>`).join('') || '<span class="muted small">nothing banked</span>'}</div>
+        <h3>What spreading out costs</h3>
+        <div id="captable"><p class="muted small">Working out the moves…</p></div>
         <h3>Guardrails</h3>
         <p class="small">Most a team may carry, % of expected dollars <input id="gx" type="number" min="1" max="100" value="${X || ''}" style="width:4em">
           · most the chance of keeping a quarter or less may be, % <input id="gy" type="number" min="0" max="100" value="${Y || ''}" style="width:4em">
@@ -540,6 +644,7 @@
       ${hitHtml}
       <h2>Cheat sheet, by contest (by entry number)</h2><pre id="sheet">${esc(sheet || 'Nothing banked yet.')}</pre>
       <h2>Every pick, most valuable first</h2><pre>${esc(byWorth || 'Nothing banked yet.')}</pre></section>`;
+    if (port.aligned && $('#captable')) setTimeout(() => capTable(port), 30);
     if ($('#gsave')) $('#gsave').onclick = () => {
       const x = +$('#gx').value || null, y = +$('#gy').value || null;
       lsSet(guardKey(), { x, y }); renderPortfolio();
