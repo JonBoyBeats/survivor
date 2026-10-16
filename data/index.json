@@ -1,6 +1,224 @@
 {
  "contests": [
   {
+   "file": "2026_w06_splash.json",
+   "season": 2026,
+   "week": 6,
+   "slug": "splash",
+   "name": "Big Splash",
+   "pot": 3000000.0,
+   "ours": 1,
+   "field": 1636,
+   "k": 2,
+   "scaled": false,
+   "built": "2026-10-16T17:33:05+00:00",
+   "entries": 1,
+   "cands": 32,
+   "notes": []
+  },
+  {
+   "file": "2026_w06_revival.json",
+   "season": 2026,
+   "week": 6,
+   "slug": "revival",
+   "name": "The Wave Revival",
+   "pot": 1000000.0,
+   "ours": 8,
+   "field": 20000,
+   "k": 1,
+   "scaled": false,
+   "built": "2026-10-16T19:26:54+00:00",
+   "entries": 8,
+   "cands": 48,
+   "notes": []
+  },
+  {
+   "file": "2026_w06_w5walker.json",
+   "season": 2026,
+   "week": 6,
+   "slug": "w5walker",
+   "name": "Week 5 Walker",
+   "pot": 787500.0,
+   "ours": 12,
+   "field": 5604,
+   "k": 1,
+   "scaled": false,
+   "built": "2026-10-16T18:52:30+00:00",
+   "entries": 12,
+   "cands": 119,
+   "notes": [
+    "the board carries no pins, so there is no base field to check against"
+   ]
+  },
+  {
+   "file": "2026_w06_ryan.json",
+   "season": 2026,
+   "week": 6,
+   "slug": "ryan",
+   "name": "Jim Ryan",
+   "pot": 183475.0,
+   "ours": 2,
+   "field": 950,
+   "k": 1,
+   "scaled": false,
+   "built": "2026-10-16T17:57:39+00:00",
+   "entries": 2,
+   "cands": 84,
+   "notes": []
+  },
+  {
+   "file": "2026_w06_cheese.json",
+   "season": 2026,
+   "week": 6,
+   "slug": "cheese",
+   "name": "Cheese Bowl",
+   "pot": 135000.0,
+   "ours": 3,
+   "field": 606,
+   "k": 1,
+   "scaled": false,
+   "built": "2026-10-16T17:37:28+00:00",
+   "entries": 3,
+   "cands": 131,
+   "notes": []
+  },
+  {
+   "file": "2026_w06_gross.json",
+   "season": 2026,
+   "week": 6,
+   "slug": "gross",
+   "name": "Jeff Gross",
+   "pot": 100125.0,
+   "ours": 1,
+   "field": 55,
+   "k": 1,
+   "scaled": false,
+   "built": "2026-10-16T17:34:19+00:00",
+   "entries": 1,
+   "cands": 42,
+   "notes": []
+  },
+  {
+   "file": "2026_w06_ripple.json",
+   "season": 2026,
+   "week": 6,
+   "slug": "ripple",
+   "name": "The Ripple",
+   "pot": 100000.0,
+   "ours": 3,
+   "field": 1201,
+   "k": 2,
+   "scaled": true,
+   "built": "2026-10-16T17:33:08+00:00",
+   "entries": 3,
+   "cands": 112,
+   "notes": [
+    "priced on the splash board (no ripple board this week), its field scaled to ripple's 1201 alive"
+   ]
+  },
+  {
+   "file": "2026_w06_w2k100.json",
+   "season": 2026,
+   "week": 6,
+   "slug": "w2k100",
+   "name": "Week 2 $100k",
+   "pot": 100000.0,
+   "ours": 2,
+   "field": 791,
+   "k": 1,
+   "scaled": false,
+   "built": "2026-10-16T18:06:19+00:00",
+   "entries": 2,
+   "cands": 96,
+   "notes": []
+  },
+  {
+   "file": "2026_w06_fifty.json",
+   "season": 2026,
+   "week": 6,
+   "slug": "fifty",
+   "name": "Splash $50k",
+   "pot": 50004.0,
+   "ours": 16,
+   "field": 688,
+   "k": 1,
+   "scaled": false,
+   "built": "2026-10-16T18:02:02+00:00",
+   "entries": 16,
+   "cands": 629,
+   "notes": []
+  },
+  {
+   "file": "2026_w06_w2k50.json",
+   "season": 2026,
+   "week": 6,
+   "slug": "w2k50",
+   "name": "Week 2 $50k",
+   "pot": 50000.0,
+   "ours": 6,
+   "field": 1874,
+   "k": 1,
+   "scaled": true,
+   "built": "2026-10-16T18:06:21+00:00",
+   "entries": 6,
+   "cands": 288,
+   "notes": [
+    "priced on the w2k100 board (no w2k50 board this week), its field scaled to w2k50's 1874 alive"
+   ]
+  },
+  {
+   "file": "2026_w06_w4k50.json",
+   "season": 2026,
+   "week": 6,
+   "slug": "w4k50",
+   "name": "Week 4 $50k",
+   "pot": 50000.0,
+   "ours": 7,
+   "field": 4511,
+   "k": 1,
+   "scaled": false,
+   "built": "2026-10-16T18:20:33+00:00",
+   "entries": 7,
+   "cands": 288,
+   "notes": []
+  },
+  {
+   "file": "2026_w06_w4k25.json",
+   "season": 2026,
+   "week": 6,
+   "slug": "w4k25",
+   "name": "Week 4 $25k",
+   "pot": 25000.0,
+   "ours": 1,
+   "field": 1305,
+   "k": 1,
+   "scaled": true,
+   "built": "2026-10-16T18:20:34+00:00",
+   "entries": 1,
+   "cands": 60,
+   "notes": [
+    "priced on the w4k50 board (no w4k25 board this week), its field scaled to w4k25's 1305 alive"
+   ]
+  },
+  {
+   "file": "2026_w06_fivek.json",
+   "season": 2026,
+   "week": 6,
+   "slug": "fivek",
+   "name": "Splash $5k",
+   "pot": 5000.0,
+   "ours": 1,
+   "field": 125,
+   "k": 1,
+   "scaled": true,
+   "built": "2026-10-16T18:02:04+00:00",
+   "entries": 1,
+   "cands": 48,
+   "notes": [
+    "priced on the ryan board (no fivek board this week), its field scaled to fivek's 125 alive"
+   ]
+  },
+  {
    "file": "2026_w05_wc.json",
    "season": 2026,
    "week": 5,
@@ -161,10 +379,12 @@
    "field": 1496,
    "k": 1,
    "scaled": false,
-   "built": "2026-10-09T17:25:40+00:00",
+   "built": "2026-10-08T11:34:56+00:00",
    "entries": 2,
-   "cands": 120,
-   "notes": []
+   "cands": 60,
+   "notes": [
+    "the board carries no pins, so there is no base field to check against"
+   ]
   },
   {
    "file": "2026_w05_fifty.json",
@@ -177,9 +397,9 @@
    "field": 1302,
    "k": 1,
    "scaled": false,
-   "built": "2026-10-09T17:40:33+00:00",
+   "built": "2026-10-08T15:41:17+00:00",
    "entries": 21,
-   "cands": 1064,
+   "cands": 1015,
    "notes": []
   },
   {
@@ -193,10 +413,12 @@
    "field": 3333,
    "k": 1,
    "scaled": false,
-   "built": "2026-10-09T17:35:07+00:00",
+   "built": "2026-10-08T12:06:18+00:00",
    "entries": 6,
-   "cands": 348,
-   "notes": []
+   "cands": 288,
+   "notes": [
+    "the board carries no pins, so there is no base field to check against"
+   ]
   },
   {
    "file": "2026_w05_w4k50.json",
