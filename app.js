@@ -572,6 +572,62 @@
     });
   }
 
+  /* ---- CHECK THE PORTFOLIO (D359) ----
+   * Every single pick change across every contest, each read season by
+   * season on the whole portfolio: the change in its expected dollars, the
+   * standard error of that change (paired over the same seasons, so the
+   * luck both picks share cancels), and its worst 10% of seasons. A change
+   * is listed only where it raises the expected dollars by more than two
+   * standard errors and does not lower the worst tenth; the best first.
+   * Entries of one burned set on the same pick price alike, so each such
+   * change is tried once and offered on one entry. Reads the books, moves
+   * nothing; Apply makes the one change and the page reads everything again. */
+  const PCHECK_ALTS = 4;     // the best few options of each entry are tried
+  function portfolioCheck(port) {
+    const box = $('#pcheck');
+    if (!box) return;
+    const N = port.N, list = port.list.map(x => x.c);
+    const eq = new Map(list.map(c => [c, c.st.equity()]));
+    const T0 = new Float64Array(N);
+    eq.forEach(e => { for (let n = 0; n < N; n++) T0[n] += e[n]; });
+    const tail0 = E.tail(T0, 0.1);
+    const seen = new Set(), found = [];
+    const T = new Float64Array(N);
+    list.forEach(c => Object.keys(c.st.picks).forEach(id => {
+      const cur = c.st.picks[id];
+      const opts = c.st.options(id).filter(o => o.key !== cur.key).slice(0, PCHECK_ALTS);
+      opts.forEach(o => {
+        const k = c.doc.slug + '/' + c.book.groupOf[id] + '/' + cur.key + '>' + o.key;
+        if (seen.has(k)) return;
+        seen.add(k);
+        const e0 = eq.get(c), e1 = c.st.equityIf(id, o.key);
+        let s = 0, ss = 0;
+        for (let n = 0; n < N; n++) { const d = e1[n] - e0[n]; s += d; ss += d * d; T[n] = T0[n] + d; }
+        const gain = s / N, se = Math.sqrt(Math.max(0, ss / N - gain * gain) / N);
+        if (!(gain > 2 * se) || gain <= 0) return;
+        const tail = E.tail(T, 0.1);
+        if (tail < tail0) return;
+        found.push({ c, id, from: cur.pick, to: o.pick, key: o.key, val: o.mean, gain, se, tail });
+      });
+    }));
+    found.sort((a, b) => b.gain - a.gain);
+    const name = (c, id) => (c.book.entries.find(e => e.id === id) || {}).name || id;
+    const top = found.slice(0, 10);
+    box.innerHTML = `<p class="muted small">Every single pick change across every contest, read season by season on the whole portfolio. Listed only where it raises the expected dollars by more than two standard errors and keeps the worst 10% of seasons at least where it is (${money(tail0)} now), best first. Apply one and the list is worked out again.</p>` +
+      (top.length ? `<div class="tablewrap"><table><thead><tr><th>Entry</th><th>Change</th><th class="num">Adds</th><th class="num">Worst 10%</th><th></th></tr></thead><tbody>
+        ${top.map((m, i) => `<tr><td>${esc(m.c.doc.name)} · ${esc(name(m.c, m.id))}</td><td>${esc(m.from)} → <b>${esc(m.to)}</b></td>
+          <td class="num">${money(m.gain)} ± ${gap(m.se)}</td><td class="num">${money(m.tail)}</td>
+          <td><button class="btn small" data-pc="${i}">Apply</button></td></tr>`).join('')}</tbody></table></div>`
+        : `<p class="small">No single change raises the portfolio's expected dollars by more than two standard errors without lowering its worst 10% of seasons. The book is where it should be.</p>`);
+    box.querySelectorAll('[data-pc]').forEach(b => b.onclick = () => {
+      const m = top[+b.dataset.pc];
+      m.c.history.push({ id: m.id, prev: m.c.st.picks[m.id] ? m.c.st.picks[m.id].key : undefined });
+      m.c.vals = m.c.vals || {}; m.c.vals[m.id] = m.val;
+      m.c.st.bank(m.id, m.key); save(m.c);
+      renderPortfolio();
+    });
+  }
+
   /* ---- the portfolio page and the cheat sheet ---- */
   async function renderPortfolio() {
     $('#main').innerHTML = '<p class="muted pad">Loading every contest of the week…</p>';
@@ -684,6 +740,8 @@
         <div class="chips">${carry.map(([t, d]) => `<span class="chip">${esc(t)} ${money(d)}${mean > 0 ? ' · ' + (100 * d / mean).toFixed(0) + '%' : ''}</span>`).join('') || '<span class="muted small">nothing banked</span>'}</div>
         <h3>What spreading out costs</h3>
         <div id="captable"><p class="muted small">Working out the moves…</p></div>
+        <h3>Check the portfolio</h3>
+        <div id="pcheck"><p class="muted small">Trying every single change…</p></div>
         <h3>Guardrails</h3>
         <p class="small">Most a team may carry, % of expected dollars <input id="gx" type="number" min="1" max="100" value="${X || ''}" style="width:4em">
           · most the chance of keeping a quarter or less may be, % <input id="gy" type="number" min="0" max="100" value="${Y || ''}" style="width:4em">
@@ -708,6 +766,7 @@
       <h2>Cheat sheet, by contest (by entry number)</h2><pre id="sheet">${esc(sheet || 'Nothing banked yet.')}</pre>
       <h2>Every pick, most valuable first</h2><pre>${esc(byWorth || 'Nothing banked yet.')}</pre></section>`;
     if (port.aligned && $('#captable')) setTimeout(() => capTable(port), 30);
+    if (port.aligned && $('#pcheck')) setTimeout(() => portfolioCheck(port), 60);
     if ($('#gsave')) $('#gsave').onclick = () => {
       const x = +$('#gx').value || null, y = +$('#gy').value || null;
       lsSet(guardKey(), { x, y }); renderPortfolio();
