@@ -92,7 +92,7 @@ tr.cur { background: var(--sel); }
 .orow .num { white-space: nowrap; font-variant-numeric: tabular-nums; }
 .opt { padding: 5px 8px; margin-bottom: 4px; }
 .opt .pk .pick { font-weight: 600; }
-.opt .pk .se { white-space: nowrap; }
+.opt .pk .se { white-space: normal; }
 .opt .bk { margin-top: 3px; } .opt .bk .btn { padding: 2px 8px; font-size: 12px; margin: 0; }
 .opt .then { grid-column: 1 / -1; margin-top: 2px; padding-top: 2px; border-top: 0; }
 .opt .then > summary { font-size: 11px; color: var(--muted); }
@@ -102,3 +102,7 @@ tr.cur { background: var(--sel); }
 
 .resbar { margin: 6px 0; } .resbar input { padding: 3px 6px; border: 1px solid var(--line); border-radius: 6px; background: var(--panel); color: var(--ink); }
 .pick.out { text-decoration: line-through; color: var(--muted); }
+.bands { margin: 4px 0 8px; } .bands > summary { cursor: pointer; color: var(--muted); font-size: 13px; }
+.bandgrid td, .bandgrid th { padding: 3px 5px; font-size: 12px; vertical-align: top; }
+.bandgrid td.cell { min-width: 44px; } .bandgrid .bt { display: inline-block; margin: 1px 3px 1px 0; font-weight: 600; }
+.opt .pk .se .tie { white-space: nowrap; }

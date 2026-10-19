@@ -161,6 +161,7 @@
       .concat(c.stale.length ? [`<div class="note">Saved picks that no longer match this data and were dropped: ${esc(c.stale.join(', '))}. Re-bank them.</div>`] : []);
     $('.notes', root).innerHTML = notes.join('');
     $('.resbar', root).innerHTML = resBar(c);
+    $('.bandgrid', root).innerHTML = bandGrid(c);
     $('#main').innerHTML = '';
     $('#main').appendChild(root);
     const sec = $('#main .contest');
@@ -193,6 +194,37 @@
     return `<div class="small">Played this week: lost <input class="rlost" type="text" autocapitalize="characters" spellcheck="false" value="${esc(R.lost.join(' '))}" placeholder="DAL" style="width:6em">
       won <input class="rwon" type="text" autocapitalize="characters" spellcheck="false" value="${esc(R.won.join(' '))}" placeholder="NYJ" style="width:6em">
       <button class="btn small rset">Set</button>${shares ? ' · ' + shares : ''}</div>${read}`;
+  }
+
+  /* THIS WEEK BY BANDS (D360): every favourite placed by its win chance
+   * and by its projected share of the entries still alive, in bands about
+   * as wide as what is known on the day, so the teams that are really the
+   * same pick on paper sit together and the leverage between them shows */
+  const WIN_BANDS = [[90, 101], [85, 90], [80, 85], [75, 80], [70, 75], [65, 70], [55, 65]];
+  const OWN_BANDS = [[0, 5], [5, 15], [15, 25], [25, 35], [35, 45], [45, 101]];
+  function bandGrid(c) {
+    const doc = c.doc, bk = c.book, own = doc.own || {}, price = doc.price || {};
+    if (!Object.keys(own).length) return '<p class="muted small">This export carries no projected ownership; the next book build will.</p>';
+    const st8 = bk.settled, gone = st8 && !st8.thin ? st8.lost : [];
+    const shareOf = t => {
+      const sc = st8 && st8.scale && st8.scale[t];
+      return sc ? sc.realised : +own[t] || 0;
+    };
+    const deadShare = gone.reduce((a, t) => a + shareOf(t), 0);
+    const alive = Math.max(1, 100 - deadShare);
+    const cells = {};
+    Object.keys(price).forEach(t => {
+      const p = 100 * price[t];
+      if (p < 55 || bk.played.has(t)) return;
+      const o = 100 * (+own[t] || 0) / alive;
+      const wi = WIN_BANDS.findIndex(([a, b]) => p >= a && p < b), oi = OWN_BANDS.findIndex(([a, b]) => o >= a && o < b);
+      if (wi < 0 || oi < 0) return;
+      (cells[wi + ',' + oi] = cells[wi + ',' + oi] || []).push(`<span class="bt" title="${p.toFixed(0)}% to win, ${o.toFixed(0)}% of entries alive">${esc(t)}</span>`);
+    });
+    const head = OWN_BANDS.map(([a, b]) => `<th class="num">${b > 100 ? a + '%+' : a + '-' + b + '%'}</th>`).join('');
+    const rows = WIN_BANDS.map(([a, b], wi) => `<tr><th>${b > 100 ? a + '%+' : a + '-' + b + '%'}</th>${OWN_BANDS.map((_, oi) => `<td class="cell">${(cells[wi + ',' + oi] || []).join('')}</td>`).join('')}</tr>`).join('');
+    return `<p class="muted small">Down the side, the chance to win this week; across, the share of the entries still alive projected on the team${gone.length ? ' (after ' + esc(gone.join(' ')) + ')' : ''}. Teams in one row are close to the same pick on survival; across a row, the further left, the more a win separates you from the field. Ownership bands are about as wide as the projection is reliable: a 30% team has landed anywhere from 15% to 45%.</p>
+      <div class="tablewrap"><table><thead><tr><th>Win / owned</th>${head}</tr></thead><tbody>${rows}</tbody></table></div>`;
   }
 
   function resWire(c, sec) {
@@ -300,6 +332,23 @@
       return;
     }
     const opts = st.options(id, true);
+    // THE HONEST RANGE (D360): how often each option is best when this
+    // week's lines and every team's ownership are drawn from what is known
+    // computed after the entry is shown, so clicking through stays quick;
+    // kept per entry and book state, so a repaint does not draw again
+    const sig = id + '|' + Object.keys(st.picks).sort().map(k => k + ':' + st.picks[k].key).join(',');
+    c.drc = c.drc || {};
+    const dr = c.drc[sig] || null;
+    if (c.drc[sig] === undefined && c.drPending !== sig) {
+      c.drPending = sig;
+      setTimeout(() => {
+        c.drc[sig] = st.draws(id, opts);
+        c.drPending = null;
+        if (app.cur === doc.slug && app.sel[doc.slug] === id) detail(c, id);
+      }, 30);
+    }
+    const share = o => dr && dr[o.key] ? dr[o.key].best : null;
+    const contender = o => dr ? share(o) >= 0.15 : null;
     const best = opts[0];
     const cur = st.picks[id] ? st.picks[id].key : null;
     const hasAlt = doc.cands.some(x => x.alt !== undefined && x.alt !== null);
@@ -328,7 +377,7 @@
     if (port && port.aligned && port.eq[doc.slug] && best) {
       const N = port.N, own = port.eq[doc.slug], other = new Float64Array(N);
       for (let n = 0; n < N; n++) other[n] = port.total[n] - own[n];
-      opts.filter(o => o === best || (best.mean - o.mean) < 2 * o.seBest).forEach(o => {
+      opts.filter(o => o === best || (dr ? contender(o) : (best.mean - o.mean) < 2 * o.seBest)).forEach(o => {
         const e = st.equityIf(id, o.key), tot = new Float64Array(N);
         for (let n = 0; n < N; n++) tot[n] = other[n] + e[n];
         tb[o.key] = E.tail(tot, 0.1);
@@ -339,7 +388,9 @@
     const bankBtn = (key, val, text) => key === cur ? '<button class="btn small ghost" data-unbank="1">Unbank</button>'
       : `<button class="btn small" data-bank="${key}" data-val="${val}">${text}</button>`;
     const rows = opts.map(o => {
-      const tie = best && o !== best && (best.mean - o.mean) < 2 * o.seBest;
+      const tie = best && o !== best && (dr ? contender(o) : (best.mean - o.mean) < 2 * o.seBest);
+      const pc = dr ? ' ' + Math.round(100 * share(o)) + '%' : '';
+      const bestTag = !dr || share(best) >= 2 / 3 ? 'best' : 'tie';
       const price = o.pick.split('+').map(t => doc.price[t] !== undefined ? (100 * doc.price[t]).toFixed(0) + '%' : '').join('<br>');
       const alts = o.cands.map(ci => doc.cands[ci].alt).filter(x => x !== null && x !== undefined);
       // the base-field check at the horizon (D318): the mix's worth alone
@@ -357,7 +408,7 @@
         ? `<div class="muted small">portfolio's worst 10% of seasons: ${money(tb[o.key])}</div>` : '';
       return `<div class="orow opt ${o.key === cur || (cur && cur.startsWith('p:') && o.cands.includes(+cur.slice(2))) ? 'cur' : ''}">
         <div class="pk"><span class="pick">${esc(o.pick).replace(/\+/g, '+<wbr>')}</span>
-          <div class="se">${price.replace('<br>', '+')}${o === best ? ' <span class="tie">best</span>' : tie ? ' <span class="tie">tie</span>' : ''}${tb._best === o.key ? ' <span class="tie">div</span>' : ''}</div>
+          <div class="se">${price.replace('<br>', '+')}${o === best ? ' <span class="tie">' + bestTag + pc + '</span>' : tie ? ' <span class="tie">tie' + pc + '</span>' : ''}${tb._best === o.key ? ' <span class="tie">div</span>' : ''}</div>
           <div class="bk">${bankBtn(o.key, o.mean, 'Bank')}</div></div>
         <div class="num">${money(o.mean)}<div class="se">${o === best ? '±' + gap(o.se) : '−' + gap(best.mean - o.mean)}</div></div>
         <div class="num">${pct(o.reach)}</div>
@@ -371,7 +422,7 @@
     box.innerHTML = `<div class="box">
       <h2 style="margin-top:0">${esc(e.name)} <span class="muted small">burned ${esc(e.burned.join(' '))}</span></h2>
       ${flip ? `<div class="note">On the end-of-season reading, the base model's field without this week's pins makes <b>${esc(flip.to)}</b> the better option alone for this burned set, by ${money(flip.gain)} ± ${flip.se.toFixed(2)} over ${esc(flip.frm)}. The pick leans on the pins.</div>` : ''}
-      <details class="howto"><summary>How to read this</summary><p class="muted small">Each option is this week's team, priced as an even mix of the futures the value map planned behind it, since the rest of the season is re-solved every week. Worth now is what it adds to the book at week ${H}: in every simulated season where the entry is alive going into week ${H}, it takes an equal cut of the pot with everyone else still alive, counted as more than one entry when its plans have better teams left. Teams left is that count: how much more often than the field its plans survive weeks ${H} to ${H2}. Under the best option, ± is its standard error; under every other, the gap to the best and that gap's own standard error, measured on the same seasons. A tie is within two of those, and div marks the tie that diversifies the portfolio best.${one ? '' : ' Alone, under plans, is the option with no other entry beside it.'} Reaches is the chance the entry is alive going into week ${H}. Worth to week 18 is the same cut at week ${H} with the count read from what the paths have left all the way to the end, so the last weeks count (D324); it leans against plans that only survive when the favourites fall, which is why the decision stays on Worth wk ${H}. A dash is a plan no simulated season carries alive to week 18, too few seasons to read, most often after a played game is settled. Raw under it is the old reading, the pot to whoever is alive at the end: it rests on a handful of seasons and swings by thousands. Worth, Alone aside, is what the option adds to the book as it stands, so it moves as you bank this contest's other entries; Reaches and Teams left never do. Every path can be banked on its own; one that stands apart beats the best team's own best path by more than three standard errors, best against best, so the luck of being the top of several cancels, a season plan worth following as it is. Under each option, plans opens the typical line, every path behind it, the gap's standard error, the raw last-survivor reading and the portfolio's worst tenth of seasons.</p>
+      <details class="howto"><summary>How to read this</summary><p class="muted small">Each option is this week's team, priced as an even mix of the futures the value map planned behind it, since the rest of the season is re-solved every week. Worth now is what it adds to the book at week ${H}: in every simulated season where the entry is alive going into week ${H}, it takes an equal cut of the pot with everyone else still alive, counted as more than one entry when its plans have better teams left. Teams left is that count: how much more often than the field its plans survive weeks ${H} to ${H2}. Under the best option, ± is its standard error; under every other, the gap to the best and that gap's own standard error, measured on the same seasons. On a single-pick week the tags come from 100 draws of what is not known on the day, this week's lines (about 3%) and every team's ownership (about 30% of its projected share, the size of the misses so far): the percentage is how often the option comes out best. Best needs two draws in three; every option best in at least 15% of them is a tie, and div marks the tie that diversifies the portfolio best. On a doubles week a tie is within two standard errors.${one ? '' : ' Alone, under plans, is the option with no other entry beside it.'} Reaches is the chance the entry is alive going into week ${H}. Worth to week 18 is the same cut at week ${H} with the count read from what the paths have left all the way to the end, so the last weeks count (D324); it leans against plans that only survive when the favourites fall, which is why the decision stays on Worth wk ${H}. A dash is a plan no simulated season carries alive to week 18, too few seasons to read, most often after a played game is settled. Raw under it is the old reading, the pot to whoever is alive at the end: it rests on a handful of seasons and swings by thousands. Worth, Alone aside, is what the option adds to the book as it stands, so it moves as you bank this contest's other entries; Reaches and Teams left never do. Every path can be banked on its own; one that stands apart beats the best team's own best path by more than three standard errors, best against best, so the luck of being the top of several cancels, a season plan worth following as it is. Under each option, plans opens the typical line, every path behind it, the gap's standard error, the raw last-survivor reading and the portfolio's worst tenth of seasons.</p>
       <p class="muted small">Common picks is the share of this entry's ${allCands.length} planned paths that play each team. In the paths, over the same ${NEAR} weeks, <span class="agree">this colour</span> is a team at least half of them play that week and <span class="differ">this colour</span> is a path going its own way.</p></details>
       <div class="common path"><span class="muted">Common picks, the next ${NEAR} weeks</span> ${commonLine(sh, ch, true)}</div>
       <div class="opts" style="--n:4"><div class="orow ohead"><div>Week ${doc.week}</div>

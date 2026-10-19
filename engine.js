@@ -66,6 +66,12 @@
     this.loses = {};
     for (const t of Object.keys(doc.loses || {})) this.loses[t] = b64bytes(doc.loses[t]);
     this.settle(res);
+    // a game the board was already settled on reads as lost (or won) in
+    // every world: it is played, and off the menu like a result typed here
+    for (const t of Object.keys(this.loses)) {
+      let l = 0; for (let n = 0; n < this.N; n++) l += this.lost(t, n);
+      if (l === this.N || l === 0) this.played.add(t);
+    }
     // the horizon and the field there
     this.H = Math.min(doc.week + NEAR, doc.end);
     this.H2 = Math.min(this.H + AHEAD, doc.end);
@@ -506,6 +512,109 @@
     if (t) bk.add(ours, bk.contrib(t.cands), +1);
     const sh = bk.share(ours), N = bk.N, out = new Float64Array(N);
     for (let n = 0; n < N; n++) out[n] = bk.pot * sh[n];
+    return out;
+  };
+
+  /* THE HONEST RANGE (D360): one entry's options re-priced over draws of
+   * what is not known on the day. This week's line moves (each game's
+   * favourite by its own random share, sd 3%, what a Tuesday line moves by
+   * kickoff) by reweighting the worlds on the teams the plans pick, and
+   * every team's ownership misses (sd the larger of 2.5 points and 30% of
+   * its projected share, which held 93% of weeks 1-5's top teams inside the
+   * 90% range against 40% for the board's own band), the field after a loss
+   * scaled as a realised share scales it. Returns, per option key, the share
+   * of draws in which it is the best option and its worth averaged over them. Single-pick weeks only. */
+  function rng(seed) {
+    let a = seed >>> 0;
+    return function () {
+      a = (a + 0x6D2B79F5) >>> 0;
+      let t = a;
+      t = Math.imul(t ^ (t >>> 15), t | 1);
+      t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+  function gauss(r) {
+    let u = 0, v = 0;
+    while (u === 0) u = r();
+    while (v === 0) v = r();
+    return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v);
+  }
+  const OWN_REL = 0.30, OWN_FLOOR = 2.5, LINE_SD = 0.03;
+
+  State.prototype.draws = function (entryId, opts, nDraws) {
+    const bk = this.book, N = bk.N, own = bk.doc.own || {};
+    if (!opts.length || (bk.doc.k || 1) !== 1 || !Object.keys(own).length) return null;
+    nDraws = nDraws || 100;
+    let ours = this.ours;
+    if (this.picks[entryId] !== undefined) { ours = ours.slice(); bk.add(ours, this.x[entryId], -1); }
+    const xs = opts.map(o => bk.contrib(o.cands));
+    // the teams the plans pick this week, read off their loss bits; a pair
+    // whose bits are each other's opposite is one game, perturbed once
+    const teams = Object.keys(bk.loses).filter(t => !bk.played.has(t));
+    const lostArr = {};
+    teams.forEach(t => { const a = new Uint8Array(N); for (let n = 0; n < N; n++) a[n] = bk.lost(t, n); lostArr[t] = a; });
+    const games = [], seen = new Set();
+    teams.forEach(t => {
+      if (seen.has(t)) return;
+      seen.add(t);
+      const a = lostArr[t];
+      const mate = teams.find(u => !seen.has(u) && lostArr[u].every((v, n) => v !== a[n]));
+      if (mate) seen.add(mate);
+      let l = 0; for (let n = 0; n < N; n++) l += a[n];
+      const pw = 1 - l / N;
+      if (pw > 0.02 && pw < 0.98) games.push({ t: t, a: a, pw: pw });
+    });
+    const ownTeams = Object.keys(own).filter(t => !bk.played.has(t));
+    const seed = Array.from(String(entryId)).reduce((h, ch) => (Math.imul(h, 31) + ch.charCodeAt(0)) | 0, 7);
+    const r = rng(seed), wins = new Float64Array(opts.length), avg = new Float64Array(opts.length);
+    const w = new Float64Array(N), g = new Float64Array(N), f = bk.fieldH;
+    for (let d = 0; d < nDraws; d++) {
+      w.fill(1); g.fill(1);
+      for (const gm of games) {
+        const p2 = Math.min(0.99, Math.max(0.01, gm.pw * (1 + LINE_SD * gauss(r))));
+        const up = p2 / gm.pw, dn = (1 - p2) / (1 - gm.pw);
+        for (let n = 0; n < N; n++) w[n] *= gm.a[n] ? dn : up;
+      }
+      // every team's share drawn, the whole set put back to its total
+      let tot0 = 0, tot1 = 0;
+      const o2 = {};
+      for (const t of ownTeams) {
+        // proportional, so a near-zero team cannot be pushed up by clipping;
+        // the 2.5-point floor widens a team only where it is a real share
+        const o = +own[t] || 0;
+        const sd = o >= 5 ? Math.min(0.6, Math.max(OWN_REL, OWN_FLOOR / o)) : OWN_REL;
+        const v = o * Math.exp(sd * gauss(r) - sd * sd / 2);
+        o2[t] = v; tot0 += o; tot1 += v;
+      }
+      const k = tot1 > 0 ? tot0 / tot1 : 1;
+      for (const t of teams) {
+        const o = +own[t] || 0, v = (o2[t] || 0) * k;
+        if (o <= 0 || o >= 100) continue;
+        const fac = (100 - Math.min(99, v)) / (100 - o);
+        const a = lostArr[t];
+        for (let n = 0; n < N; n++) if (a[n]) g[n] *= fac;
+      }
+      let best = -1, bestV = -Infinity;
+      for (let i = 0; i < opts.length; i++) {
+        const x = xs[i];
+        let sum = 0, ws = 0;
+        for (let n = 0; n < N; n++) {
+          const fh = f[n] * g[n], o0 = ours[n], o1 = o0 + x[n];
+          const s1 = o1 > 0 ? o1 / Math.max(1, fh + o1) : 0, s0 = o0 > 0 ? o0 / Math.max(1, fh + o0) : 0;
+          sum += w[n] * (s1 - s0); ws += w[n];
+        }
+        const v = sum / ws;
+        avg[i] += bk.pot * v / nDraws;
+        if (v > bestV) { bestV = v; best = i; }
+      }
+      wins[best]++;
+    }
+    // per option: the share of draws it is best in, and its worth averaged
+    // over the draws, which counts the lopsided payoff of a chalk that turns
+    // out more owned than projected and loses
+    const out = {};
+    opts.forEach((o, i) => { out[o.key] = { best: wins[i] / nDraws, mean: avg[i] }; });
     return out;
   };
 
