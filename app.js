@@ -701,11 +701,11 @@
     }
     const tag = t => `<span class="ltag${t === 'reliable' ? ' rel' : ''}">${esc(t)}</span>`;
     const side = s => `<div class="lside"><h3>Ways ${esc(s.team)} could lose</h3>` + (s.leans.length
-      ? '<ul>' + s.leans.map(x => `<li><b>${esc(x.name)}</b> ${tag(x.tag)}<div class="muted small">${esc(s.team)} had it in ${x.team_had} of ${x.team_games} games (${x.team_had_last} of ${x.team_games_last} last season); ${esc(s.opp)} did it to opponents in ${x.opp_did} of ${x.opp_games} (${x.opp_did_last} of ${x.opp_games_last})</div></li>`).join('') + '</ul>'
-      : '<p class="muted small">Nothing points this way.</p>') + '</div>';
+      ? '<ul>' + s.leans.map(x => `<li><b>${esc(x.name)}</b> ${tag(x.tag)}<div class="muted small">${esc(s.team)} had it in ${x.team_had} of ${x.team_games} games (${x.team_had_last} of ${x.team_games_last} ${esc(x.team_hist || 'last season')}); ${esc(s.opp)} did it to opponents in ${x.opp_did} of ${x.opp_games} (${x.opp_did_last} of ${x.opp_games_last} ${esc(x.opp_hist || 'last season')})</div></li>`).join('') + '</ul>'
+      : '<p class="muted small">Nothing points this way.</p>') + (s.history ? `<p class="muted small">History: ${esc(s.history)}.</p>` : '') + '</div>';
     $('#main').innerHTML = `<section class="contest leans">
       <h1>Week ${d.week} upset leans</h1>
-      <p class="muted small">Context, not a signal: the line already prices these. They matter most when late news hits one, a tackle ruled out on a team that leans toward a protection breakdown. A lean is listed where the team suffers the category and its opponent inflicts it at least 1.3 times as often as a normal matchup: this season's games, weighed with last season's as six more, so early in a season last season carries most of it.</p>
+      <p class="muted small">Context, not a signal: the line already prices these. They matter most when late news hits one, a tackle ruled out on a team that leans toward a protection breakdown. A lean is listed where the team suffers the category and its opponent inflicts it at least 1.3 times as often as a normal matchup: this season's games, weighed with last season's as six more, so early in a season last season carries most of it. Where the starting quarterback and head coach are the same this season and the three before, the history is the average of those three seasons.</p>
       <details class="howto"><summary>The eight categories</summary><ul class="small">${d.categories.map(c => `<li><b>${esc(c.name)}</b> ${tag(c.tag)} ${esc(c.what)}; when it happens a 70–80% favourite still wins about ${c.fav_wins}%.</li>`).join('')}</ul></details>
       ${d.games.map(g => `<div class="lgame"><h2>${esc(g.away)} at ${esc(g.home)} <span class="muted small">${esc(g.kickoff)}</span></h2><div class="lsides">${g.sides.map(side).join('')}</div></div>`).join('')}
     </section>`;

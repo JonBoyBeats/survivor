@@ -1,7 +1,7 @@
 {
  "season": 2026,
  "week": 7,
- "built": "2026-10-20T08:27:44+00:00",
+ "built": "2026-10-20T13:38:08+00:00",
  "categories": [
   {
    "cat": "protection",
@@ -69,6 +69,7 @@
     {
      "team": "NE",
      "opp": "CHI",
+     "history": "",
      "leans": [
       {
        "cat": "third_downs_d",
@@ -82,13 +83,16 @@
        "team_had_last": 3,
        "team_games_last": 17,
        "opp_did_last": 2,
-       "opp_games_last": 17
+       "opp_games_last": 17,
+       "team_hist": "last season",
+       "opp_hist": "last season"
       }
      ]
     },
     {
      "team": "CHI",
      "opp": "NE",
+     "history": "",
      "leans": [
       {
        "cat": "opposing_qb",
@@ -102,7 +106,9 @@
        "team_had_last": 1,
        "team_games_last": 17,
        "opp_did_last": 5,
-       "opp_games_last": 17
+       "opp_games_last": 17,
+       "team_hist": "last season",
+       "opp_hist": "last season"
       },
       {
        "cat": "explosives_allowed",
@@ -116,7 +122,9 @@
        "team_had_last": 10,
        "team_games_last": 17,
        "opp_did_last": 9,
-       "opp_games_last": 17
+       "opp_games_last": 17,
+       "team_hist": "last season",
+       "opp_hist": "last season"
       },
       {
        "cat": "red_zone",
@@ -130,7 +138,9 @@
        "team_had_last": 5,
        "team_games_last": 17,
        "opp_did_last": 3,
-       "opp_games_last": 17
+       "opp_games_last": 17,
+       "team_hist": "last season",
+       "opp_hist": "last season"
       }
      ]
     }
@@ -144,11 +154,13 @@
     {
      "team": "PIT",
      "opp": "NO",
+     "history": "",
      "leans": []
     },
     {
      "team": "NO",
      "opp": "PIT",
+     "history": "",
      "leans": [
       {
        "cat": "own_run_game",
@@ -162,7 +174,9 @@
        "team_had_last": 2,
        "team_games_last": 17,
        "opp_did_last": 2,
-       "opp_games_last": 17
+       "opp_games_last": 17,
+       "team_hist": "last season",
+       "opp_hist": "last season"
       },
       {
        "cat": "own_passing_dud",
@@ -176,7 +190,9 @@
        "team_had_last": 1,
        "team_games_last": 17,
        "opp_did_last": 1,
-       "opp_games_last": 17
+       "opp_games_last": 17,
+       "team_hist": "last season",
+       "opp_hist": "last season"
       },
       {
        "cat": "run_defence",
@@ -190,7 +206,9 @@
        "team_had_last": 0,
        "team_games_last": 17,
        "opp_did_last": 2,
-       "opp_games_last": 17
+       "opp_games_last": 17,
+       "team_hist": "last season",
+       "opp_hist": "last season"
       },
       {
        "cat": "third_downs_d",
@@ -204,7 +222,9 @@
        "team_had_last": 1,
        "team_games_last": 17,
        "opp_did_last": 2,
-       "opp_games_last": 17
+       "opp_games_last": 17,
+       "team_hist": "last season",
+       "opp_hist": "last season"
       }
      ]
     }
@@ -218,82 +238,78 @@
     {
      "team": "CIN",
      "opp": "BAL",
+     "history": "2023 to 2025 counted, J.Burrow and Zac Taylor throughout",
      "leans": [
       {
        "cat": "run_defence",
        "name": "Run defence",
        "tag": "some signal",
-       "mult": 9.52,
+       "mult": 7.73,
        "team_had": 2,
        "team_games": 5,
        "opp_did": 2,
        "opp_games": 6,
-       "team_had_last": 5,
-       "team_games_last": 17,
+       "team_had_last": 9,
+       "team_games_last": 51,
        "opp_did_last": 4,
-       "opp_games_last": 17
+       "opp_games_last": 17,
+       "team_hist": "in 2023 to 2025",
+       "opp_hist": "last season"
       },
       {
        "cat": "own_run_game",
        "name": "Run game",
        "tag": "reliable",
-       "mult": 2.06,
+       "mult": 1.83,
        "team_had": 1,
        "team_games": 5,
        "opp_did": 1,
        "opp_games": 6,
-       "team_had_last": 3,
-       "team_games_last": 17,
+       "team_had_last": 7,
+       "team_games_last": 51,
        "opp_did_last": 1,
-       "opp_games_last": 17
+       "opp_games_last": 17,
+       "team_hist": "in 2023 to 2025",
+       "opp_hist": "last season"
       },
       {
        "cat": "protection",
        "name": "Protection",
        "tag": "reliable",
-       "mult": 1.54,
+       "mult": 1.43,
        "team_had": 1,
        "team_games": 5,
        "opp_did": 1,
        "opp_games": 6,
-       "team_had_last": 2,
-       "team_games_last": 17,
+       "team_had_last": 5,
+       "team_games_last": 51,
        "opp_did_last": 1,
-       "opp_games_last": 17
-      },
-      {
-       "cat": "opposing_qb",
-       "name": "Opposing quarterback",
-       "tag": "some signal",
-       "mult": 1.34,
-       "team_had": 0,
-       "team_games": 5,
-       "opp_did": 1,
-       "opp_games": 6,
-       "team_had_last": 3,
-       "team_games_last": 17,
-       "opp_did_last": 2,
-       "opp_games_last": 17
+       "opp_games_last": 17,
+       "team_hist": "in 2023 to 2025",
+       "opp_hist": "last season"
       }
      ]
     },
     {
      "team": "BAL",
      "opp": "CIN",
+     "history": "",
      "leans": [
       {
        "cat": "protection",
        "name": "Protection",
        "tag": "reliable",
-       "mult": 1.94,
+       "mult": 1.72,
        "team_had": 0,
        "team_games": 6,
        "opp_did": 1,
        "opp_games": 5,
        "team_had_last": 4,
        "team_games_last": 17,
-       "opp_did_last": 3,
-       "opp_games_last": 17
+       "opp_did_last": 7,
+       "opp_games_last": 51,
+       "team_hist": "last season",
+       "opp_hist": "in 2023 to 2025"
       }
      ]
     }
@@ -307,6 +323,7 @@
     {
      "team": "CLE",
      "opp": "TEN",
+     "history": "",
      "leans": [
       {
        "cat": "own_run_game",
@@ -320,7 +337,9 @@
        "team_had_last": 3,
        "team_games_last": 17,
        "opp_did_last": 2,
-       "opp_games_last": 17
+       "opp_games_last": 17,
+       "team_hist": "last season",
+       "opp_hist": "last season"
       },
       {
        "cat": "protection",
@@ -334,13 +353,16 @@
        "team_had_last": 5,
        "team_games_last": 17,
        "opp_did_last": 2,
-       "opp_games_last": 17
+       "opp_games_last": 17,
+       "team_hist": "last season",
+       "opp_hist": "last season"
       }
      ]
     },
     {
      "team": "TEN",
      "opp": "CLE",
+     "history": "",
      "leans": [
       {
        "cat": "own_passing_dud",
@@ -354,7 +376,9 @@
        "team_had_last": 4,
        "team_games_last": 17,
        "opp_did_last": 2,
-       "opp_games_last": 17
+       "opp_games_last": 17,
+       "team_hist": "last season",
+       "opp_hist": "last season"
       }
      ]
     }
@@ -368,6 +392,7 @@
     {
      "team": "IND",
      "opp": "MIN",
+     "history": "",
      "leans": [
       {
        "cat": "own_passing_dud",
@@ -381,7 +406,9 @@
        "team_had_last": 0,
        "team_games_last": 17,
        "opp_did_last": 5,
-       "opp_games_last": 17
+       "opp_games_last": 17,
+       "team_hist": "last season",
+       "opp_hist": "last season"
       },
       {
        "cat": "own_run_game",
@@ -395,7 +422,9 @@
        "team_had_last": 3,
        "team_games_last": 17,
        "opp_did_last": 3,
-       "opp_games_last": 17
+       "opp_games_last": 17,
+       "team_hist": "last season",
+       "opp_hist": "last season"
       },
       {
        "cat": "red_zone",
@@ -409,13 +438,16 @@
        "team_had_last": 1,
        "team_games_last": 17,
        "opp_did_last": 6,
-       "opp_games_last": 17
+       "opp_games_last": 17,
+       "team_hist": "last season",
+       "opp_hist": "last season"
       }
      ]
     },
     {
      "team": "MIN",
      "opp": "IND",
+     "history": "",
      "leans": []
     }
    ]
@@ -428,11 +460,13 @@
     {
      "team": "MIA",
      "opp": "NYJ",
+     "history": "",
      "leans": []
     },
     {
      "team": "NYJ",
      "opp": "MIA",
+     "history": "",
      "leans": [
       {
        "cat": "run_defence",
@@ -446,7 +480,9 @@
        "team_had_last": 3,
        "team_games_last": 17,
        "opp_did_last": 4,
-       "opp_games_last": 17
+       "opp_games_last": 17,
+       "team_hist": "last season",
+       "opp_hist": "last season"
       }
      ]
     }
@@ -460,68 +496,62 @@
     {
      "team": "NYG",
      "opp": "HOU",
+     "history": "",
      "leans": [
       {
        "cat": "own_passing_dud",
        "name": "Passing dud",
        "tag": "some signal",
-       "mult": 2.8,
+       "mult": 2.25,
        "team_had": 1,
        "team_games": 6,
        "opp_did": 1,
        "opp_games": 6,
        "team_had_last": 2,
        "team_games_last": 17,
-       "opp_did_last": 4,
-       "opp_games_last": 17
+       "opp_did_last": 8,
+       "opp_games_last": 51,
+       "team_hist": "last season",
+       "opp_hist": "in 2023 to 2025"
       },
       {
-       "cat": "third_downs_d",
-       "name": "Third downs on defence",
+       "cat": "red_zone",
+       "name": "Red zone",
        "tag": "some signal",
-       "mult": 1.91,
+       "mult": 1.63,
        "team_had": 2,
        "team_games": 6,
-       "opp_did": 0,
+       "opp_did": 1,
        "opp_games": 6,
-       "team_had_last": 3,
+       "team_had_last": 8,
        "team_games_last": 17,
-       "opp_did_last": 3,
-       "opp_games_last": 17
+       "opp_did_last": 11,
+       "opp_games_last": 51,
+       "team_hist": "last season",
+       "opp_hist": "in 2023 to 2025"
       },
       {
        "cat": "explosives_allowed",
        "name": "Explosives allowed",
        "tag": "reliable",
-       "mult": 1.4,
+       "mult": 1.47,
        "team_had": 2,
        "team_games": 6,
        "opp_did": 3,
        "opp_games": 6,
        "team_had_last": 9,
        "team_games_last": 17,
-       "opp_did_last": 6,
-       "opp_games_last": 17
-      },
-      {
-       "cat": "opposing_qb",
-       "name": "Opposing quarterback",
-       "tag": "some signal",
-       "mult": 1.4,
-       "team_had": 1,
-       "team_games": 6,
-       "opp_did": 1,
-       "opp_games": 6,
-       "team_had_last": 0,
-       "team_games_last": 17,
-       "opp_did_last": 3,
-       "opp_games_last": 17
+       "opp_did_last": 20,
+       "opp_games_last": 51,
+       "team_hist": "last season",
+       "opp_hist": "in 2023 to 2025"
       }
      ]
     },
     {
      "team": "HOU",
      "opp": "NYG",
+     "history": "2023 to 2025 counted, C.Stroud and DeMeco Ryans throughout",
      "leans": []
     }
    ]
@@ -534,11 +564,13 @@
     {
      "team": "SF",
      "opp": "ATL",
+     "history": "",
      "leans": []
     },
     {
      "team": "ATL",
      "opp": "SF",
+     "history": "",
      "leans": [
       {
        "cat": "own_passing_dud",
@@ -552,7 +584,9 @@
        "team_had_last": 3,
        "team_games_last": 17,
        "opp_did_last": 1,
-       "opp_games_last": 17
+       "opp_games_last": 17,
+       "team_hist": "last season",
+       "opp_hist": "last season"
       },
       {
        "cat": "third_downs_d",
@@ -566,7 +600,9 @@
        "team_had_last": 2,
        "team_games_last": 17,
        "opp_did_last": 7,
-       "opp_games_last": 17
+       "opp_games_last": 17,
+       "team_hist": "last season",
+       "opp_hist": "last season"
       },
       {
        "cat": "red_zone",
@@ -580,7 +616,9 @@
        "team_had_last": 4,
        "team_games_last": 17,
        "opp_did_last": 5,
-       "opp_games_last": 17
+       "opp_games_last": 17,
+       "team_hist": "last season",
+       "opp_hist": "last season"
       }
      ]
     }
@@ -594,54 +632,78 @@
     {
      "team": "TB",
      "opp": "CAR",
+     "history": "2023 to 2025 counted, B.Mayfield and Todd Bowles throughout",
      "leans": [
       {
        "cat": "own_run_game",
        "name": "Run game",
        "tag": "reliable",
-       "mult": 1.71,
+       "mult": 2.16,
        "team_had": 1,
        "team_games": 6,
        "opp_did": 1,
        "opp_games": 5,
-       "team_had_last": 1,
-       "team_games_last": 17,
+       "team_had_last": 6,
+       "team_games_last": 51,
        "opp_did_last": 2,
-       "opp_games_last": 17
+       "opp_games_last": 17,
+       "team_hist": "in 2023 to 2025",
+       "opp_hist": "last season"
       },
       {
        "cat": "own_passing_dud",
        "name": "Passing dud",
        "tag": "some signal",
-       "mult": 1.71,
+       "mult": 1.36,
        "team_had": 1,
        "team_games": 6,
        "opp_did": 1,
        "opp_games": 5,
-       "team_had_last": 2,
-       "team_games_last": 17,
+       "team_had_last": 3,
+       "team_games_last": 51,
        "opp_did_last": 1,
-       "opp_games_last": 17
+       "opp_games_last": 17,
+       "team_hist": "in 2023 to 2025",
+       "opp_hist": "last season"
       }
      ]
     },
     {
      "team": "CAR",
      "opp": "TB",
+     "history": "",
      "leans": [
+      {
+       "cat": "run_defence",
+       "name": "Run defence",
+       "tag": "some signal",
+       "mult": 2.24,
+       "team_had": 1,
+       "team_games": 5,
+       "opp_did": 1,
+       "opp_games": 6,
+       "team_had_last": 3,
+       "team_games_last": 17,
+       "opp_did_last": 4,
+       "opp_games_last": 51,
+       "team_hist": "last season",
+       "opp_hist": "in 2023 to 2025"
+      },
       {
        "cat": "explosives_allowed",
        "name": "Explosives allowed",
        "tag": "reliable",
-       "mult": 1.63,
+       "mult": 1.79,
        "team_had": 2,
        "team_games": 5,
        "opp_did": 3,
        "opp_games": 6,
        "team_had_last": 10,
        "team_games_last": 17,
-       "opp_did_last": 6,
-       "opp_games_last": 17
+       "opp_did_last": 22,
+       "opp_games_last": 51,
+       "team_hist": "last season",
+       "opp_hist": "in 2023 to 2025"
       },
       {
        "cat": "own_run_game",
@@ -654,22 +716,42 @@
        "opp_games": 6,
        "team_had_last": 3,
        "team_games_last": 17,
-       "opp_did_last": 3,
-       "opp_games_last": 17
+       "opp_did_last": 9,
+       "opp_games_last": 51,
+       "team_hist": "last season",
+       "opp_hist": "in 2023 to 2025"
       },
       {
-       "cat": "run_defence",
-       "name": "Run defence",
+       "cat": "opposing_qb",
+       "name": "Opposing quarterback",
        "tag": "some signal",
-       "mult": 1.53,
+       "mult": 1.49,
        "team_had": 1,
        "team_games": 5,
-       "opp_did": 1,
+       "opp_did": 0,
        "opp_games": 6,
-       "team_had_last": 3,
+       "team_had_last": 2,
        "team_games_last": 17,
-       "opp_did_last": 0,
-       "opp_games_last": 17
+       "opp_did_last": 10,
+       "opp_games_last": 51,
+       "team_hist": "last season",
+       "opp_hist": "in 2023 to 2025"
+      },
+      {
+       "cat": "third_downs_d",
+       "name": "Third downs on defence",
+       "tag": "some signal",
+       "mult": 1.42,
+       "team_had": 1,
+       "team_games": 5,
+       "opp_did": 0,
+       "opp_games": 6,
+       "team_had_last": 2,
+       "team_games_last": 17,
+       "opp_did_last": 11,
+       "opp_games_last": 51,
+       "team_hist": "last season",
+       "opp_hist": "in 2023 to 2025"
       }
      ]
     }
@@ -683,11 +765,13 @@
     {
      "team": "DEN",
      "opp": "ARI",
+     "history": "",
      "leans": []
     },
     {
      "team": "ARI",
      "opp": "DEN",
+     "history": "",
      "leans": [
       {
        "cat": "protection",
@@ -701,7 +785,9 @@
        "team_had_last": 3,
        "team_games_last": 17,
        "opp_did_last": 6,
-       "opp_games_last": 17
+       "opp_games_last": 17,
+       "team_hist": "last season",
+       "opp_hist": "last season"
       },
       {
        "cat": "third_downs_d",
@@ -715,7 +801,9 @@
        "team_had_last": 4,
        "team_games_last": 17,
        "opp_did_last": 4,
-       "opp_games_last": 17
+       "opp_games_last": 17,
+       "team_hist": "last season",
+       "opp_hist": "last season"
       },
       {
        "cat": "opposing_qb",
@@ -729,7 +817,9 @@
        "team_had_last": 3,
        "team_games_last": 17,
        "opp_did_last": 2,
-       "opp_games_last": 17
+       "opp_games_last": 17,
+       "team_hist": "last season",
+       "opp_hist": "last season"
       },
       {
        "cat": "own_passing_dud",
@@ -743,7 +833,9 @@
        "team_had_last": 0,
        "team_games_last": 17,
        "opp_did_last": 4,
-       "opp_games_last": 17
+       "opp_games_last": 17,
+       "team_hist": "last season",
+       "opp_hist": "last season"
       }
      ]
     }
@@ -757,67 +849,61 @@
     {
      "team": "GB",
      "opp": "DET",
+     "history": "2023 to 2025 counted, J.Love and Matt LaFleur throughout",
      "leans": []
     },
     {
      "team": "DET",
      "opp": "GB",
+     "history": "2023 to 2025 counted, J.Goff and Dan Campbell throughout",
      "leans": [
       {
        "cat": "opposing_qb",
        "name": "Opposing quarterback",
        "tag": "some signal",
-       "mult": 5.47,
+       "mult": 4.8,
        "team_had": 2,
        "team_games": 5,
        "opp_did": 1,
        "opp_games": 6,
-       "team_had_last": 3,
-       "team_games_last": 17,
-       "opp_did_last": 4,
-       "opp_games_last": 17
+       "team_had_last": 7,
+       "team_games_last": 51,
+       "opp_did_last": 11,
+       "opp_games_last": 51,
+       "team_hist": "in 2023 to 2025",
+       "opp_hist": "in 2023 to 2025"
       },
       {
        "cat": "explosives_allowed",
        "name": "Explosives allowed",
        "tag": "reliable",
-       "mult": 2.69,
+       "mult": 2.85,
        "team_had": 4,
        "team_games": 5,
        "opp_did": 3,
        "opp_games": 6,
-       "team_had_last": 10,
-       "team_games_last": 17,
-       "opp_did_last": 9,
-       "opp_games_last": 17
-      },
-      {
-       "cat": "own_run_game",
-       "name": "Run game",
-       "tag": "reliable",
-       "mult": 1.34,
-       "team_had": 0,
-       "team_games": 5,
-       "opp_did": 1,
-       "opp_games": 6,
-       "team_had_last": 3,
-       "team_games_last": 17,
-       "opp_did_last": 2,
-       "opp_games_last": 17
+       "team_had_last": 28,
+       "team_games_last": 51,
+       "opp_did_last": 32,
+       "opp_games_last": 51,
+       "team_hist": "in 2023 to 2025",
+       "opp_hist": "in 2023 to 2025"
       },
       {
        "cat": "third_downs_d",
        "name": "Third downs on defence",
        "tag": "some signal",
-       "mult": 1.33,
+       "mult": 1.48,
        "team_had": 1,
        "team_games": 5,
        "opp_did": 1,
        "opp_games": 6,
-       "team_had_last": 0,
-       "team_games_last": 17,
-       "opp_did_last": 3,
-       "opp_games_last": 17
+       "team_had_last": 1,
+       "team_games_last": 51,
+       "opp_did_last": 9,
+       "opp_games_last": 51,
+       "team_hist": "in 2023 to 2025",
+       "opp_hist": "in 2023 to 2025"
       }
      ]
     }
@@ -831,138 +917,142 @@
     {
      "team": "LAR",
      "opp": "LV",
+     "history": "2023 to 2025 counted, M.Stafford and Sean McVay throughout",
      "leans": [
       {
        "cat": "third_downs_d",
        "name": "Third downs on defence",
        "tag": "some signal",
-       "mult": 1.6,
+       "mult": 2.16,
        "team_had": 1,
        "team_games": 6,
        "opp_did": 2,
        "opp_games": 6,
-       "team_had_last": 0,
-       "team_games_last": 17,
+       "team_had_last": 3,
+       "team_games_last": 51,
        "opp_did_last": 2,
-       "opp_games_last": 17
+       "opp_games_last": 17,
+       "team_hist": "in 2023 to 2025",
+       "opp_hist": "last season"
       }
      ]
     },
     {
      "team": "LV",
      "opp": "LAR",
+     "history": "",
      "leans": [
       {
        "cat": "own_run_game",
        "name": "Run game",
        "tag": "reliable",
-       "mult": 4.7,
+       "mult": 4.29,
        "team_had": 3,
        "team_games": 6,
        "opp_did": 1,
        "opp_games": 6,
        "team_had_last": 6,
        "team_games_last": 17,
-       "opp_did_last": 1,
-       "opp_games_last": 17
+       "opp_did_last": 2,
+       "opp_games_last": 51,
+       "team_hist": "last season",
+       "opp_hist": "in 2023 to 2025"
       },
       {
-       "cat": "run_defence",
-       "name": "Run defence",
+       "cat": "third_downs_d",
+       "name": "Third downs on defence",
        "tag": "some signal",
-       "mult": 3.29,
-       "team_had": 2,
+       "mult": 2.78,
+       "team_had": 1,
        "team_games": 6,
        "opp_did": 1,
        "opp_games": 6,
-       "team_had_last": 1,
+       "team_had_last": 5,
        "team_games_last": 17,
-       "opp_did_last": 3,
-       "opp_games_last": 17
+       "opp_did_last": 6,
+       "opp_games_last": 51,
+       "team_hist": "last season",
+       "opp_hist": "in 2023 to 2025"
       },
       {
        "cat": "opposing_qb",
        "name": "Opposing quarterback",
        "tag": "some signal",
-       "mult": 2.88,
+       "mult": 2.72,
        "team_had": 1,
        "team_games": 6,
        "opp_did": 1,
        "opp_games": 6,
        "team_had_last": 3,
        "team_games_last": 17,
-       "opp_did_last": 3,
-       "opp_games_last": 17
+       "opp_did_last": 8,
+       "opp_games_last": 51,
+       "team_hist": "last season",
+       "opp_hist": "in 2023 to 2025"
       },
       {
-       "cat": "third_downs_d",
-       "name": "Third downs on defence",
+       "cat": "run_defence",
+       "name": "Run defence",
        "tag": "some signal",
-       "mult": 2.21,
-       "team_had": 1,
+       "mult": 2.54,
+       "team_had": 2,
        "team_games": 6,
        "opp_did": 1,
        "opp_games": 6,
-       "team_had_last": 5,
+       "team_had_last": 1,
        "team_games_last": 17,
-       "opp_did_last": 1,
-       "opp_games_last": 17
-      },
-      {
-       "cat": "protection",
-       "name": "Protection",
-       "tag": "reliable",
-       "mult": 2.02,
-       "team_had": 1,
-       "team_games": 6,
-       "opp_did": 0,
-       "opp_games": 6,
-       "team_had_last": 6,
-       "team_games_last": 17,
-       "opp_did_last": 3,
-       "opp_games_last": 17
+       "opp_did_last": 5,
+       "opp_games_last": 51,
+       "team_hist": "last season",
+       "opp_hist": "in 2023 to 2025"
       },
       {
        "cat": "red_zone",
        "name": "Red zone",
        "tag": "some signal",
-       "mult": 1.9,
+       "mult": 2.01,
        "team_had": 2,
        "team_games": 6,
        "opp_did": 2,
        "opp_games": 6,
        "team_had_last": 4,
        "team_games_last": 17,
-       "opp_did_last": 5,
-       "opp_games_last": 17
+       "opp_did_last": 17,
+       "opp_games_last": 51,
+       "team_hist": "last season",
+       "opp_hist": "in 2023 to 2025"
       },
       {
        "cat": "own_passing_dud",
        "name": "Passing dud",
        "tag": "some signal",
-       "mult": 1.62,
+       "mult": 1.48,
        "team_had": 0,
        "team_games": 6,
        "opp_did": 1,
        "opp_games": 6,
        "team_had_last": 5,
        "team_games_last": 17,
-       "opp_did_last": 1,
-       "opp_games_last": 17
+       "opp_did_last": 2,
+       "opp_games_last": 51,
+       "team_hist": "last season",
+       "opp_hist": "in 2023 to 2025"
       },
       {
        "cat": "explosives_allowed",
        "name": "Explosives allowed",
        "tag": "reliable",
-       "mult": 1.44,
+       "mult": 1.33,
        "team_had": 3,
        "team_games": 6,
        "opp_did": 3,
        "opp_games": 6,
        "team_had_last": 4,
        "team_games_last": 17,
-       "opp_did_last": 9,
-       "opp_games_last": 17
+       "opp_did_last": 23,
+       "opp_games_last": 51,
+       "team_hist": "last season",
+       "opp_hist": "in 2023 to 2025"
       }
      ]
     }
@@ -976,54 +1066,61 @@
     {
      "team": "KC",
      "opp": "SEA",
-     "leans": [
-      {
-       "cat": "protection",
-       "name": "Protection",
-       "tag": "reliable",
-       "mult": 1.66,
-       "team_had": 0,
-       "team_games": 5,
-       "opp_did": 2,
-       "opp_games": 6,
-       "team_had_last": 3,
-       "team_games_last": 17,
-       "opp_did_last": 1,
-       "opp_games_last": 17
-      }
-     ]
+     "history": "2023 to 2025 counted, P.Mahomes and Andy Reid throughout",
+     "leans": []
     },
     {
      "team": "SEA",
      "opp": "KC",
+     "history": "",
      "leans": [
       {
        "cat": "own_run_game",
        "name": "Run game",
        "tag": "reliable",
-       "mult": 2.6,
+       "mult": 2.24,
        "team_had": 1,
        "team_games": 6,
        "opp_did": 1,
        "opp_games": 5,
        "team_had_last": 3,
        "team_games_last": 17,
-       "opp_did_last": 2,
-       "opp_games_last": 17
+       "opp_did_last": 4,
+       "opp_games_last": 51,
+       "team_hist": "last season",
+       "opp_hist": "in 2023 to 2025"
+      },
+      {
+       "cat": "protection",
+       "name": "Protection",
+       "tag": "reliable",
+       "mult": 1.88,
+       "team_had": 3,
+       "team_games": 6,
+       "opp_did": 0,
+       "opp_games": 5,
+       "team_had_last": 0,
+       "team_games_last": 17,
+       "opp_did_last": 8,
+       "opp_games_last": 51,
+       "team_hist": "last season",
+       "opp_hist": "in 2023 to 2025"
       },
       {
        "cat": "own_passing_dud",
        "name": "Passing dud",
        "tag": "some signal",
-       "mult": 1.6,
+       "mult": 1.48,
        "team_had": 0,
        "team_games": 6,
        "opp_did": 2,
        "opp_games": 5,
        "team_had_last": 2,
        "team_games_last": 17,
-       "opp_did_last": 3,
-       "opp_games_last": 17
+       "opp_did_last": 7,
+       "opp_games_last": 51,
+       "team_hist": "last season",
+       "opp_hist": "in 2023 to 2025"
       }
      ]
     }
@@ -1037,20 +1134,23 @@
     {
      "team": "DAL",
      "opp": "PHI",
+     "history": "",
      "leans": [
       {
        "cat": "third_downs_d",
        "name": "Third downs on defence",
        "tag": "some signal",
-       "mult": 4.15,
+       "mult": 5.0,
        "team_had": 2,
        "team_games": 6,
        "opp_did": 1,
        "opp_games": 6,
        "team_had_last": 6,
        "team_games_last": 17,
-       "opp_did_last": 2,
-       "opp_games_last": 17
+       "opp_did_last": 9,
+       "opp_games_last": 51,
+       "team_hist": "last season",
+       "opp_hist": "in 2023 to 2025"
       },
       {
        "cat": "opposing_qb",
@@ -1063,28 +1163,33 @@
        "opp_games": 6,
        "team_had_last": 6,
        "team_games_last": 17,
-       "opp_did_last": 2,
-       "opp_games_last": 17
+       "opp_did_last": 6,
+       "opp_games_last": 51,
+       "team_hist": "last season",
+       "opp_hist": "in 2023 to 2025"
       }
      ]
     },
     {
      "team": "PHI",
      "opp": "DAL",
+     "history": "2023 to 2025 counted, J.Hurts and Nick Sirianni throughout",
      "leans": [
       {
        "cat": "own_run_game",
        "name": "Run game",
        "tag": "reliable",
-       "mult": 4.29,
+       "mult": 4.02,
        "team_had": 3,
        "team_games": 6,
        "opp_did": 1,
        "opp_games": 6,
-       "team_had_last": 2,
-       "team_games_last": 17,
+       "team_had_last": 4,
+       "team_games_last": 51,
        "opp_did_last": 2,
-       "opp_games_last": 17
+       "opp_games_last": 17,
+       "team_hist": "in 2023 to 2025",
+       "opp_hist": "last season"
       },
       {
        "cat": "third_downs_d",
@@ -1095,10 +1200,12 @@
        "team_games": 6,
        "opp_did": 2,
        "opp_games": 6,
-       "team_had_last": 3,
-       "team_games_last": 17,
+       "team_had_last": 9,
+       "team_games_last": 51,
        "opp_did_last": 2,
-       "opp_games_last": 17
+       "opp_games_last": 17,
+       "team_hist": "in 2023 to 2025",
+       "opp_hist": "last season"
       }
      ]
     }
