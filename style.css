@@ -106,3 +106,14 @@ tr.cur { background: var(--sel); }
 .bandgrid td, .bandgrid th { padding: 3px 5px; font-size: 12px; vertical-align: top; }
 .bandgrid td.cell { min-width: 44px; } .bandgrid .bt { display: inline-block; margin: 1px 3px 1px 0; font-weight: 600; }
 .opt .pk .se .tie { white-space: nowrap; }
+
+/* the upset leans tab: a card per matchup, the two sides beside each other */
+.lgame { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 8px 12px; margin: 10px 0; }
+.lgame h2 { margin: 2px 0 6px; }
+.lsides { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media (max-width: 560px) { .lsides { grid-template-columns: 1fr; gap: 4px; } }
+.lside h3 { font-size: 13px; margin: 0 0 4px; }
+.lside ul { margin: 0; padding-left: 18px; } .lside li { margin: 0 0 4px; }
+.ltag { font-size: 11px; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 0 6px; white-space: nowrap; }
+.ltag.rel { color: var(--good); border-color: var(--good); }
+.leans .howto ul { padding-left: 18px; margin: 6px 0; } .leans .howto li { margin: 0 0 4px; }

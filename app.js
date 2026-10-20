@@ -7,7 +7,7 @@
   'use strict';
   const E = window.SurvivorEngine;
   const $ = (s, el) => (el || document).querySelector(s);
-  const app = { index: [], week: null, docs: {}, cur: null, sel: {} };
+  const app = { index: [], leans: [], leansDocs: {}, week: null, docs: {}, cur: null, sel: {} };
 
   const money = v => (Math.abs(v) >= 1000 ? '$' + Math.round(v).toLocaleString()
     : '$' + v.toFixed(2));
@@ -53,7 +53,10 @@
     try { idx = await (await fetch('data/index.json', { cache: 'no-cache' })).json(); }
     catch (e) { $('#main').innerHTML = '<p class="pad">No data yet: run <code>book_prep.py WEEK --all</code> and publish.</p>'; return; }
     app.index = idx.contests || [];
-    const weeks = [...new Set(app.index.map(weekKey))];
+    try { app.leans = (await (await fetch('data/leans/index.json', { cache: 'no-cache' })).json()).weeks || []; }
+    catch (e) { app.leans = []; }
+    const weeks = [...new Set(app.index.concat(app.leans).map(weekKey))]
+      .sort((a, b) => { const [sa, wa] = a.split('-').map(Number), [sb, wb] = b.split('-').map(Number); return sb - sa || wb - wa; });
     const sel = $('#week');
     sel.innerHTML = weeks.map(k => { const [s, w] = k.split('-'); return `<option value="${k}">${s} week ${w}</option>`; }).join('');
     const h = location.hash.slice(1).split('/');
@@ -67,10 +70,12 @@
   }
 
   function weekRows() { return app.index.filter(r => weekKey(r) === app.week); }
+  function leansRow() { return app.leans.find(r => weekKey(r) === app.week); }
 
   function go(slug) {
     const rows = weekRows();
-    show(slug && (slug === 'portfolio' || rows.some(r => r.slug === slug)) ? slug : (rows[0] ? rows[0].slug : 'portfolio'));
+    const ok = s => (s === 'portfolio' && rows.length) || (s === 'leans' && leansRow()) || rows.some(r => r.slug === s);
+    show(slug && ok(slug) ? slug : (rows[0] ? rows[0].slug : 'leans'));
   }
 
   function tabs() {
@@ -80,7 +85,8 @@
       const st = lsGet('sb:' + r.season + '-' + r.week + '-' + r.slug);
       const n = st && st.summary ? st.summary.banked : 0;
       return `<option value="${r.slug}">${esc(r.name)} (${n}/${r.entries} banked)</option>`;
-    }).join('') + '<option value="portfolio">Portfolio &amp; cheat sheet</option>';
+    }).join('') + (rows.length ? '<option value="portfolio">Portfolio &amp; cheat sheet</option>' : '')
+      + (leansRow() ? '<option value="leans">Upset leans, every matchup</option>' : '');
     sel.value = app.cur;
     sel.onchange = () => show(sel.value);
   }
@@ -90,6 +96,7 @@
     location.hash = app.week + '/' + slug;
     tabs();
     if (slug === 'portfolio') return renderPortfolio();
+    if (slug === 'leans') return renderLeans();
     const row = weekRows().find(r => r.slug === slug);
     $('#main').innerHTML = '<p class="muted pad">Loading ' + esc(row.name) + '…</p>';
     const key = app.week + '/' + slug;
@@ -679,6 +686,31 @@
   }
 
   /* ---- the portfolio page and the cheat sheet ---- */
+  /* THE UPSET LEANS (D362): every matchup of the week, each side with the
+   * categories it leans toward losing by, in words. Context, not a signal:
+   * the line already prices them; they matter when late news hits one. */
+  async function renderLeans() {
+    const row = leansRow();
+    if (!row) { $('#main').innerHTML = '<p class="muted pad">No upset leans for this week yet: <code>leans WEEK</code> writes them on Tuesday.</p>'; return; }
+    let d = app.leansDocs[row.file];
+    if (!d) {
+      $('#main').innerHTML = '<p class="muted pad">Loading the upset leans…</p>';
+      try { d = app.leansDocs[row.file] = await (await fetch('data/leans/' + row.file, { cache: 'no-cache' })).json(); }
+      catch (e) { $('#main').innerHTML = '<p class="pad">The upset leans did not load.</p>'; return; }
+      if (app.cur !== 'leans') return;
+    }
+    const tag = t => `<span class="ltag${t === 'reliable' ? ' rel' : ''}">${esc(t)}</span>`;
+    const side = s => `<div class="lside"><h3>Ways ${esc(s.team)} could lose</h3>` + (s.leans.length
+      ? '<ul>' + s.leans.map(x => `<li><b>${esc(x.name)}</b> ${tag(x.tag)}<div class="muted small">${esc(s.team)} had it in ${x.team_had} of ${x.team_games} games (${x.team_had_last} of ${x.team_games_last} last season); ${esc(s.opp)} did it to opponents in ${x.opp_did} of ${x.opp_games} (${x.opp_did_last} of ${x.opp_games_last})</div></li>`).join('') + '</ul>'
+      : '<p class="muted small">Nothing points this way.</p>') + '</div>';
+    $('#main').innerHTML = `<section class="contest leans">
+      <h1>Week ${d.week} upset leans</h1>
+      <p class="muted small">Context, not a signal: the line already prices these. They matter most when late news hits one, a tackle ruled out on a team that leans toward a protection breakdown. A lean is listed where the team suffers the category and its opponent inflicts it at least 1.3 times as often as a normal matchup: this season's games, weighed with last season's as six more, so early in a season last season carries most of it.</p>
+      <details class="howto"><summary>The eight categories</summary><ul class="small">${d.categories.map(c => `<li><b>${esc(c.name)}</b> ${tag(c.tag)} ${esc(c.what)}; when it happens a 70–80% favourite still wins about ${c.fav_wins}%.</li>`).join('')}</ul></details>
+      ${d.games.map(g => `<div class="lgame"><h2>${esc(g.away)} at ${esc(g.home)} <span class="muted small">${esc(g.kickoff)}</span></h2><div class="lsides">${g.sides.map(side).join('')}</div></div>`).join('')}
+    </section>`;
+  }
+
   async function renderPortfolio() {
     $('#main').innerHTML = '<p class="muted pad">Loading every contest of the week…</p>';
     const port = await portfolioContext();
