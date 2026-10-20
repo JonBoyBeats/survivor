@@ -1,3 +1,10 @@
 {
- "weeks": []
+ "weeks": [
+  {
+   "file": "2026_w07_upset_leans.json",
+   "season": 2026,
+   "week": 7,
+   "built": "2026-10-20T08:27:44+00:00"
+  }
+ ]
 }
