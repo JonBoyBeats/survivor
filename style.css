@@ -17,6 +17,9 @@ body { margin: 0; background: var(--bg); color: var(--ink);
 .top { position: sticky; top: 0; z-index: 5; display: flex; gap: 12px; align-items: center; flex-wrap: wrap;
   padding: 10px 16px; background: var(--panel); border-bottom: 1px solid var(--line); }
 .brand { font-weight: 700; letter-spacing: .2px; }
+.sitenav { display: flex; gap: 10px; font-size: 13px; }
+.sitenav a { color: var(--muted); text-decoration: none; }
+.sitenav a:hover { color: var(--ink); }
 select, button { font: inherit; }
 select { padding: 4px 8px; border: 1px solid var(--line); border-radius: 6px; background: var(--panel); color: var(--ink); }
 #contest { flex: 1 1 240px; min-width: 0; max-width: 420px; }
