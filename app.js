@@ -228,7 +228,7 @@
       if (wi < 0 || oi < 0) return;
       (cells[wi + ',' + oi] = cells[wi + ',' + oi] || []).push(`<span class="bt" title="${p.toFixed(0)}% to win, ${o.toFixed(0)}% of entries alive">${esc(t)}</span>`);
     });
-    const head = OWN_BANDS.map(([a, b]) => `<th class="num">${b > 100 ? a + '%+' : a + '-' + b + '%'}</th>`).join('');
+    const head = OWN_BANDS.map(([a, b]) => `<th>${b > 100 ? a + '%+' : a + '-' + b + '%'}</th>`).join('');
     const rows = WIN_BANDS.map(([a, b], wi) => `<tr><th>${b > 100 ? a + '%+' : a + '-' + b + '%'}</th>${OWN_BANDS.map((_, oi) => `<td class="cell">${(cells[wi + ',' + oi] || []).join('')}</td>`).join('')}</tr>`).join('');
     return `<p class="muted small">Down the side, the chance to win this week; across, the share of the entries still alive projected on the team${gone.length ? ' (after ' + esc(gone.join(' ')) + ')' : ''}. Teams in one row are close to the same pick on survival; across a row, the further left, the more a win separates you from the field. Ownership bands are about as wide as the projection is reliable: a 30% team has landed anywhere from 15% to 45%.</p>
       <div class="tablewrap"><table><thead><tr><th>Win / owned</th>${head}</tr></thead><tbody>${rows}</tbody></table></div>`;
