@@ -120,3 +120,6 @@ tr.cur { background: var(--sel); }
 .ltag { font-size: 11px; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 0 6px; white-space: nowrap; }
 .ltag.rel { color: var(--good); border-color: var(--good); }
 .leans .howto ul { padding-left: 18px; margin: 6px 0; } .leans .howto li { margin: 0 0 4px; }
+.bandgrid .bt { cursor: pointer; border-radius: 4px; padding: 0 3px; }
+.bandgrid .bt .bo { font-weight: 400; color: var(--muted); }
+.bandgrid .bt.on { background: var(--sel); outline: 1px solid var(--accent); }

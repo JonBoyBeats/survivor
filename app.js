@@ -25,6 +25,10 @@
   // the chalk the operator types, one list per week, read by every contest
   const chalkKey = () => 'sb:chalk:' + app.week;
   function chalk() { return new Set(lsGet(chalkKey()) || []); }
+  // the teams the operator is considering this week, one list per week: the
+  // options shown are cut to them, every contest alike
+  const shortKey = () => 'sb:short:' + app.week;
+  function shortlist() { return new Set(lsGet(shortKey()) || []); }
   // THE WEEK'S GAMES ALREADY PLAYED (D341), one record a week: the teams that
   // lost and won, and per contest the realised share of entries on a loser;
   // every book of the week is read over the worlds where they went that way
@@ -182,6 +186,22 @@
       ci.value = ts.join(' ');
       paint(c);
     };
+    const si = $('.shortin', sec);
+    const setShort = ts => {
+      lsSet(shortKey(), ts);
+      si.value = ts.join(' ');
+      $('.bandgrid', sec).innerHTML = bandGrid(c);
+      wireGrid();
+      paint(c);
+    };
+    const wireGrid = () => sec.querySelectorAll('.bandgrid .bt').forEach(b => b.onclick = () => {
+      const s = shortlist(), t = b.dataset.t;
+      s.has(t) ? s.delete(t) : s.add(t);
+      setShort([...s]);
+    });
+    si.value = [...shortlist()].join(' ');
+    si.onchange = () => setShort([...new Set(si.value.toUpperCase().split(/[^A-Z]+/).filter(Boolean))]);
+    wireGrid();
     paint(c);
   }
 
@@ -219,18 +239,18 @@
     };
     const deadShare = gone.reduce((a, t) => a + shareOf(t), 0);
     const alive = Math.max(1, 100 - deadShare);
-    const cells = {};
+    const cells = {}, sl = shortlist();
     Object.keys(price).forEach(t => {
       const p = 100 * price[t];
       if (p < 55 || bk.played.has(t)) return;
       const o = 100 * (+own[t] || 0) / alive;
       const wi = WIN_BANDS.findIndex(([a, b]) => p >= a && p < b), oi = OWN_BANDS.findIndex(([a, b]) => o >= a && o < b);
       if (wi < 0 || oi < 0) return;
-      (cells[wi + ',' + oi] = cells[wi + ',' + oi] || []).push(`<span class="bt" title="${p.toFixed(0)}% to win, ${o.toFixed(0)}% of entries alive">${esc(t)}</span>`);
+      (cells[wi + ',' + oi] = cells[wi + ',' + oi] || []).push(`<span class="bt${sl.has(t) ? ' on' : ''}" data-t="${esc(t)}" title="${p.toFixed(0)}% to win, ${o.toFixed(1)}% of entries alive; tap to consider">${esc(t)} <span class="bo">${o < 1 ? '<1' : o.toFixed(0)}%</span></span>`);
     });
     const head = OWN_BANDS.map(([a, b]) => `<th>${b > 100 ? a + '%+' : a + '-' + b + '%'}</th>`).join('');
     const rows = WIN_BANDS.map(([a, b], wi) => `<tr><th>${b > 100 ? a + '%+' : a + '-' + b + '%'}</th>${OWN_BANDS.map((_, oi) => `<td class="cell">${(cells[wi + ',' + oi] || []).join('')}</td>`).join('')}</tr>`).join('');
-    return `<p class="muted small">Down the side, the chance to win this week; across, the share of the entries still alive projected on the team${gone.length ? ' (after ' + esc(gone.join(' ')) + ')' : ''}. Teams in one row are close to the same pick on survival; across a row, the further left, the more a win separates you from the field. Ownership bands are about as wide as the projection is reliable: a 30% team has landed anywhere from 15% to 45%.</p>
+    return `<p class="muted small">Down the side, the chance to win this week; across, the share of the entries still alive projected on the team${gone.length ? ' (after ' + esc(gone.join(' ')) + ')' : ''}. Teams in one row are close to the same pick on survival; across a row, the further left, the more a win separates you from the field. Ownership bands are about as wide as the projection is reliable: a 30% team has landed anywhere from 15% to 45%. The number beside each team is its projected share of the entries alive in this contest; tap a team to add it to the teams you are considering, or take it off.</p>
       <div class="tablewrap"><table><thead><tr><th>Win / owned</th>${head}</tr></thead><tbody>${rows}</tbody></table></div>`;
   }
 
@@ -394,7 +414,14 @@
     }
     const bankBtn = (key, val, text) => key === cur ? '<button class="btn small ghost" data-unbank="1">Unbank</button>'
       : `<button class="btn small" data-bank="${key}" data-val="${val}">${text}</button>`;
-    const rows = opts.map(o => {
+    const sl = shortlist();
+    const shown = sl.size ? opts.filter(o => o.pick.split('+').some(t => sl.has(t)) || o.key === cur) : opts;
+    const offList = [...sl].filter(t => doc.price[t] === undefined);
+    $('#main .shortnote').textContent = !sl.size ? 'type or tap the teams you are weighing to show only those options'
+      : 'showing ' + shown.length + ' of ' + opts.length + ' options' + (offList.length ? '; not playing this week: ' + offList.join(' ') : '');
+    const hidden = best && !shown.includes(best)
+      ? `<div class="note">Best overall: <b>${esc(best.pick)}</b>, ${money(best.mean)}, not on your list. The gaps below are to it.</div>` : '';
+    const rows = shown.map(o => {
       const tie = best && o !== best && (dr ? contender(o) : (best.mean - o.mean) < 2 * o.seBest);
       const pc = dr ? ' ' + Math.round(100 * share(o)) + '%' : '';
       const bestTag = !dr || share(best) >= 2 / 3 ? 'best' : 'tie';
@@ -433,7 +460,7 @@
       <div class="common path"><span class="muted">Common picks, the next ${NEAR} weeks</span> ${commonLine(sh, ch, true)}</div>
       <div class="opts" style="--n:3"><div class="orow ohead"><div>Week ${doc.week}</div>
       <div class="num">Worth wk ${H}</div><div class="num">Reach wk ${H}</div><div class="num">Left ${H}–${H2}</div></div>
-      ${rows}</div></div>`;
+      ${hidden}${rows || '<p class="muted small">None of the teams you are considering is an option for this entry.</p>'}</div></div>`;
     box.querySelectorAll('[data-bank]').forEach(b => b.onclick = () => {
       c.history.push({ id, prev: st.picks[id] ? st.picks[id].key : undefined });
       c.vals = c.vals || {}; c.vals[id] = +b.dataset.val;
