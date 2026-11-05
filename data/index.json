@@ -11,9 +11,9 @@
    "field": 144,
    "k": 1,
    "scaled": false,
-   "built": "2026-11-05T19:23:08+00:00",
+   "built": "2026-11-05T22:12:40+00:00",
    "entries": 1,
-   "cands": 30,
+   "cands": 36,
    "notes": []
   },
   {
@@ -27,10 +27,28 @@
    "field": 115,
    "k": 1,
    "scaled": false,
-   "built": "2026-11-05T19:18:24+00:00",
+   "built": "2026-11-05T22:09:59+00:00",
    "entries": 1,
-   "cands": 42,
+   "cands": 48,
    "notes": []
+  },
+  {
+   "file": "2026_w09_w2k100.json",
+   "season": 2026,
+   "week": 9,
+   "slug": "w2k100",
+   "name": "Week 2 $100k",
+   "pot": 100000.0,
+   "ours": 2,
+   "field": 122,
+   "k": 1,
+   "scaled": false,
+   "built": "2026-11-05T22:16:29+00:00",
+   "entries": 2,
+   "cands": 84,
+   "notes": [
+    "the board carries no pins, so there is no base field to check against"
+   ]
   },
   {
    "file": "2026_w09_fifty.json",
@@ -43,9 +61,41 @@
    "field": 134,
    "k": 1,
    "scaled": false,
-   "built": "2026-11-05T19:29:45+00:00",
+   "built": "2026-11-05T22:15:08+00:00",
    "entries": 5,
-   "cands": 168,
+   "cands": 204,
+   "notes": []
+  },
+  {
+   "file": "2026_w09_w2k50.json",
+   "season": 2026,
+   "week": 9,
+   "slug": "w2k50",
+   "name": "Week 2 $50k",
+   "pot": 50000.0,
+   "ours": 4,
+   "field": 295,
+   "k": 1,
+   "scaled": false,
+   "built": "2026-11-05T22:17:53+00:00",
+   "entries": 4,
+   "cands": 156,
+   "notes": []
+  },
+  {
+   "file": "2026_w09_w4k50.json",
+   "season": 2026,
+   "week": 9,
+   "slug": "w4k50",
+   "name": "Week 4 $50k",
+   "pot": 50000.0,
+   "ours": 1,
+   "field": 910,
+   "k": 1,
+   "scaled": false,
+   "built": "2026-11-05T22:22:17+00:00",
+   "entries": 1,
+   "cands": 42,
    "notes": []
   },
   {
@@ -58,13 +108,11 @@
    "ours": 1,
    "field": 30,
    "k": 1,
-   "scaled": true,
-   "built": "2026-11-05T19:29:49+00:00",
+   "scaled": false,
+   "built": "2026-11-05T22:15:19+00:00",
    "entries": 1,
-   "cands": 30,
-   "notes": [
-    "priced on the ryan board (no fivek board this week), its field scaled to fivek's 30 alive"
-   ]
+   "cands": 42,
+   "notes": []
   },
   {
    "file": "2026_w08_revival.json",
