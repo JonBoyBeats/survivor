@@ -1,6 +1,24 @@
 {
  "contests": [
   {
+   "file": "2026_w09_revival.json",
+   "season": 2026,
+   "week": 9,
+   "slug": "revival",
+   "name": "The Wave Revival",
+   "pot": 1000000.0,
+   "ours": 10,
+   "field": 6695,
+   "k": 1,
+   "scaled": false,
+   "built": "2026-11-05T23:15:22+00:00",
+   "entries": 10,
+   "cands": 329,
+   "notes": [
+    "the board carries no pins, so there is no base field to check against"
+   ]
+  },
+  {
    "file": "2026_w09_ryan.json",
    "season": 2026,
    "week": 9,
