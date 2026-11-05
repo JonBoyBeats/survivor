@@ -1,6 +1,72 @@
 {
  "contests": [
   {
+   "file": "2026_w09_ryan.json",
+   "season": 2026,
+   "week": 9,
+   "slug": "ryan",
+   "name": "Jim Ryan",
+   "pot": 183475.0,
+   "ours": 1,
+   "field": 144,
+   "k": 1,
+   "scaled": false,
+   "built": "2026-11-05T19:23:08+00:00",
+   "entries": 1,
+   "cands": 30,
+   "notes": []
+  },
+  {
+   "file": "2026_w09_cheese.json",
+   "season": 2026,
+   "week": 9,
+   "slug": "cheese",
+   "name": "Cheese Bowl",
+   "pot": 135000.0,
+   "ours": 1,
+   "field": 115,
+   "k": 1,
+   "scaled": false,
+   "built": "2026-11-05T19:18:24+00:00",
+   "entries": 1,
+   "cands": 42,
+   "notes": []
+  },
+  {
+   "file": "2026_w09_fifty.json",
+   "season": 2026,
+   "week": 9,
+   "slug": "fifty",
+   "name": "Splash $50k",
+   "pot": 50004.0,
+   "ours": 5,
+   "field": 134,
+   "k": 1,
+   "scaled": false,
+   "built": "2026-11-05T19:29:45+00:00",
+   "entries": 5,
+   "cands": 168,
+   "notes": []
+  },
+  {
+   "file": "2026_w09_fivek.json",
+   "season": 2026,
+   "week": 9,
+   "slug": "fivek",
+   "name": "Splash $5k",
+   "pot": 5000.0,
+   "ours": 1,
+   "field": 30,
+   "k": 1,
+   "scaled": true,
+   "built": "2026-11-05T19:29:49+00:00",
+   "entries": 1,
+   "cands": 30,
+   "notes": [
+    "priced on the ryan board (no fivek board this week), its field scaled to fivek's 30 alive"
+   ]
+  },
+  {
    "file": "2026_w08_revival.json",
    "season": 2026,
    "week": 8,
