@@ -7,7 +7,7 @@
   'use strict';
   const E = window.SurvivorEngine;
   const $ = (s, el) => (el || document).querySelector(s);
-  const app = { index: [], leans: [], leansDocs: {}, week: null, docs: {}, cur: null, sel: {} };
+  const app = { index: [], leans: [], leansDocs: {}, plans: [], planDocs: {}, planMode: 'p', week: null, docs: {}, cur: null, sel: {} };
 
   const money = v => (Math.abs(v) >= 1000 ? '$' + Math.round(v).toLocaleString()
     : '$' + v.toFixed(2));
@@ -59,6 +59,8 @@
     app.index = idx.contests || [];
     try { app.leans = (await (await fetch('data/leans/index.json', { cache: 'no-cache' })).json()).weeks || []; }
     catch (e) { app.leans = []; }
+    try { app.plans = (await (await fetch('data/plan/index.json', { cache: 'no-cache' })).json()).plans || []; }
+    catch (e) { app.plans = []; }
     const weeks = [...new Set(app.index.concat(app.leans).map(weekKey))]
       .sort((a, b) => { const [sa, wa] = a.split('-').map(Number), [sb, wb] = b.split('-').map(Number); return sb - sa || wb - wa; });
     const sel = $('#week');
@@ -75,10 +77,12 @@
 
   function weekRows() { return app.index.filter(r => weekKey(r) === app.week); }
   function leansRow() { return app.leans.find(r => weekKey(r) === app.week); }
+  function planRows() { return app.plans.filter(r => weekKey(r) === app.week); }
 
   function go(slug) {
     const rows = weekRows();
-    const ok = s => (s === 'portfolio' && rows.length) || (s === 'leans' && leansRow()) || rows.some(r => r.slug === s);
+    const ok = s => (s === 'portfolio' && rows.length) || (s === 'leans' && leansRow())
+      || planRows().some(r => 'plan-' + r.slug === s) || rows.some(r => r.slug === s);
     show(slug && ok(slug) ? slug : (rows[0] ? rows[0].slug : 'leans'));
   }
 
@@ -90,6 +94,7 @@
       const n = st && st.summary ? st.summary.banked : 0;
       return `<option value="${r.slug}">${esc(r.name)} (${n}/${r.entries} banked)</option>`;
     }).join('') + (rows.length ? '<option value="portfolio">Portfolio &amp; cheat sheet</option>' : '')
+      + planRows().map(r => `<option value="plan-${r.slug}">Planner: ${esc(r.name)}, one entry left</option>`).join('')
       + (leansRow() ? '<option value="leans">Upset leans, every matchup</option>' : '');
     sel.value = app.cur;
     sel.onchange = () => show(sel.value);
@@ -101,6 +106,7 @@
     tabs();
     if (slug === 'portfolio') return renderPortfolio();
     if (slug === 'leans') return renderLeans();
+    if (slug.startsWith('plan-')) return renderPlan(slug.slice(5));
     const row = weekRows().find(r => r.slug === slug);
     $('#main').innerHTML = '<p class="muted pad">Loading ' + esc(row.name) + '…</p>';
     const key = app.week + '/' + slug;
@@ -716,6 +722,102 @@
   /* THE UPSET LEANS (D362): every matchup of the week, each side with the
    * categories it leans toward losing by, in words. Context, not a signal:
    * the line already prices them; they matter when late news hits one. */
+  /* ---- the planner (D370): one entry left, the rest of its season mapped by hand ----
+   * Every team the entry can still pick, every remaining week, our win
+   * probability or our projected share of entries in each cell. A click puts
+   * the team in that week's slot; it greys out everywhere else. The plan is
+   * kept in this browser, one per contest and stand. */
+  const planKey = r => 'sb:plan:' + r.season + '-' + r.week + '-' + r.slug;
+  async function renderPlan(slug) {
+    const row = planRows().find(r => r.slug === slug);
+    let d = app.planDocs[row.file];
+    if (!d) {
+      $('#main').innerHTML = '<p class="muted pad">Loading the planner…</p>';
+      try { d = app.planDocs[row.file] = await (await fetch('data/plan/' + row.file, { cache: 'no-cache' })).json(); }
+      catch (e) { $('#main').innerHTML = '<p class="pad">The planner did not load.</p>'; return; }
+      if (app.cur !== 'plan-' + slug) return;
+    }
+    const saved = lsGet(planKey(row)) || {};
+    const picks = {};
+    for (const w of d.weeks) picks[w] = (saved.picks && saved.picks[w] || []).filter(t => d.cells[w][t]);
+    const usedIn = t => d.weeks.find(w => picks[w].includes(t));
+    const save = () => lsSet(planKey(row), { picks });
+    const mode = app.planMode;
+    // the cell's shade: win odds green from a coin flip up, the share of entries red
+    const shade = c => mode === 'p'
+      ? `rgba(26,160,60,${Math.max(0, Math.min(1, (c.p - 0.5) / 0.4)).toFixed(2)})`
+      : `rgba(220,60,60,${Math.max(0, Math.min(1, c.own / 40)).toFixed(2)})`;
+    const val = c => mode === 'p' ? Math.round(100 * c.p) + '%' : (c.own < 1 && c.own > 0 ? '<1' : Math.round(c.own)) + '%';
+    const opp = c => (c.at ? '@' : '') + c.opp;
+    // survive the week on its picks; survive the season through it while every week so far is filled
+    let run = 1, open = false;
+    const surv = d.weeks.map(w => {
+      const ps = picks[w].map(t => d.cells[w][t].p);
+      const wk = ps.length === d.k[w] ? ps.reduce((a, b) => a * b, 1) : null;
+      if (wk === null) open = true; else if (!open) run *= wk;
+      return { wk, season: wk === null || open ? null : run };
+    });
+    const head = d.weeks.map(w => `<th class="num">${w}${d.k[w] > 1 ? ' <span class="muted">×' + d.k[w] + '</span>' : ''}</th>`).join('');
+    // THE SORT: a week's header sorts the teams on that week by the number the
+    // toggle shows, highest first, and again to flip it; byes always last
+    const so = app.planSort || { w: String(d.weeks[0]), desc: true };
+    const key = c => (c ? (mode === 'p' ? c.p : c.own) : null);
+    const teams = d.teams.slice().sort((a, b) => {
+      if (so.w === 'team') return so.desc ? b.localeCompare(a) : a.localeCompare(b);
+      const ka = key(d.cells[so.w] && d.cells[so.w][a]), kb = key(d.cells[so.w] && d.cells[so.w][b]);
+      if (ka === null || kb === null) return (ka === null) - (kb === null) || a.localeCompare(b);
+      return (so.desc ? kb - ka : ka - kb) || a.localeCompare(b);
+    });
+    const arrow = w => (so.w === w ? (so.desc ? ' ▼' : ' ▲') : '');
+    const ghead = `<th class="srt" data-sort="team" title="Sort by team">Team${arrow('team')}</th>` + d.weeks.map(w =>
+      `<th class="num srt" data-sort="${w}" title="Sort by week ${w} ${mode === 'p' ? 'win odds' : 'projected ownership'}">${w}${d.k[w] > 1 ? ' <span class="muted">×' + d.k[w] + '</span>' : ''}${arrow(String(w))}</th>`).join('');
+    const body = teams.map(t => `<tr><th>${esc(t)}</th>` + d.weeks.map(w => {
+      const c = d.cells[w][t];
+      if (!c) return '<td class="pc bye">bye</td>';
+      const on = picks[w].includes(t), u = usedIn(t);
+      const cls = on ? 'pc on' : (u !== undefined ? 'pc used' : 'pc');
+      return `<td class="${cls}" data-w="${w}" data-t="${t}" style="${on || u !== undefined ? '' : 'background:' + shade(c)}"`
+        + ` title="${esc(t)} ${esc(opp(c))}, week ${w}: win ${Math.round(100 * c.p)}%, projected ${c.own.toFixed(1)}% of entries${u !== undefined && !on ? ', planned for week ' + u : ''}">`
+        + `<b>${val(c)}</b><span>${esc(opp(c))}</span></td>`;
+    }).join('') + '</tr>').join('');
+    $('#main').innerHTML = `<section class="contest plan">
+      <h1>${esc(d.name)} planner</h1>
+      <div class="meta muted">${esc(d.entry)}, the one entry left · used ${esc(d.burned.join(' ')) || 'nothing yet'} · weeks ${d.weeks[0]} to ${d.weeks[d.weeks.length - 1]} off the board the book is priced on</div>
+      <div class="tablewrap"><table class="ptop"><thead><tr><th></th>${head}</tr></thead><tbody>
+        <tr><th>Pick</th>${d.weeks.map(w => `<td class="num">${picks[w].length ? picks[w].map(t => `<b class="pk" data-w="${w}" data-t="${t}" title="Remove">${esc(t)}</b>`).join(' ') : '<span class="muted">—</span>'}</td>`).join('')}</tr>
+        <tr><th>Survive week</th>${surv.map(s => `<td class="num">${s.wk === null ? '' : pct(s.wk)}</td>`).join('')}</tr>
+        <tr><th>Survive season</th>${surv.map(s => `<td class="num">${s.season === null ? '' : pct(s.season)}</td>`).join('')}</tr>
+      </tbody></table></div>
+      <div class="pbar"><button class="btn ${mode === 'p' ? '' : 'ghost'}" data-mode="p">Win odds</button>
+        <button class="btn ${mode === 'own' ? '' : 'ghost'}" data-mode="own">Projected ownership</button>
+        <button class="btn ghost" data-act="clear">Clear all picks</button>
+        <span class="muted small">Click a week to sort by it, again to flip it. Click a cell to plan that team for that week; click it again, or the pick above, to take it back.</span></div>
+      <div class="tablewrap"><table class="pgrid"><thead><tr>${ghead}</tr></thead><tbody>${body}</tbody></table></div>
+    </section>`;
+    const sec = $('#main .plan');
+    sec.onclick = ev => {
+      const m = ev.target.closest('[data-mode]');
+      if (m) { app.planMode = m.dataset.mode; return renderPlan(slug); }
+      const sh = ev.target.closest('[data-sort]');
+      if (sh) {
+        const w = sh.dataset.sort;
+        app.planSort = { w, desc: so.w === w ? !so.desc : w !== 'team' };
+        return renderPlan(slug);
+      }
+      if (ev.target.closest('[data-act="clear"]')) { for (const w of d.weeks) picks[w] = []; save(); return renderPlan(slug); }
+      const cell = ev.target.closest('[data-w]');
+      if (!cell) return;
+      const w = cell.dataset.w, t = cell.dataset.t, u = usedIn(t);
+      if (picks[w].includes(t)) picks[w] = picks[w].filter(x => x !== t);
+      else if (u !== undefined) return;
+      else if (picks[w].length < d.k[w]) picks[w].push(t);
+      else if (d.k[w] === 1) picks[w] = [t];
+      else return;
+      save();
+      renderPlan(slug);
+    };
+  }
+
   async function renderLeans() {
     const row = leansRow();
     if (!row) { $('#main').innerHTML = '<p class="muted pad">No upset leans for this week yet: <code>leans WEEK</code> writes them on Tuesday.</p>'; return; }

@@ -123,3 +123,15 @@ tr.cur { background: var(--sel); }
 .bandgrid .bt { cursor: pointer; border-radius: 4px; padding: 0 3px; }
 .bandgrid .bt .bo { font-weight: 400; color: var(--muted); }
 .bandgrid .bt.on { background: var(--sel); outline: 1px solid var(--accent); }
+
+/* the planner: the picks across the top, every available team's remaining weeks below */
+.plan .ptop { width: auto; margin: 10px 0; } .plan .ptop td, .plan .ptop th { padding: 4px 10px; }
+.plan .ptop .pk { cursor: pointer; }
+.pbar { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; margin: 8px 0; }
+.pgrid { width: auto; } .pgrid th, .pgrid td { border: 1px solid var(--line); padding: 3px 6px; }
+.pgrid td.pc { min-width: 52px; text-align: center; cursor: pointer; line-height: 1.2; }
+.pgrid td.pc b { display: block; font-weight: 600; } .pgrid td.pc span { font-size: 11px; opacity: .75; }
+.pgrid td.pc.on { background: var(--ink); color: var(--bg); }
+.pgrid td.pc.used { background: var(--chip); color: var(--muted); cursor: default; opacity: .55; }
+.pgrid td.bye { color: var(--muted); text-align: center; font-size: 11px; }
+.pgrid th.srt { cursor: pointer; white-space: nowrap; user-select: none; } .pgrid th.srt:hover { color: var(--ink); }
