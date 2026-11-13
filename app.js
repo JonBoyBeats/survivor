@@ -759,16 +759,19 @@
     });
     const head = d.weeks.map(w => `<th class="num">${w}${d.k[w] > 1 ? ' <span class="muted">×' + d.k[w] + '</span>' : ''}</th>`).join('');
     // THE SORT: a week's header sorts the teams on that week by the number the
-    // toggle shows, highest first, and again to flip it; byes always last
-    const so = app.planSort || { w: String(d.weeks[0]), desc: true };
-    const key = c => (c ? (mode === 'p' ? c.p : c.own) : null);
+    // toggle shows, highest first, and again to flip it; byes always last. The
+    // order is held on the number it was sorted by, so switching the toggle
+    // keeps the rows where they are until a header is clicked again
+    const so = app.planSort || { w: String(d.weeks[0]), desc: true, by: 'p' };
+    const key = c => (c ? (so.by === 'p' ? c.p : c.own) : null);
     const teams = d.teams.slice().sort((a, b) => {
       if (so.w === 'team') return so.desc ? b.localeCompare(a) : a.localeCompare(b);
       const ka = key(d.cells[so.w] && d.cells[so.w][a]), kb = key(d.cells[so.w] && d.cells[so.w][b]);
       if (ka === null || kb === null) return (ka === null) - (kb === null) || a.localeCompare(b);
       return (so.desc ? kb - ka : ka - kb) || a.localeCompare(b);
     });
-    const arrow = w => (so.w === w ? (so.desc ? ' ▼' : ' ▲') : '');
+    const arrow = w => (so.w === w ? (so.desc ? ' ▼' : ' ▲')
+      + (w !== 'team' && so.by !== mode ? `<span class="muted small"> ${so.by === 'p' ? 'win' : 'own'}</span>` : '') : '');
     const ghead = `<th class="srt" data-sort="team" title="Sort by team">Team${arrow('team')}</th>` + d.weeks.map(w =>
       `<th class="num srt" data-sort="${w}" title="Sort by week ${w} ${mode === 'p' ? 'win odds' : 'projected ownership'}">${w}${d.k[w] > 1 ? ' <span class="muted">×' + d.k[w] + '</span>' : ''}${arrow(String(w))}</th>`).join('');
     const body = teams.map(t => `<tr><th>${esc(t)}</th>` + d.weeks.map(w => {
@@ -801,7 +804,8 @@
       const sh = ev.target.closest('[data-sort]');
       if (sh) {
         const w = sh.dataset.sort;
-        app.planSort = { w, desc: so.w === w ? !so.desc : w !== 'team' };
+        const same = so.w === w && (w === 'team' || so.by === mode);
+        app.planSort = { w, desc: same ? !so.desc : w !== 'team', by: mode };
         return renderPlan(slug);
       }
       if (ev.target.closest('[data-act="clear"]')) { for (const w of d.weeks) picks[w] = []; save(); return renderPlan(slug); }
