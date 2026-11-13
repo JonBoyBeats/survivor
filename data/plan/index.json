@@ -1,0 +1,204 @@
+{
+ "plans": [
+  {
+   "file": "2026_w10_cheese.json",
+   "season": 2026,
+   "week": 10,
+   "slug": "cheese",
+   "name": "Cheese Bowl",
+   "entry": "Entry 6"
+  },
+  {
+   "file": "2026_w10_ryan.json",
+   "season": 2026,
+   "week": 10,
+   "slug": "ryan",
+   "name": "Jim Ryan",
+   "entry": "Entry 3"
+  },
+  {
+   "file": "2026_w10_fivek.json",
+   "season": 2026,
+   "week": 10,
+   "slug": "fivek",
+   "name": "Splash $5k",
+   "entry": "Entry 8"
+  },
+  {
+   "file": "2026_w10_w4k50.json",
+   "season": 2026,
+   "week": 10,
+   "slug": "w4k50",
+   "name": "Week 4 $50k",
+   "entry": "Entry 3"
+  },
+  {
+   "file": "2026_w09_cheese.json",
+   "season": 2026,
+   "week": 9,
+   "slug": "cheese",
+   "name": "Cheese Bowl",
+   "entry": "Entry 6"
+  },
+  {
+   "file": "2026_w09_ryan.json",
+   "season": 2026,
+   "week": 9,
+   "slug": "ryan",
+   "name": "Jim Ryan",
+   "entry": "Entry 3"
+  },
+  {
+   "file": "2026_w09_fivek.json",
+   "season": 2026,
+   "week": 9,
+   "slug": "fivek",
+   "name": "Splash $5k",
+   "entry": "Entry 8"
+  },
+  {
+   "file": "2026_w09_w4k50.json",
+   "season": 2026,
+   "week": 9,
+   "slug": "w4k50",
+   "name": "Week 4 $50k",
+   "entry": "Entry 3"
+  },
+  {
+   "file": "2026_w08_cheese.json",
+   "season": 2026,
+   "week": 8,
+   "slug": "cheese",
+   "name": "Cheese Bowl",
+   "entry": "Entry 6"
+  },
+  {
+   "file": "2026_w08_ryan.json",
+   "season": 2026,
+   "week": 8,
+   "slug": "ryan",
+   "name": "Jim Ryan",
+   "entry": "Entry 3"
+  },
+  {
+   "file": "2026_w08_fivek.json",
+   "season": 2026,
+   "week": 8,
+   "slug": "fivek",
+   "name": "Splash $5k",
+   "entry": "Entry 8"
+  },
+  {
+   "file": "2026_w08_w4k50.json",
+   "season": 2026,
+   "week": 8,
+   "slug": "w4k50",
+   "name": "Week 4 $50k",
+   "entry": "Entry 3"
+  },
+  {
+   "file": "2026_w07_cheese.json",
+   "season": 2026,
+   "week": 7,
+   "slug": "cheese",
+   "name": "Cheese Bowl",
+   "entry": "Entry 6"
+  },
+  {
+   "file": "2026_w07_ryan.json",
+   "season": 2026,
+   "week": 7,
+   "slug": "ryan",
+   "name": "Jim Ryan",
+   "entry": "Entry 3"
+  },
+  {
+   "file": "2026_w07_fivek.json",
+   "season": 2026,
+   "week": 7,
+   "slug": "fivek",
+   "name": "Splash $5k",
+   "entry": "Entry 8"
+  },
+  {
+   "file": "2026_w06_splash.json",
+   "season": 2026,
+   "week": 6,
+   "slug": "splash",
+   "name": "Big Splash",
+   "entry": "Entry 38"
+  },
+  {
+   "file": "2026_w06_gross.json",
+   "season": 2026,
+   "week": 6,
+   "slug": "gross",
+   "name": "Jeff Gross",
+   "entry": "Entry 3"
+  },
+  {
+   "file": "2026_w06_fivek.json",
+   "season": 2026,
+   "week": 6,
+   "slug": "fivek",
+   "name": "Splash $5k",
+   "entry": "Entry 8"
+  },
+  {
+   "file": "2026_w06_w4k25.json",
+   "season": 2026,
+   "week": 6,
+   "slug": "w4k25",
+   "name": "Week 4 $25k",
+   "entry": "Entry 1"
+  },
+  {
+   "file": "2026_w05_wc.json",
+   "season": 2026,
+   "week": 5,
+   "slug": "wc",
+   "name": "Splash World Championship",
+   "entry": "Entry 2"
+  },
+  {
+   "file": "2026_w05_wave.json",
+   "season": 2026,
+   "week": 5,
+   "slug": "wave",
+   "name": "The Wave",
+   "entry": "Entry 20"
+  },
+  {
+   "file": "2026_w05_gross.json",
+   "season": 2026,
+   "week": 5,
+   "slug": "gross",
+   "name": "Jeff Gross",
+   "entry": "Entry 3"
+  },
+  {
+   "file": "2026_w04_wc.json",
+   "season": 2026,
+   "week": 4,
+   "slug": "wc",
+   "name": "Splash World Championship",
+   "entry": "Entry 2"
+  },
+  {
+   "file": "2026_w04_wave.json",
+   "season": 2026,
+   "week": 4,
+   "slug": "wave",
+   "name": "The Wave",
+   "entry": "Entry 20"
+  },
+  {
+   "file": "2026_w04_gross.json",
+   "season": 2026,
+   "week": 4,
+   "slug": "gross",
+   "name": "Jeff Gross",
+   "entry": "Entry 3"
+  }
+ ]
+}
