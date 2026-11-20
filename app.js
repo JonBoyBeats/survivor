@@ -307,7 +307,7 @@
       const v = (c.vals || {})[id];
       return `<li data-id="${esc(id)}"><div><div class="n">${i + 1}. ${esc(e.name)}</div>
         <div class="b">burned ${esc(e.burned.join(' '))}</div></div>
-        <div class="r"><div class="pick${outOf(c, id) ? ' out' : ''}">${esc(label(doc, st.picks[id].key))}</div>${outOf(c, id) ? '<div class="b"><span class="tie">' + outOf(c, id) + '</span></div>' : ''}
+        <div class="r"><div class="pick${outOf(c, id) === 'lost' ? ' out' : outOf(c, id) === 'locked' ? ' won' : ''}">${esc(label(doc, st.picks[id].key))}</div>${outOf(c, id) ? '<div class="b"><span class="tie">' + outOf(c, id) + '</span></div>' : ''}
         <div class="b">${v !== undefined && v !== null ? money(v) + ' when banked' : ''}</div></div></li>`;
     }).join('') : '<li class="empty">Nothing banked yet.</li>';
     sec.querySelectorAll('.elist li[data-id]').forEach(li => li.onclick = () => { app.sel[doc.slug] = li.dataset.id; paint(c); });
