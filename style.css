@@ -136,3 +136,6 @@ tr.cur { background: var(--sel); }
 .pgrid td.pc.used { background: var(--chip); color: var(--muted); cursor: default; opacity: .55; }
 .pgrid td.bye { color: var(--muted); text-align: center; font-size: 11px; }
 .pgrid th.srt { cursor: pointer; white-space: nowrap; user-select: none; } .pgrid th.srt:hover { color: var(--ink); }
+.simbox { margin-top: 12px; }
+.sagree { color: var(--good); margin: 4px 0 8px; }
+.sdiff { color: var(--warn); margin: 4px 0 8px; }

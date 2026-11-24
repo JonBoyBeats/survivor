@@ -61,6 +61,8 @@
     catch (e) { app.leans = []; }
     try { app.plans = (await (await fetch('data/plan/index.json', { cache: 'no-cache' })).json()).plans || []; }
     catch (e) { app.plans = []; }
+    try { app.sims = (await (await fetch('data/sim/index.json', { cache: 'no-cache' })).json()).sims || []; }
+    catch (e) { app.sims = []; }
     const weeks = [...new Set(app.index.concat(app.leans).map(weekKey))]
       .sort((a, b) => { const [sa, wa] = a.split('-').map(Number), [sb, wb] = b.split('-').map(Number); return sb - sa || wb - wa; });
     const sel = $('#week');
@@ -467,6 +469,7 @@
       <div class="opts" style="--n:3"><div class="orow ohead"><div>Week ${doc.week}</div>
       <div class="num">Worth wk ${H}</div><div class="num">Reach wk ${H}</div><div class="num">Left ${H}–${H2}</div></div>
       ${hidden}${rows || '<p class="muted small">None of the teams you are considering is an option for this entry.</p>'}</div></div>`;
+    simPanel(c, e, best, box);
     box.querySelectorAll('[data-bank]').forEach(b => b.onclick = () => {
       c.history.push({ id, prev: st.picks[id] ? st.picks[id].key : undefined });
       c.vals = c.vals || {}; c.vals[id] = +b.dataset.val;
@@ -480,6 +483,49 @@
       c.history.push({ id, prev: st.picks[id] ? st.picks[id].key : undefined });
       st.unbank(id); save(c); paint(c);
     });
+  }
+
+  /* THE PER-ENTRY SIMULATOR BESIDE THE BOOK (D374): the entry's paths to
+   * week 18 priced against a field that picks entry by entry, read only.
+   * It says whether it agrees with the book's best option this week and,
+   * where it does not, what it makes of the book's pick; nothing in the
+   * book's own prices moves. */
+  async function simPanel(c, e, best, box) {
+    const doc = c.doc;
+    const row = (app.sims || []).find(r => r.season === doc.season && r.week === doc.week && r.slug === doc.slug);
+    if (!row) return;
+    app.simDocs = app.simDocs || {};
+    let d = app.simDocs[row.file];
+    if (!d) {
+      try { d = app.simDocs[row.file] = await (await fetch('data/sim/' + row.file, { cache: 'no-cache' })).json(); }
+      catch (err) { return; }
+    }
+    const se = d.entries.find(x => x.id === e.id);
+    if (!se || !se.options.length || !box.isConnected) return;
+    const wk = String(doc.week), top = se.options[0];
+    const key = t => t.split('+').sort().join('+');
+    const simPick = top.path[wk];
+    let verdict = '';
+    if (best) {
+      const bt = Object.entries(se.by_team).find(([t]) => key(t) === key(best.pick));
+      verdict = key(simPick) === key(best.pick)
+        ? `<div class="sagree">Book and simulator agree: <b>${esc(simPick)}</b>.</div>`
+        : bt ? `<div class="sdiff">Disagree: book says <b>${esc(best.pick)}</b>, simulator says <b>${esc(simPick)}</b> (+${money(top.pay - bt[1].pay)} ±${money(bt[1].se_vs_best)} on its own pricing).</div>`
+          : `<div class="sdiff">Disagree: book says <b>${esc(best.pick)}</b>, simulator says <b>${esc(simPick)}</b>; it kept no path opening on ${esc(best.pick)}.</div>`;
+    }
+    const weeks = Object.keys(top.path).map(Number).sort((a, b) => a - b);
+    const rows = se.options.map((o, i) => `<tr><td>${i ? 'alt ' + i : 'best'}</td>
+      <td class="path">${weeks.map(w => (o.diverges !== null && w >= o.diverges && i ? '<b>' : '') + esc(o.path[w]) + (o.diverges !== null && w >= o.diverges && i ? '</b>' : '')).join(' ')}</td>
+      <td class="num">${money(o.pay)} <span class="se">±${money(o.se)}</span>${i ? '<div class="se">−' + money(top.pay - o.pay) + ' ±' + money(o.se_vs_best) + '</div>' : ''}</td>
+      <td class="num">${pct(o.survive)}</td><td class="num">${pct(o.alone)}</td><td class="num">${pct(o.split)}</td>
+      <td class="num">${i && o.diverges !== null ? 'wk ' + o.diverges : ''}</td></tr>`).join('');
+    const div = document.createElement('div');
+    div.className = 'box simbox';
+    div.innerHTML = `<h3 style="margin-top:0">Simulator <span class="muted small">read only, the book's prices are its own</span></h3>
+      ${verdict}
+      <div class="tablewrap"><table><thead><tr><th></th><th>Path to week 18</th><th class="num">Expected</th><th class="num">Survives</th><th class="num">Wins alone</th><th class="num">Splits</th><th class="num">Leaves best</th></tr></thead><tbody>${rows}</tbody></table></div>
+      <p class="muted small">The field alive at the stand (${d.field_alive.toLocaleString()} entries, ours apart) picks entry by entry by the pick model on the board's own seasons; each path is paid the pot share it ends with, an even split among the last ones standing, ranked on half of the ${d.worlds.toLocaleString()} seasons and priced on the other half. Built ${esc((d.built || '').replace('T', ' ').slice(0, 16))} UTC.</p>`;
+    box.appendChild(div);
   }
 
   function act(c, what) {
