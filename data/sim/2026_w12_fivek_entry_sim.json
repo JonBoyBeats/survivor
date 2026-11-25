@@ -1,0 +1,247 @@
+{
+ "season": 2026,
+ "week": 12,
+ "slug": "fivek",
+ "name": "Splash $5k",
+ "built": "2026-11-25T23:32:43Z",
+ "code": "5d00888373e7a53d4c6e2651d88103e240dc3acc+dirty",
+ "board": "season/2026_w12/2026_w12_fivek_board_final",
+ "worlds": 12800,
+ "priced_on": 6400,
+ "pot": 5000.0,
+ "beam": 400,
+ "floor": 0.42,
+ "field_alive": 26,
+ "field_by_week": {
+  "12": 26.0,
+  "13": 20.06,
+  "14": 16.58,
+  "15": 12.94,
+  "16": 10.55,
+  "17": 7.52,
+  "18": 5.32
+ },
+ "field_after_last": 3.7,
+ "field_extinct": 0.24,
+ "entries": [
+  {
+   "id": "01a09653-d026-4c96-986c-7506f214f336",
+   "name": "Entry 8",
+   "used": [
+    "BAL",
+    "BUF",
+    "CHI",
+    "CIN",
+    "DET",
+    "HOU",
+    "KC",
+    "MIN",
+    "NE",
+    "PHI",
+    "SF"
+   ],
+   "options": [
+    {
+     "path": {
+      "12": "DAL",
+      "13": "DEN",
+      "14": "SEA",
+      "15": "GB",
+      "16": "LV",
+      "17": "JAX",
+      "18": "CAR"
+     },
+     "pay": 259.28,
+     "se": 10.74,
+     "se_vs_best": 0.0,
+     "survive": 0.1286,
+     "alone": 0.0238,
+     "split": 0.1375,
+     "diverges": null
+    },
+    {
+     "path": {
+      "12": "DAL",
+      "13": "DEN",
+      "14": "SEA",
+      "15": "GB",
+      "16": "LV",
+      "17": "LAR",
+      "18": "JAX"
+     },
+     "pay": 262.46,
+     "se": 10.48,
+     "se_vs_best": 8.58,
+     "survive": 0.1395,
+     "alone": 0.0216,
+     "split": 0.1489,
+     "diverges": 17
+    },
+    {
+     "path": {
+      "12": "DAL",
+      "13": "DEN",
+      "14": "SEA",
+      "15": "GB",
+      "16": "LV",
+      "17": "PIT",
+      "18": "JAX"
+     },
+     "pay": 251.09,
+     "se": 10.13,
+     "se_vs_best": 8.79,
+     "survive": 0.1397,
+     "alone": 0.0198,
+     "split": 0.1505,
+     "diverges": 17
+    },
+    {
+     "path": {
+      "12": "JAX",
+      "13": "DEN",
+      "14": "SEA",
+      "15": "GB",
+      "16": "LV",
+      "17": "PIT",
+      "18": "NYG"
+     },
+     "pay": 250.75,
+     "se": 9.57,
+     "se_vs_best": 10.89,
+     "survive": 0.1292,
+     "alone": 0.0155,
+     "split": 0.168,
+     "diverges": 12
+    }
+   ],
+   "by_team": {
+    "DAL": {
+     "path": {
+      "12": "DAL",
+      "13": "DEN",
+      "14": "SEA",
+      "15": "GB",
+      "16": "LV",
+      "17": "JAX",
+      "18": "CAR"
+     },
+     "pay": 259.28,
+     "se": 10.74,
+     "se_vs_best": 0.0,
+     "survive": 0.1286,
+     "alone": 0.0238,
+     "split": 0.1375,
+     "diverges": null
+    },
+    "JAX": {
+     "path": {
+      "12": "JAX",
+      "13": "DEN",
+      "14": "SEA",
+      "15": "GB",
+      "16": "LV",
+      "17": "PIT",
+      "18": "NYG"
+     },
+     "pay": 250.75,
+     "se": 9.57,
+     "se_vs_best": 10.89,
+     "survive": 0.1292,
+     "alone": 0.0155,
+     "split": 0.168,
+     "diverges": 12
+    },
+    "NYG": {
+     "path": {
+      "12": "NYG",
+      "13": "DEN",
+      "14": "SEA",
+      "15": "GB",
+      "16": "NO",
+      "17": "PIT",
+      "18": "JAX"
+     },
+     "pay": 206.57,
+     "se": 8.06,
+     "se_vs_best": 12.49,
+     "survive": 0.1516,
+     "alone": 0.01,
+     "split": 0.1723,
+     "diverges": 12
+    },
+    "WAS": {
+     "path": {
+      "12": "WAS",
+      "13": "DEN",
+      "14": "JAX",
+      "15": "SEA",
+      "16": "NO",
+      "17": "DAL",
+      "18": "NYG"
+     },
+     "pay": 238.6,
+     "se": 9.88,
+     "se_vs_best": 14.59,
+     "survive": 0.1197,
+     "alone": 0.0181,
+     "split": 0.1427,
+     "diverges": 12
+    },
+    "CLE": {
+     "path": {
+      "12": "CLE",
+      "13": "DEN",
+      "14": "SEA",
+      "15": "GB",
+      "16": "NO",
+      "17": "DAL",
+      "18": "JAX"
+     },
+     "pay": 193.0,
+     "se": 7.81,
+     "se_vs_best": 12.56,
+     "survive": 0.1373,
+     "alone": 0.0092,
+     "split": 0.1584,
+     "diverges": 12
+    },
+    "NYJ": {
+     "path": {
+      "12": "NYJ",
+      "13": "DEN",
+      "14": "SEA",
+      "15": "GB",
+      "16": "NO",
+      "17": "DAL",
+      "18": "JAX"
+     },
+     "pay": 186.66,
+     "se": 7.79,
+     "se_vs_best": 12.22,
+     "survive": 0.1309,
+     "alone": 0.0091,
+     "split": 0.1487,
+     "diverges": 12
+    },
+    "TB": {
+     "path": {
+      "12": "TB",
+      "13": "DEN",
+      "14": "SEA",
+      "15": "GB",
+      "16": "NO",
+      "17": "CLE",
+      "18": "JAX"
+     },
+     "pay": 159.09,
+     "se": 6.2,
+     "se_vs_best": 11.93,
+     "survive": 0.148,
+     "alone": 0.0045,
+     "split": 0.1694,
+     "diverges": 12
+    }
+   }
+  }
+ ]
+}

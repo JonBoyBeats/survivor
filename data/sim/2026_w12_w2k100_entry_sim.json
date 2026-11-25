@@ -1,0 +1,246 @@
+{
+ "season": 2026,
+ "week": 12,
+ "slug": "w2k100",
+ "name": "Week 2 $100k",
+ "built": "2026-11-25T23:32:57Z",
+ "code": "5d00888373e7a53d4c6e2651d88103e240dc3acc+dirty",
+ "board": "season/2026_w12/2026_w12_w2k100_board_final",
+ "worlds": 12800,
+ "priced_on": 6400,
+ "pot": 100000.0,
+ "beam": 400,
+ "floor": 0.42,
+ "field_alive": 110,
+ "field_by_week": {
+  "12": 110.0,
+  "13": 86.0,
+  "14": 68.95,
+  "15": 54.95,
+  "16": 44.67,
+  "17": 31.43,
+  "18": 22.19
+ },
+ "field_after_last": 16.14,
+ "field_extinct": 0.0441,
+ "entries": [
+  {
+   "id": "01a0a647-2664-4f2e-a8bb-ab42dad3ed02",
+   "name": "Entry 6",
+   "used": [
+    "BUF",
+    "CIN",
+    "DAL",
+    "HOU",
+    "KC",
+    "MIN",
+    "NE",
+    "PHI",
+    "SEA",
+    "SF"
+   ],
+   "options": [
+    {
+     "path": {
+      "12": "WAS",
+      "13": "DEN",
+      "14": "CHI",
+      "15": "GB",
+      "16": "DET",
+      "17": "PIT",
+      "18": "JAX"
+     },
+     "pay": 1374.85,
+     "se": 71.39,
+     "se_vs_best": 0.0,
+     "survive": 0.1528,
+     "alone": 0.0014,
+     "split": 0.1537,
+     "diverges": null
+    },
+    {
+     "path": {
+      "12": "NYG",
+      "13": "DEN",
+      "14": "CHI",
+      "15": "GB",
+      "16": "DET",
+      "17": "PIT",
+      "18": "JAX"
+     },
+     "pay": 1492.21,
+     "se": 77.4,
+     "se_vs_best": 65.79,
+     "survive": 0.1539,
+     "alone": 0.0016,
+     "split": 0.1547,
+     "diverges": 12
+    },
+    {
+     "path": {
+      "12": "WAS",
+      "13": "DEN",
+      "14": "CHI",
+      "15": "GB",
+      "16": "DET",
+      "17": "LAR",
+      "18": "JAX"
+     },
+     "pay": 1534.99,
+     "se": 79.22,
+     "se_vs_best": 62.0,
+     "survive": 0.1566,
+     "alone": 0.0017,
+     "split": 0.1569,
+     "diverges": 17
+    },
+    {
+     "path": {
+      "12": "WAS",
+      "13": "DEN",
+      "14": "DET",
+      "15": "GB",
+      "16": "CHI",
+      "17": "PIT",
+      "18": "JAX"
+     },
+     "pay": 1549.87,
+     "se": 83.87,
+     "se_vs_best": 94.4,
+     "survive": 0.1522,
+     "alone": 0.0022,
+     "split": 0.1519,
+     "diverges": 14
+    }
+   ],
+   "by_team": {
+    "WAS": {
+     "path": {
+      "12": "WAS",
+      "13": "DEN",
+      "14": "CHI",
+      "15": "GB",
+      "16": "DET",
+      "17": "PIT",
+      "18": "JAX"
+     },
+     "pay": 1374.85,
+     "se": 71.39,
+     "se_vs_best": 0.0,
+     "survive": 0.1528,
+     "alone": 0.0014,
+     "split": 0.1537,
+     "diverges": null
+    },
+    "NYG": {
+     "path": {
+      "12": "NYG",
+      "13": "DEN",
+      "14": "CHI",
+      "15": "GB",
+      "16": "DET",
+      "17": "PIT",
+      "18": "JAX"
+     },
+     "pay": 1492.21,
+     "se": 77.4,
+     "se_vs_best": 65.79,
+     "survive": 0.1539,
+     "alone": 0.0016,
+     "split": 0.1547,
+     "diverges": 12
+    },
+    "JAX": {
+     "path": {
+      "12": "JAX",
+      "13": "DEN",
+      "14": "CHI",
+      "15": "GB",
+      "16": "DET",
+      "17": "PIT",
+      "18": "CAR"
+     },
+     "pay": 1455.93,
+     "se": 82.35,
+     "se_vs_best": 82.4,
+     "survive": 0.1386,
+     "alone": 0.0022,
+     "split": 0.1394,
+     "diverges": 12
+    },
+    "CLE": {
+     "path": {
+      "12": "CLE",
+      "13": "DEN",
+      "14": "CHI",
+      "15": "GB",
+      "16": "DET",
+      "17": "JAX",
+      "18": "NYG"
+     },
+     "pay": 1249.85,
+     "se": 62.99,
+     "se_vs_best": 82.99,
+     "survive": 0.1462,
+     "alone": 0.0006,
+     "split": 0.148,
+     "diverges": 12
+    },
+    "NYJ": {
+     "path": {
+      "12": "NYJ",
+      "13": "DEN",
+      "14": "CHI",
+      "15": "GB",
+      "16": "DET",
+      "17": "JAX",
+      "18": "NYG"
+     },
+     "pay": 1206.8,
+     "se": 62.62,
+     "se_vs_best": 80.92,
+     "survive": 0.145,
+     "alone": 0.0008,
+     "split": 0.1466,
+     "diverges": 12
+    },
+    "TB": {
+     "path": {
+      "12": "TB",
+      "13": "DEN",
+      "14": "DET",
+      "15": "GB",
+      "16": "NO",
+      "17": "JAX",
+      "18": "NYG"
+     },
+     "pay": 747.54,
+     "se": 35.02,
+     "se_vs_best": 80.23,
+     "survive": 0.1416,
+     "alone": 0.0002,
+     "split": 0.1423,
+     "diverges": 12
+    },
+    "LAR": {
+     "path": {
+      "12": "LAR",
+      "13": "DEN",
+      "14": "DET",
+      "15": "GB",
+      "16": "NO",
+      "17": "CLE",
+      "18": "JAX"
+     },
+     "pay": 615.03,
+     "se": 26.0,
+     "se_vs_best": 76.8,
+     "survive": 0.1461,
+     "alone": 0.0,
+     "split": 0.1472,
+     "diverges": 12
+    }
+   }
+  }
+ ]
+}

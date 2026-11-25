@@ -1,0 +1,3286 @@
+{
+ "season": 2026,
+ "week": 12,
+ "slug": "revival",
+ "name": "The Wave Revival",
+ "built": "2026-11-25T23:46:54Z",
+ "code": "5d00888373e7a53d4c6e2651d88103e240dc3acc+dirty",
+ "board": "season/2026_w12/2026_w12_revival_board",
+ "worlds": 12800,
+ "priced_on": 6400,
+ "pot": 1000000.0,
+ "beam": 400,
+ "floor": 0.42,
+ "field_alive": 5496,
+ "field_by_week": {
+  "12": 5496.0,
+  "13": 3352.23,
+  "14": 2093.46,
+  "15": 1273.59,
+  "16": 741.08,
+  "17": 346.97,
+  "18": 250.07
+ },
+ "field_after_last": 188.14,
+ "field_extinct": 0.0219,
+ "entries": [
+  {
+   "id": "01a13bde-4840-4696-97ee-415d0e326c0d",
+   "name": "Entry 1",
+   "used": [
+    "BUF",
+    "CHI",
+    "CIN",
+    "DAL",
+    "KC",
+    "NE"
+   ],
+   "options": [
+    {
+     "path": {
+      "12": "JAX+WAS",
+      "13": "DEN+TB",
+      "14": "DET+PHI",
+      "15": "GB+SEA",
+      "16": "HOU+MIN",
+      "17": "SF",
+      "18": "CAR"
+     },
+     "pay": 285.85,
+     "se": 49.88,
+     "se_vs_best": 0.0,
+     "survive": 0.033,
+     "alone": 0.0,
+     "split": 0.0331,
+     "diverges": null
+    },
+    {
+     "path": {
+      "12": "NYG+WAS",
+      "13": "DEN+TB",
+      "14": "DET+JAX",
+      "15": "GB+SEA",
+      "16": "HOU+MIN",
+      "17": "SF",
+      "18": "CAR"
+     },
+     "pay": 331.62,
+     "se": 66.67,
+     "se_vs_best": 79.36,
+     "survive": 0.0331,
+     "alone": 0.0,
+     "split": 0.0333,
+     "diverges": 12
+    },
+    {
+     "path": {
+      "12": "JAX+WAS",
+      "13": "DEN+TB",
+      "14": "DET+PHI",
+      "15": "GB+SEA",
+      "16": "HOU+MIN",
+      "17": "SF",
+      "18": "NYG"
+     },
+     "pay": 277.93,
+     "se": 29.81,
+     "se_vs_best": 49.66,
+     "survive": 0.0378,
+     "alone": 0.0,
+     "split": 0.038,
+     "diverges": 18
+    },
+    {
+     "path": {
+      "12": "JAX+WAS",
+      "13": "DEN+TB",
+      "14": "DET+SEA",
+      "15": "GB+SF",
+      "16": "HOU+MIN",
+      "17": "CLE",
+      "18": "NYG"
+     },
+     "pay": 216.15,
+     "se": 32.91,
+     "se_vs_best": 58.5,
+     "survive": 0.0342,
+     "alone": 0.0,
+     "split": 0.0347,
+     "diverges": 14
+    }
+   ],
+   "by_team": {
+    "JAX+WAS": {
+     "path": {
+      "12": "JAX+WAS",
+      "13": "DEN+TB",
+      "14": "DET+PHI",
+      "15": "GB+SEA",
+      "16": "HOU+MIN",
+      "17": "SF",
+      "18": "CAR"
+     },
+     "pay": 285.85,
+     "se": 49.88,
+     "se_vs_best": 0.0,
+     "survive": 0.033,
+     "alone": 0.0,
+     "split": 0.0331,
+     "diverges": null
+    },
+    "NYG+WAS": {
+     "path": {
+      "12": "NYG+WAS",
+      "13": "DEN+TB",
+      "14": "DET+JAX",
+      "15": "GB+SEA",
+      "16": "HOU+MIN",
+      "17": "SF",
+      "18": "CAR"
+     },
+     "pay": 331.62,
+     "se": 66.67,
+     "se_vs_best": 79.36,
+     "survive": 0.0331,
+     "alone": 0.0,
+     "split": 0.0333,
+     "diverges": 12
+    },
+    "JAX+MIN": {
+     "path": {
+      "12": "JAX+MIN",
+      "13": "DEN+TB",
+      "14": "DET+SEA",
+      "15": "GB+SF",
+      "16": "HOU+LV",
+      "17": "CLE",
+      "18": "NYG"
+     },
+     "pay": 222.53,
+     "se": 31.95,
+     "se_vs_best": 59.17,
+     "survive": 0.0345,
+     "alone": 0.0,
+     "split": 0.0348,
+     "diverges": 12
+    },
+    "CLE+JAX": {
+     "path": {
+      "12": "CLE+JAX",
+      "13": "DEN+TB",
+      "14": "DET+MIN",
+      "15": "GB+SEA",
+      "16": "HOU+NO",
+      "17": "SF",
+      "18": "BAL"
+     },
+     "pay": 176.77,
+     "se": 22.34,
+     "se_vs_best": 54.49,
+     "survive": 0.0341,
+     "alone": 0.0,
+     "split": 0.0341,
+     "diverges": 12
+    },
+    "JAX+NYG": {
+     "path": {
+      "12": "JAX+NYG",
+      "13": "DEN+TB",
+      "14": "DET+MIN",
+      "15": "GB+SEA",
+      "16": "LV+NO",
+      "17": "SF",
+      "18": "HOU"
+     },
+     "pay": 156.0,
+     "se": 12.72,
+     "se_vs_best": 51.36,
+     "survive": 0.0466,
+     "alone": 0.0,
+     "split": 0.0467,
+     "diverges": 12
+    },
+    "HOU+WAS": {
+     "path": {
+      "12": "HOU+WAS",
+      "13": "DEN+TB",
+      "14": "DET+JAX",
+      "15": "GB+SEA",
+      "16": "MIN+NO",
+      "17": "SF",
+      "18": "NYG"
+     },
+     "pay": 169.14,
+     "se": 20.16,
+     "se_vs_best": 53.57,
+     "survive": 0.0422,
+     "alone": 0.0,
+     "split": 0.0425,
+     "diverges": 12
+    },
+    "JAX+NYJ": {
+     "path": {
+      "12": "JAX+NYJ",
+      "13": "DEN+TB",
+      "14": "DET+MIN",
+      "15": "GB+SEA",
+      "16": "HOU+NO",
+      "17": "SF",
+      "18": "CAR"
+     },
+     "pay": 127.7,
+     "se": 12.95,
+     "se_vs_best": 51.16,
+     "survive": 0.0325,
+     "alone": 0.0,
+     "split": 0.0325,
+     "diverges": 12
+    },
+    "HOU+NYG": {
+     "path": {
+      "12": "HOU+NYG",
+      "13": "DEN+TB",
+      "14": "DET+JAX",
+      "15": "GB+SEA",
+      "16": "MIN+NO",
+      "17": "CLE",
+      "18": "SF"
+     },
+     "pay": 155.22,
+     "se": 13.61,
+     "se_vs_best": 51.67,
+     "survive": 0.0447,
+     "alone": 0.0,
+     "split": 0.0448,
+     "diverges": 12
+    },
+    "MIN+NYG": {
+     "path": {
+      "12": "MIN+NYG",
+      "13": "DEN+TB",
+      "14": "DET+JAX",
+      "15": "GB+SEA",
+      "16": "HOU+NO",
+      "17": "SF",
+      "18": "BAL"
+     },
+     "pay": 137.59,
+     "se": 18.35,
+     "se_vs_best": 53.17,
+     "survive": 0.0344,
+     "alone": 0.0,
+     "split": 0.0345,
+     "diverges": 12
+    },
+    "HOU+JAX": {
+     "path": {
+      "12": "HOU+JAX",
+      "13": "DEN+WAS",
+      "14": "DET+SEA",
+      "15": "GB+SF",
+      "16": "MIN+NO",
+      "17": "CLE",
+      "18": "NYG"
+     },
+     "pay": 128.95,
+     "se": 18.65,
+     "se_vs_best": 53.28,
+     "survive": 0.0333,
+     "alone": 0.0,
+     "split": 0.0334,
+     "diverges": 12
+    },
+    "CLE+WAS": {
+     "path": {
+      "12": "CLE+WAS",
+      "13": "DEN+MIN",
+      "14": "DET+JAX",
+      "15": "GB+SEA",
+      "16": "HOU+NO",
+      "17": "SF",
+      "18": "NYG"
+     },
+     "pay": 174.23,
+     "se": 15.94,
+     "se_vs_best": 52.12,
+     "survive": 0.04,
+     "alone": 0.0,
+     "split": 0.04,
+     "diverges": 12
+    },
+    "MIN+WAS": {
+     "path": {
+      "12": "MIN+WAS",
+      "13": "DEN+TB",
+      "14": "DET+JAX",
+      "15": "GB+SEA",
+      "16": "HOU+NO",
+      "17": "CLE",
+      "18": "SF"
+     },
+     "pay": 173.15,
+     "se": 20.44,
+     "se_vs_best": 53.73,
+     "survive": 0.0462,
+     "alone": 0.0,
+     "split": 0.0464,
+     "diverges": 12
+    },
+    "CLE+MIN": {
+     "path": {
+      "12": "CLE+MIN",
+      "13": "DEN+TB",
+      "14": "DET+JAX",
+      "15": "GB+SEA",
+      "16": "HOU+NO",
+      "17": "SF",
+      "18": "NYG"
+     },
+     "pay": 137.52,
+     "se": 11.82,
+     "se_vs_best": 51.19,
+     "survive": 0.0375,
+     "alone": 0.0,
+     "split": 0.0375,
+     "diverges": 12
+    },
+    "CLE+NYG": {
+     "path": {
+      "12": "CLE+NYG",
+      "13": "DEN+TB",
+      "14": "DET+JAX",
+      "15": "GB+SEA",
+      "16": "HOU+NO",
+      "17": "SF",
+      "18": "CAR"
+     },
+     "pay": 153.78,
+     "se": 19.77,
+     "se_vs_best": 53.29,
+     "survive": 0.0333,
+     "alone": 0.0,
+     "split": 0.0333,
+     "diverges": 12
+    },
+    "NYJ+WAS": {
+     "path": {
+      "12": "NYJ+WAS",
+      "13": "DEN+SF",
+      "14": "DET+JAX",
+      "15": "GB+SEA",
+      "16": "HOU+NO",
+      "17": "CLE",
+      "18": "NYG"
+     },
+     "pay": 125.98,
+     "se": 13.96,
+     "se_vs_best": 51.76,
+     "survive": 0.0347,
+     "alone": 0.0,
+     "split": 0.0348,
+     "diverges": 12
+    }
+   }
+  },
+  {
+   "id": "01a13bde-4840-4836-915b-70d33e3dca1d",
+   "name": "Entry 2",
+   "used": [
+    "BUF",
+    "CHI",
+    "DAL",
+    "KC",
+    "NE",
+    "WAS"
+   ],
+   "options": [
+    {
+     "path": {
+      "12": "CLE+JAX",
+      "13": "DEN+TB",
+      "14": "DET+MIN",
+      "15": "GB+SEA",
+      "16": "CIN+HOU",
+      "17": "SF",
+      "18": "CAR"
+     },
+     "pay": 391.93,
+     "se": 60.29,
+     "se_vs_best": 0.0,
+     "survive": 0.0358,
+     "alone": 0.0,
+     "split": 0.0358,
+     "diverges": null
+    },
+    {
+     "path": {
+      "12": "CLE+JAX",
+      "13": "DEN+TB",
+      "14": "DET+MIN",
+      "15": "GB+SEA",
+      "16": "CIN+HOU",
+      "17": "SF",
+      "18": "NYG"
+     },
+     "pay": 451.4,
+     "se": 91.01,
+     "se_vs_best": 97.75,
+     "survive": 0.0416,
+     "alone": 0.0,
+     "split": 0.0416,
+     "diverges": 18
+    },
+    {
+     "path": {
+      "12": "JAX+MIN",
+      "13": "DEN+TB",
+      "14": "DET+SEA",
+      "15": "GB+LAR",
+      "16": "CIN+HOU",
+      "17": "SF",
+      "18": "CAR"
+     },
+     "pay": 404.93,
+     "se": 60.85,
+     "se_vs_best": 51.85,
+     "survive": 0.0394,
+     "alone": 0.0,
+     "split": 0.0397,
+     "diverges": 12
+    },
+    {
+     "path": {
+      "12": "HOU+JAX",
+      "13": "DEN+TB",
+      "14": "DET+MIN",
+      "15": "GB+SEA",
+      "16": "CIN+LV",
+      "17": "SF",
+      "18": "NYG"
+     },
+     "pay": 297.02,
+     "se": 35.65,
+     "se_vs_best": 66.63,
+     "survive": 0.0394,
+     "alone": 0.0,
+     "split": 0.0395,
+     "diverges": 12
+    }
+   ],
+   "by_team": {
+    "CLE+JAX": {
+     "path": {
+      "12": "CLE+JAX",
+      "13": "DEN+TB",
+      "14": "DET+MIN",
+      "15": "GB+SEA",
+      "16": "CIN+HOU",
+      "17": "SF",
+      "18": "CAR"
+     },
+     "pay": 391.93,
+     "se": 60.29,
+     "se_vs_best": 0.0,
+     "survive": 0.0358,
+     "alone": 0.0,
+     "split": 0.0358,
+     "diverges": null
+    },
+    "JAX+MIN": {
+     "path": {
+      "12": "JAX+MIN",
+      "13": "DEN+TB",
+      "14": "DET+SEA",
+      "15": "GB+LAR",
+      "16": "CIN+HOU",
+      "17": "SF",
+      "18": "CAR"
+     },
+     "pay": 404.93,
+     "se": 60.85,
+     "se_vs_best": 51.85,
+     "survive": 0.0394,
+     "alone": 0.0,
+     "split": 0.0397,
+     "diverges": 12
+    },
+    "HOU+JAX": {
+     "path": {
+      "12": "HOU+JAX",
+      "13": "DEN+TB",
+      "14": "DET+MIN",
+      "15": "GB+SEA",
+      "16": "CIN+LV",
+      "17": "SF",
+      "18": "NYG"
+     },
+     "pay": 297.02,
+     "se": 35.65,
+     "se_vs_best": 66.63,
+     "survive": 0.0394,
+     "alone": 0.0,
+     "split": 0.0395,
+     "diverges": 12
+    },
+    "JAX+NYG": {
+     "path": {
+      "12": "JAX+NYG",
+      "13": "DEN+TB",
+      "14": "DET+MIN",
+      "15": "GB+SEA",
+      "16": "CIN+HOU",
+      "17": "SF",
+      "18": "CAR"
+     },
+     "pay": 350.55,
+     "se": 45.37,
+     "se_vs_best": 49.04,
+     "survive": 0.0402,
+     "alone": 0.0,
+     "split": 0.0403,
+     "diverges": 12
+    },
+    "MIN+NYG": {
+     "path": {
+      "12": "MIN+NYG",
+      "13": "DEN+TB",
+      "14": "DET+JAX",
+      "15": "GB+SEA",
+      "16": "CIN+HOU",
+      "17": "CLE",
+      "18": "SF"
+     },
+     "pay": 444.63,
+     "se": 71.36,
+     "se_vs_best": 91.63,
+     "survive": 0.05,
+     "alone": 0.0,
+     "split": 0.0502,
+     "diverges": 12
+    },
+    "JAX+NYJ": {
+     "path": {
+      "12": "JAX+NYJ",
+      "13": "DEN+MIN",
+      "14": "DET+SEA",
+      "15": "GB+SF",
+      "16": "CIN+HOU",
+      "17": "CLE",
+      "18": "NYG"
+     },
+     "pay": 265.75,
+     "se": 40.77,
+     "se_vs_best": 72.24,
+     "survive": 0.0402,
+     "alone": 0.0,
+     "split": 0.0405,
+     "diverges": 12
+    },
+    "CIN+JAX": {
+     "path": {
+      "12": "CIN+JAX",
+      "13": "DEN+TB",
+      "14": "DET+SEA",
+      "15": "GB+SF",
+      "16": "HOU+MIN",
+      "17": "CLE",
+      "18": "NYG"
+     },
+     "pay": 265.45,
+     "se": 35.41,
+     "se_vs_best": 69.72,
+     "survive": 0.0384,
+     "alone": 0.0,
+     "split": 0.0386,
+     "diverges": 12
+    },
+    "CIN+NYG": {
+     "path": {
+      "12": "CIN+NYG",
+      "13": "DEN+TB",
+      "14": "DET+JAX",
+      "15": "GB+SEA",
+      "16": "MIN+NO",
+      "17": "SF",
+      "18": "HOU"
+     },
+     "pay": 237.63,
+     "se": 19.65,
+     "se_vs_best": 63.32,
+     "survive": 0.0564,
+     "alone": 0.0,
+     "split": 0.0566,
+     "diverges": 12
+    },
+    "HOU+MIN": {
+     "path": {
+      "12": "HOU+MIN",
+      "13": "DEN+TB",
+      "14": "DET+JAX",
+      "15": "GB+SEA",
+      "16": "CIN+NO",
+      "17": "SF",
+      "18": "BAL"
+     },
+     "pay": 173.45,
+     "se": 20.95,
+     "se_vs_best": 63.63,
+     "survive": 0.0392,
+     "alone": 0.0,
+     "split": 0.0394,
+     "diverges": 12
+    },
+    "CIN+MIN": {
+     "path": {
+      "12": "CIN+MIN",
+      "13": "DEN+TB",
+      "14": "DET+JAX",
+      "15": "GB+SEA",
+      "16": "HOU+NO",
+      "17": "CLE",
+      "18": "SF"
+     },
+     "pay": 182.77,
+     "se": 19.33,
+     "se_vs_best": 63.11,
+     "survive": 0.05,
+     "alone": 0.0,
+     "split": 0.0502,
+     "diverges": 12
+    },
+    "CIN+HOU": {
+     "path": {
+      "12": "CIN+HOU",
+      "13": "DEN+TB",
+      "14": "DET+JAX",
+      "15": "GB+SEA",
+      "16": "MIN+NO",
+      "17": "SF",
+      "18": "NYG"
+     },
+     "pay": 207.99,
+     "se": 24.02,
+     "se_vs_best": 64.86,
+     "survive": 0.0459,
+     "alone": 0.0,
+     "split": 0.0461,
+     "diverges": 12
+    },
+    "HOU+NYG": {
+     "path": {
+      "12": "HOU+NYG",
+      "13": "DEN+MIN",
+      "14": "DET+JAX",
+      "15": "GB+SEA",
+      "16": "CIN+NO",
+      "17": "SF",
+      "18": "TB"
+     },
+     "pay": 204.18,
+     "se": 22.01,
+     "se_vs_best": 64.06,
+     "survive": 0.0402,
+     "alone": 0.0,
+     "split": 0.0403,
+     "diverges": 12
+    },
+    "MIN+NYJ": {
+     "path": {
+      "12": "MIN+NYJ",
+      "13": "DEN+SF",
+      "14": "DET+JAX",
+      "15": "GB+SEA",
+      "16": "CIN+NO",
+      "17": "CLE",
+      "18": "HOU"
+     },
+     "pay": 181.14,
+     "se": 16.13,
+     "se_vs_best": 62.47,
+     "survive": 0.0489,
+     "alone": 0.0,
+     "split": 0.0489,
+     "diverges": 12
+    },
+    "CIN+CLE": {
+     "path": {
+      "12": "CIN+CLE",
+      "13": "DEN+TB",
+      "14": "DET+JAX",
+      "15": "GB+SEA",
+      "16": "HOU+NO",
+      "17": "SF",
+      "18": "NYG"
+     },
+     "pay": 169.34,
+     "se": 14.37,
+     "se_vs_best": 61.6,
+     "survive": 0.0447,
+     "alone": 0.0,
+     "split": 0.0447,
+     "diverges": 12
+    },
+    "NYG+NYJ": {
+     "path": {
+      "12": "NYG+NYJ",
+      "13": "DEN+SF",
+      "14": "DET+JAX",
+      "15": "GB+SEA",
+      "16": "CIN+NO",
+      "17": "CLE",
+      "18": "HOU"
+     },
+     "pay": 188.46,
+     "se": 17.62,
+     "se_vs_best": 62.84,
+     "survive": 0.0491,
+     "alone": 0.0,
+     "split": 0.0491,
+     "diverges": 12
+    }
+   }
+  },
+  {
+   "id": "01a13bde-4840-4866-bdc3-6c9192f2e418",
+   "name": "Entry 3",
+   "used": [
+    "BUF",
+    "CIN",
+    "DAL",
+    "DET",
+    "KC",
+    "NE"
+   ],
+   "options": [
+    {
+     "path": {
+      "12": "JAX+WAS",
+      "13": "DEN+TB",
+      "14": "CHI+PHI",
+      "15": "GB+SEA",
+      "16": "HOU+MIN",
+      "17": "SF",
+      "18": "CAR"
+     },
+     "pay": 280.35,
+     "se": 37.92,
+     "se_vs_best": 0.0,
+     "survive": 0.0333,
+     "alone": 0.0,
+     "split": 0.0334,
+     "diverges": null
+    },
+    {
+     "path": {
+      "12": "JAX+WAS",
+      "13": "DEN+TB",
+      "14": "CHI+PHI",
+      "15": "GB+SEA",
+      "16": "HOU+MIN",
+      "17": "SF",
+      "18": "NYG"
+     },
+     "pay": 322.7,
+     "se": 39.29,
+     "se_vs_best": 31.72,
+     "survive": 0.0377,
+     "alone": 0.0,
+     "split": 0.0378,
+     "diverges": 18
+    },
+    {
+     "path": {
+      "12": "NYG+WAS",
+      "13": "DEN+TB",
+      "14": "CHI+JAX",
+      "15": "GB+SEA",
+      "16": "HOU+MIN",
+      "17": "SF",
+      "18": "CAR"
+     },
+     "pay": 382.14,
+     "se": 90.66,
+     "se_vs_best": 88.68,
+     "survive": 0.0328,
+     "alone": 0.0,
+     "split": 0.0331,
+     "diverges": 12
+    },
+    {
+     "path": {
+      "12": "JAX+WAS",
+      "13": "DEN+TB",
+      "14": "CHI+SEA",
+      "15": "GB+SF",
+      "16": "HOU+MIN",
+      "17": "CLE",
+      "18": "NYG"
+     },
+     "pay": 227.69,
+     "se": 31.62,
+     "se_vs_best": 47.49,
+     "survive": 0.0341,
+     "alone": 0.0,
+     "split": 0.0344,
+     "diverges": 14
+    }
+   ],
+   "by_team": {
+    "JAX+WAS": {
+     "path": {
+      "12": "JAX+WAS",
+      "13": "DEN+TB",
+      "14": "CHI+PHI",
+      "15": "GB+SEA",
+      "16": "HOU+MIN",
+      "17": "SF",
+      "18": "CAR"
+     },
+     "pay": 280.35,
+     "se": 37.92,
+     "se_vs_best": 0.0,
+     "survive": 0.0333,
+     "alone": 0.0,
+     "split": 0.0334,
+     "diverges": null
+    },
+    "NYG+WAS": {
+     "path": {
+      "12": "NYG+WAS",
+      "13": "DEN+TB",
+      "14": "CHI+JAX",
+      "15": "GB+SEA",
+      "16": "HOU+MIN",
+      "17": "SF",
+      "18": "CAR"
+     },
+     "pay": 382.14,
+     "se": 90.66,
+     "se_vs_best": 88.68,
+     "survive": 0.0328,
+     "alone": 0.0,
+     "split": 0.0331,
+     "diverges": 12
+    },
+    "CLE+JAX": {
+     "path": {
+      "12": "CLE+JAX",
+      "13": "DEN+TB",
+      "14": "CHI+MIN",
+      "15": "GB+SEA",
+      "16": "HOU+NO",
+      "17": "SF",
+      "18": "NYG"
+     },
+     "pay": 178.0,
+     "se": 19.47,
+     "se_vs_best": 42.53,
+     "survive": 0.0389,
+     "alone": 0.0,
+     "split": 0.0391,
+     "diverges": 12
+    },
+    "JAX+MIN": {
+     "path": {
+      "12": "JAX+MIN",
+      "13": "DEN+TB",
+      "14": "CHI+SEA",
+      "15": "GB+LAR",
+      "16": "HOU+NO",
+      "17": "SF",
+      "18": "BAL"
+     },
+     "pay": 153.43,
+     "se": 16.1,
+     "se_vs_best": 41.1,
+     "survive": 0.0359,
+     "alone": 0.0,
+     "split": 0.0361,
+     "diverges": 12
+    },
+    "HOU+WAS": {
+     "path": {
+      "12": "HOU+WAS",
+      "13": "DEN+TB",
+      "14": "CHI+JAX",
+      "15": "GB+SEA",
+      "16": "MIN+NO",
+      "17": "SF",
+      "18": "NYG"
+     },
+     "pay": 146.31,
+     "se": 16.97,
+     "se_vs_best": 41.36,
+     "survive": 0.0394,
+     "alone": 0.0,
+     "split": 0.0398,
+     "diverges": 12
+    },
+    "JAX+NYJ": {
+     "path": {
+      "12": "JAX+NYJ",
+      "13": "DEN+TB",
+      "14": "CHI+MIN",
+      "15": "GB+SEA",
+      "16": "HOU+NO",
+      "17": "SF",
+      "18": "NYG"
+     },
+     "pay": 161.45,
+     "se": 17.0,
+     "se_vs_best": 41.48,
+     "survive": 0.0391,
+     "alone": 0.0,
+     "split": 0.0392,
+     "diverges": 12
+    },
+    "JAX+NYG": {
+     "path": {
+      "12": "JAX+NYG",
+      "13": "DEN+WAS",
+      "14": "CHI+MIN",
+      "15": "GB+SEA",
+      "16": "HOU+NO",
+      "17": "SF",
+      "18": "TB"
+     },
+     "pay": 163.0,
+     "se": 16.75,
+     "se_vs_best": 41.48,
+     "survive": 0.0345,
+     "alone": 0.0,
+     "split": 0.0347,
+     "diverges": 12
+    },
+    "MIN+WAS": {
+     "path": {
+      "12": "MIN+WAS",
+      "13": "DEN+TB",
+      "14": "CHI+JAX",
+      "15": "GB+SEA",
+      "16": "HOU+NO",
+      "17": "SF",
+      "18": "NYG"
+     },
+     "pay": 149.53,
+     "se": 13.67,
+     "se_vs_best": 39.98,
+     "survive": 0.0425,
+     "alone": 0.0,
+     "split": 0.0428,
+     "diverges": 12
+    },
+    "HOU+NYG": {
+     "path": {
+      "12": "HOU+NYG",
+      "13": "DEN+TB",
+      "14": "CHI+JAX",
+      "15": "GB+SEA",
+      "16": "MIN+NO",
+      "17": "CLE",
+      "18": "SF"
+     },
+     "pay": 138.77,
+     "se": 13.41,
+     "se_vs_best": 40.21,
+     "survive": 0.0416,
+     "alone": 0.0,
+     "split": 0.0419,
+     "diverges": 12
+    },
+    "HOU+JAX": {
+     "path": {
+      "12": "HOU+JAX",
+      "13": "DEN+TB",
+      "14": "CHI+MIN",
+      "15": "GB+SEA",
+      "16": "LV+NO",
+      "17": "SF",
+      "18": "NYG"
+     },
+     "pay": 160.19,
+     "se": 17.64,
+     "se_vs_best": 41.85,
+     "survive": 0.037,
+     "alone": 0.0,
+     "split": 0.0373,
+     "diverges": 12
+    },
+    "CLE+MIN": {
+     "path": {
+      "12": "CLE+MIN",
+      "13": "DEN+TB",
+      "14": "CHI+JAX",
+      "15": "GB+SEA",
+      "16": "HOU+NO",
+      "17": "SF",
+      "18": "NYG"
+     },
+     "pay": 158.76,
+     "se": 15.25,
+     "se_vs_best": 40.67,
+     "survive": 0.038,
+     "alone": 0.0,
+     "split": 0.038,
+     "diverges": 12
+    },
+    "CLE+WAS": {
+     "path": {
+      "12": "CLE+WAS",
+      "13": "DEN+TB",
+      "14": "CHI+JAX",
+      "15": "GB+SEA",
+      "16": "HOU+NO",
+      "17": "SF",
+      "18": "NYG"
+     },
+     "pay": 139.95,
+     "se": 15.85,
+     "se_vs_best": 40.77,
+     "survive": 0.0383,
+     "alone": 0.0,
+     "split": 0.0383,
+     "diverges": 12
+    },
+    "MIN+NYG": {
+     "path": {
+      "12": "MIN+NYG",
+      "13": "DEN+TB",
+      "14": "CHI+JAX",
+      "15": "GB+SEA",
+      "16": "HOU+NO",
+      "17": "CLE",
+      "18": "SF"
+     },
+     "pay": 145.84,
+     "se": 13.99,
+     "se_vs_best": 40.4,
+     "survive": 0.0437,
+     "alone": 0.0,
+     "split": 0.0441,
+     "diverges": 12
+    },
+    "CLE+NYG": {
+     "path": {
+      "12": "CLE+NYG",
+      "13": "DEN+MIN",
+      "14": "CHI+JAX",
+      "15": "GB+SEA",
+      "16": "HOU+NO",
+      "17": "SF",
+      "18": "CAR"
+     },
+     "pay": 216.12,
+     "se": 28.68,
+     "se_vs_best": 47.58,
+     "survive": 0.0333,
+     "alone": 0.0,
+     "split": 0.0333,
+     "diverges": 12
+    },
+    "NYJ+WAS": {
+     "path": {
+      "12": "NYJ+WAS",
+      "13": "DEN+SF",
+      "14": "CHI+JAX",
+      "15": "GB+SEA",
+      "16": "HOU+NO",
+      "17": "CLE",
+      "18": "NYG"
+     },
+     "pay": 115.34,
+     "se": 12.49,
+     "se_vs_best": 39.82,
+     "survive": 0.0333,
+     "alone": 0.0,
+     "split": 0.0334,
+     "diverges": 12
+    }
+   }
+  },
+  {
+   "id": "01a13bde-4840-4a88-a5cf-a8498234529f",
+   "name": "Entry 7",
+   "used": [
+    "BUF",
+    "CHI",
+    "KC",
+    "NE",
+    "PIT",
+    "WAS"
+   ],
+   "options": [
+    {
+     "path": {
+      "12": "DAL+JAX",
+      "13": "DEN+TB",
+      "14": "DET+MIN",
+      "15": "GB+SEA",
+      "16": "CIN+HOU",
+      "17": "SF",
+      "18": "CAR"
+     },
+     "pay": 405.17,
+     "se": 57.86,
+     "se_vs_best": 0.0,
+     "survive": 0.0427,
+     "alone": 0.0,
+     "split": 0.0427,
+     "diverges": null
+    },
+    {
+     "path": {
+      "12": "DAL+JAX",
+      "13": "DEN+TB",
+      "14": "DET+MIN",
+      "15": "GB+SEA",
+      "16": "CIN+LV",
+      "17": "SF",
+      "18": "HOU"
+     },
+     "pay": 442.99,
+     "se": 50.02,
+     "se_vs_best": 70.55,
+     "survive": 0.0559,
+     "alone": 0.0,
+     "split": 0.0559,
+     "diverges": 16
+    },
+    {
+     "path": {
+      "12": "DAL+JAX",
+      "13": "DEN+TB",
+      "14": "DET+MIN",
+      "15": "GB+SEA",
+      "16": "CIN+HOU",
+      "17": "CLE",
+      "18": "SF"
+     },
+     "pay": 371.33,
+     "se": 52.32,
+     "se_vs_best": 39.5,
+     "survive": 0.0498,
+     "alone": 0.0,
+     "split": 0.0498,
+     "diverges": 17
+    },
+    {
+     "path": {
+      "12": "DAL+JAX",
+      "13": "DEN+TB",
+      "14": "DET+SEA",
+      "15": "GB+LAR",
+      "16": "CIN+MIN",
+      "17": "SF",
+      "18": "HOU"
+     },
+     "pay": 503.97,
+     "se": 54.83,
+     "se_vs_best": 73.06,
+     "survive": 0.0553,
+     "alone": 0.0,
+     "split": 0.0556,
+     "diverges": 14
+    }
+   ],
+   "by_team": {
+    "DAL+JAX": {
+     "path": {
+      "12": "DAL+JAX",
+      "13": "DEN+TB",
+      "14": "DET+MIN",
+      "15": "GB+SEA",
+      "16": "CIN+HOU",
+      "17": "SF",
+      "18": "CAR"
+     },
+     "pay": 405.17,
+     "se": 57.86,
+     "se_vs_best": 0.0,
+     "survive": 0.0427,
+     "alone": 0.0,
+     "split": 0.0427,
+     "diverges": null
+    },
+    "DAL+MIN": {
+     "path": {
+      "12": "DAL+MIN",
+      "13": "DEN+TB",
+      "14": "DET+JAX",
+      "15": "GB+SEA",
+      "16": "CIN+HOU",
+      "17": "SF",
+      "18": "NYG"
+     },
+     "pay": 368.96,
+     "se": 39.0,
+     "se_vs_best": 65.34,
+     "survive": 0.0503,
+     "alone": 0.0,
+     "split": 0.0503,
+     "diverges": 12
+    },
+    "JAX+NYG": {
+     "path": {
+      "12": "JAX+NYG",
+      "13": "DEN+TB",
+      "14": "DET+MIN",
+      "15": "GB+SEA",
+      "16": "CIN+HOU",
+      "17": "SF",
+      "18": "CAR"
+     },
+     "pay": 350.55,
+     "se": 45.37,
+     "se_vs_best": 54.33,
+     "survive": 0.0402,
+     "alone": 0.0,
+     "split": 0.0403,
+     "diverges": 12
+    },
+    "DAL+NYG": {
+     "path": {
+      "12": "DAL+NYG",
+      "13": "DEN+TB",
+      "14": "DET+JAX",
+      "15": "GB+SEA",
+      "16": "CIN+MIN",
+      "17": "SF",
+      "18": "HOU"
+     },
+     "pay": 493.9,
+     "se": 58.86,
+     "se_vs_best": 78.27,
+     "survive": 0.057,
+     "alone": 0.0,
+     "split": 0.057,
+     "diverges": 12
+    },
+    "DAL+HOU": {
+     "path": {
+      "12": "DAL+HOU",
+      "13": "DEN+TB",
+      "14": "DET+JAX",
+      "15": "GB+SEA",
+      "16": "CIN+MIN",
+      "17": "SF",
+      "18": "NYG"
+     },
+     "pay": 382.32,
+     "se": 48.79,
+     "se_vs_best": 72.28,
+     "survive": 0.0467,
+     "alone": 0.0,
+     "split": 0.0469,
+     "diverges": 12
+    },
+    "JAX+MIN": {
+     "path": {
+      "12": "JAX+MIN",
+      "13": "DEN+TB",
+      "14": "DET+SEA",
+      "15": "GB+LAR",
+      "16": "CIN+HOU",
+      "17": "SF",
+      "18": "NYG"
+     },
+     "pay": 356.57,
+     "se": 44.26,
+     "se_vs_best": 70.77,
+     "survive": 0.0445,
+     "alone": 0.0,
+     "split": 0.0448,
+     "diverges": 12
+    },
+    "CLE+DAL": {
+     "path": {
+      "12": "CLE+DAL",
+      "13": "DEN+TB",
+      "14": "DET+JAX",
+      "15": "GB+SEA",
+      "16": "CIN+HOU",
+      "17": "SF",
+      "18": "NYG"
+     },
+     "pay": 344.87,
+     "se": 40.85,
+     "se_vs_best": 67.05,
+     "survive": 0.0445,
+     "alone": 0.0,
+     "split": 0.0445,
+     "diverges": 12
+    },
+    "MIN+NYG": {
+     "path": {
+      "12": "MIN+NYG",
+      "13": "DEN+TB",
+      "14": "DET+JAX",
+      "15": "GB+SEA",
+      "16": "CIN+NO",
+      "17": "SF",
+      "18": "HOU"
+     },
+     "pay": 262.2,
+     "se": 28.4,
+     "se_vs_best": 64.31,
+     "survive": 0.0597,
+     "alone": 0.0,
+     "split": 0.0598,
+     "diverges": 12
+    },
+    "HOU+JAX": {
+     "path": {
+      "12": "HOU+JAX",
+      "13": "DEN+TB",
+      "14": "DET+MIN",
+      "15": "GB+SEA",
+      "16": "CIN+NO",
+      "17": "SF",
+      "18": "CAR"
+     },
+     "pay": 188.04,
+     "se": 19.93,
+     "se_vs_best": 59.27,
+     "survive": 0.043,
+     "alone": 0.0,
+     "split": 0.0431,
+     "diverges": 12
+    },
+    "CIN+DAL": {
+     "path": {
+      "12": "CIN+DAL",
+      "13": "DEN+TB",
+      "14": "DET+JAX",
+      "15": "GB+SEA",
+      "16": "MIN+NO",
+      "17": "SF",
+      "18": "HOU"
+     },
+     "pay": 241.84,
+     "se": 22.02,
+     "se_vs_best": 61.78,
+     "survive": 0.0578,
+     "alone": 0.0,
+     "split": 0.0578,
+     "diverges": 12
+    },
+    "CIN+JAX": {
+     "path": {
+      "12": "CIN+JAX",
+      "13": "DEN+TB",
+      "14": "DET+MIN",
+      "15": "GB+SEA",
+      "16": "HOU+NO",
+      "17": "SF",
+      "18": "NYG"
+     },
+     "pay": 173.11,
+     "se": 17.04,
+     "se_vs_best": 58.86,
+     "survive": 0.0472,
+     "alone": 0.0,
+     "split": 0.0473,
+     "diverges": 12
+    },
+    "HOU+MIN": {
+     "path": {
+      "12": "HOU+MIN",
+      "13": "DEN+TB",
+      "14": "DET+JAX",
+      "15": "GB+SEA",
+      "16": "CIN+NO",
+      "17": "SF",
+      "18": "CAR"
+     },
+     "pay": 215.63,
+     "se": 25.16,
+     "se_vs_best": 62.63,
+     "survive": 0.0436,
+     "alone": 0.0,
+     "split": 0.0437,
+     "diverges": 12
+    },
+    "HOU+NYG": {
+     "path": {
+      "12": "HOU+NYG",
+      "13": "DEN+TB",
+      "14": "DET+JAX",
+      "15": "GB+SEA",
+      "16": "CIN+NO",
+      "17": "CLE",
+      "18": "SF"
+     },
+     "pay": 159.34,
+     "se": 12.61,
+     "se_vs_best": 59.2,
+     "survive": 0.0525,
+     "alone": 0.0,
+     "split": 0.0527,
+     "diverges": 12
+    },
+    "JAX+NYJ": {
+     "path": {
+      "12": "JAX+NYJ",
+      "13": "DEN+MIN",
+      "14": "DET+SEA",
+      "15": "GB+SF",
+      "16": "CIN+NO",
+      "17": "CLE",
+      "18": "HOU"
+     },
+     "pay": 228.37,
+     "se": 26.34,
+     "se_vs_best": 63.61,
+     "survive": 0.0552,
+     "alone": 0.0,
+     "split": 0.0555,
+     "diverges": 12
+    },
+    "CIN+MIN": {
+     "path": {
+      "12": "CIN+MIN",
+      "13": "DEN+TB",
+      "14": "DET+JAX",
+      "15": "GB+SEA",
+      "16": "HOU+NO",
+      "17": "SF",
+      "18": "NYG"
+     },
+     "pay": 180.98,
+     "se": 16.63,
+     "se_vs_best": 60.01,
+     "survive": 0.0488,
+     "alone": 0.0,
+     "split": 0.0489,
+     "diverges": 12
+    },
+    "DAL+NYJ": {
+     "path": {
+      "12": "DAL+NYJ",
+      "13": "DEN+SF",
+      "14": "DET+JAX",
+      "15": "GB+SEA",
+      "16": "CIN+NO",
+      "17": "CLE",
+      "18": "HOU"
+     },
+     "pay": 164.62,
+     "se": 13.71,
+     "se_vs_best": 59.3,
+     "survive": 0.0525,
+     "alone": 0.0,
+     "split": 0.0528,
+     "diverges": 12
+    }
+   }
+  },
+  {
+   "id": "01a13bde-4840-4e1b-9ad3-25962c19cb7c",
+   "name": "Entry 8",
+   "used": [
+    "BUF",
+    "DAL",
+    "HOU",
+    "KC",
+    "NE",
+    "WAS"
+   ],
+   "options": [
+    {
+     "path": {
+      "12": "JAX+NYG",
+      "13": "DEN+SEA",
+      "14": "CHI+DET",
+      "15": "GB+LAR",
+      "16": "CIN+MIN",
+      "17": "SF",
+      "18": "CAR"
+     },
+     "pay": 379.68,
+     "se": 47.85,
+     "se_vs_best": 0.0,
+     "survive": 0.0417,
+     "alone": 0.0,
+     "split": 0.042,
+     "diverges": null
+    },
+    {
+     "path": {
+      "12": "JAX+NYG",
+      "13": "DEN+TB",
+      "14": "CHI+DET",
+      "15": "GB+LAR",
+      "16": "CIN+MIN",
+      "17": "SF",
+      "18": "CAR"
+     },
+     "pay": 443.76,
+     "se": 93.27,
+     "se_vs_best": 92.4,
+     "survive": 0.0413,
+     "alone": 0.0,
+     "split": 0.0414,
+     "diverges": 13
+    },
+    {
+     "path": {
+      "12": "JAX+NYG",
+      "13": "DEN+TB",
+      "14": "CHI+DET",
+      "15": "GB+SEA",
+      "16": "CIN+MIN",
+      "17": "SF",
+      "18": "CAR"
+     },
+     "pay": 405.31,
+     "se": 60.83,
+     "se_vs_best": 66.72,
+     "survive": 0.0481,
+     "alone": 0.0,
+     "split": 0.0483,
+     "diverges": 13
+    },
+    {
+     "path": {
+      "12": "JAX+NYG",
+      "13": "DEN+TB",
+      "14": "CHI+DET",
+      "15": "GB+SEA",
+      "16": "CIN+MIN",
+      "17": "CLE",
+      "18": "SF"
+     },
+     "pay": 357.29,
+     "se": 44.37,
+     "se_vs_best": 56.05,
+     "survive": 0.0608,
+     "alone": 0.0,
+     "split": 0.0609,
+     "diverges": 13
+    }
+   ],
+   "by_team": {
+    "JAX+NYG": {
+     "path": {
+      "12": "JAX+NYG",
+      "13": "DEN+SEA",
+      "14": "CHI+DET",
+      "15": "GB+LAR",
+      "16": "CIN+MIN",
+      "17": "SF",
+      "18": "CAR"
+     },
+     "pay": 379.68,
+     "se": 47.85,
+     "se_vs_best": 0.0,
+     "survive": 0.0417,
+     "alone": 0.0,
+     "split": 0.042,
+     "diverges": null
+    },
+    "CLE+JAX": {
+     "path": {
+      "12": "CLE+JAX",
+      "13": "DEN+TB",
+      "14": "CHI+DET",
+      "15": "GB+SEA",
+      "16": "CIN+MIN",
+      "17": "SF",
+      "18": "CAR"
+     },
+     "pay": 351.18,
+     "se": 52.4,
+     "se_vs_best": 62.32,
+     "survive": 0.0406,
+     "alone": 0.0,
+     "split": 0.0406,
+     "diverges": 12
+    },
+    "JAX+MIN": {
+     "path": {
+      "12": "JAX+MIN",
+      "13": "DEN+TB",
+      "14": "CHI+DET",
+      "15": "GB+SEA",
+      "16": "CIN+LV",
+      "17": "CLE",
+      "18": "SF"
+     },
+     "pay": 315.6,
+     "se": 36.62,
+     "se_vs_best": 59.72,
+     "survive": 0.0572,
+     "alone": 0.0,
+     "split": 0.0573,
+     "diverges": 12
+    },
+    "JAX+NYJ": {
+     "path": {
+      "12": "JAX+NYJ",
+      "13": "DEN+MIN",
+      "14": "CHI+DET",
+      "15": "GB+SEA",
+      "16": "CIN+LV",
+      "17": "SF",
+      "18": "NYG"
+     },
+     "pay": 366.23,
+     "se": 43.28,
+     "se_vs_best": 64.24,
+     "survive": 0.0498,
+     "alone": 0.0,
+     "split": 0.0502,
+     "diverges": 12
+    },
+    "CIN+JAX": {
+     "path": {
+      "12": "CIN+JAX",
+      "13": "DEN+TB",
+      "14": "CHI+DET",
+      "15": "GB+SEA",
+      "16": "LV+MIN",
+      "17": "SF",
+      "18": "NYG"
+     },
+     "pay": 415.88,
+     "se": 70.71,
+     "se_vs_best": 84.51,
+     "survive": 0.0491,
+     "alone": 0.0,
+     "split": 0.0492,
+     "diverges": 12
+    },
+    "CIN+NYG": {
+     "path": {
+      "12": "CIN+NYG",
+      "13": "DEN+TB",
+      "14": "CHI+DET",
+      "15": "GB+SEA",
+      "16": "MIN+NO",
+      "17": "SF",
+      "18": "JAX"
+     },
+     "pay": 190.52,
+     "se": 15.2,
+     "se_vs_best": 49.86,
+     "survive": 0.0578,
+     "alone": 0.0,
+     "split": 0.058,
+     "diverges": 12
+    },
+    "MIN+NYG": {
+     "path": {
+      "12": "MIN+NYG",
+      "13": "DEN+TB",
+      "14": "CHI+DET",
+      "15": "GB+SEA",
+      "16": "CIN+NO",
+      "17": "SF",
+      "18": "JAX"
+     },
+     "pay": 196.31,
+     "se": 14.55,
+     "se_vs_best": 49.76,
+     "survive": 0.0642,
+     "alone": 0.0,
+     "split": 0.0644,
+     "diverges": 12
+    },
+    "CLE+MIN": {
+     "path": {
+      "12": "CLE+MIN",
+      "13": "DEN+SF",
+      "14": "CHI+DET",
+      "15": "GB+SEA",
+      "16": "CIN+NO",
+      "17": "JAX",
+      "18": "NYG"
+     },
+     "pay": 187.03,
+     "se": 20.68,
+     "se_vs_best": 52.27,
+     "survive": 0.0423,
+     "alone": 0.0,
+     "split": 0.0423,
+     "diverges": 12
+    },
+    "JAX+SF": {
+     "path": {
+      "12": "JAX+SF",
+      "13": "DEN+MIN",
+      "14": "CHI+DET",
+      "15": "GB+SEA",
+      "16": "CIN+NO",
+      "17": "CLE",
+      "18": "NYG"
+     },
+     "pay": 108.32,
+     "se": 9.45,
+     "se_vs_best": 48.82,
+     "survive": 0.0453,
+     "alone": 0.0,
+     "split": 0.0456,
+     "diverges": 12
+    },
+    "JAX+TB": {
+     "path": {
+      "12": "JAX+TB",
+      "13": "DEN+SF",
+      "14": "CHI+DET",
+      "15": "GB+SEA",
+      "16": "CIN+NO",
+      "17": "CLE",
+      "18": "NYG"
+     },
+     "pay": 118.87,
+     "se": 10.69,
+     "se_vs_best": 49.08,
+     "survive": 0.0448,
+     "alone": 0.0,
+     "split": 0.045,
+     "diverges": 12
+    }
+   }
+  },
+  {
+   "id": "01a14d87-d062-43f1-9092-b1534828f6fc",
+   "name": "Entry 10",
+   "used": [
+    "CHI",
+    "CIN",
+    "DEN",
+    "IND",
+    "KC",
+    "NE"
+   ],
+   "options": [
+    {
+     "path": {
+      "12": "DAL+JAX",
+      "13": "BUF+TB",
+      "14": "DET+PHI",
+      "15": "GB+SEA",
+      "16": "HOU+MIN",
+      "17": "SF",
+      "18": "CAR"
+     },
+     "pay": 325.53,
+     "se": 54.91,
+     "se_vs_best": 0.0,
+     "survive": 0.033,
+     "alone": 0.0,
+     "split": 0.033,
+     "diverges": null
+    },
+    {
+     "path": {
+      "12": "DAL+WAS",
+      "13": "BUF+TB",
+      "14": "DET+JAX",
+      "15": "GB+SEA",
+      "16": "HOU+MIN",
+      "17": "SF",
+      "18": "CAR"
+     },
+     "pay": 355.73,
+     "se": 68.14,
+     "se_vs_best": 74.62,
+     "survive": 0.0334,
+     "alone": 0.0,
+     "split": 0.0336,
+     "diverges": 12
+    },
+    {
+     "path": {
+      "12": "DAL+WAS",
+      "13": "BUF+TB",
+      "14": "DET+JAX",
+      "15": "GB+SEA",
+      "16": "HOU+MIN",
+      "17": "SF",
+      "18": "NYG"
+     },
+     "pay": 403.97,
+     "se": 70.88,
+     "se_vs_best": 81.25,
+     "survive": 0.0387,
+     "alone": 0.0,
+     "split": 0.0389,
+     "diverges": 12
+    },
+    {
+     "path": {
+      "12": "DAL+NYG",
+      "13": "BUF+TB",
+      "14": "DET+JAX",
+      "15": "GB+SEA",
+      "16": "HOU+MIN",
+      "17": "SF",
+      "18": "CAR"
+     },
+     "pay": 377.05,
+     "se": 67.18,
+     "se_vs_best": 80.92,
+     "survive": 0.0348,
+     "alone": 0.0,
+     "split": 0.0348,
+     "diverges": 12
+    }
+   ],
+   "by_team": {
+    "DAL+JAX": {
+     "path": {
+      "12": "DAL+JAX",
+      "13": "BUF+TB",
+      "14": "DET+PHI",
+      "15": "GB+SEA",
+      "16": "HOU+MIN",
+      "17": "SF",
+      "18": "CAR"
+     },
+     "pay": 325.53,
+     "se": 54.91,
+     "se_vs_best": 0.0,
+     "survive": 0.033,
+     "alone": 0.0,
+     "split": 0.033,
+     "diverges": null
+    },
+    "DAL+WAS": {
+     "path": {
+      "12": "DAL+WAS",
+      "13": "BUF+TB",
+      "14": "DET+JAX",
+      "15": "GB+SEA",
+      "16": "HOU+MIN",
+      "17": "SF",
+      "18": "CAR"
+     },
+     "pay": 355.73,
+     "se": 68.14,
+     "se_vs_best": 74.62,
+     "survive": 0.0334,
+     "alone": 0.0,
+     "split": 0.0336,
+     "diverges": 12
+    },
+    "DAL+NYG": {
+     "path": {
+      "12": "DAL+NYG",
+      "13": "BUF+TB",
+      "14": "DET+JAX",
+      "15": "GB+SEA",
+      "16": "HOU+MIN",
+      "17": "SF",
+      "18": "CAR"
+     },
+     "pay": 377.05,
+     "se": 67.18,
+     "se_vs_best": 80.92,
+     "survive": 0.0348,
+     "alone": 0.0,
+     "split": 0.0348,
+     "diverges": 12
+    },
+    "JAX+WAS": {
+     "path": {
+      "12": "JAX+WAS",
+      "13": "BUF+TB",
+      "14": "DET+SEA",
+      "15": "GB+SF",
+      "16": "HOU+MIN",
+      "17": "CLE",
+      "18": "NYG"
+     },
+     "pay": 391.13,
+     "se": 101.85,
+     "se_vs_best": 115.28,
+     "survive": 0.0347,
+     "alone": 0.0,
+     "split": 0.035,
+     "diverges": 12
+    },
+    "DAL+MIN": {
+     "path": {
+      "12": "DAL+MIN",
+      "13": "BUF+WAS",
+      "14": "DET+JAX",
+      "15": "GB+SEA",
+      "16": "HOU+NO",
+      "17": "SF",
+      "18": "NYG"
+     },
+     "pay": 197.23,
+     "se": 20.93,
+     "se_vs_best": 58.58,
+     "survive": 0.0416,
+     "alone": 0.0,
+     "split": 0.0417,
+     "diverges": 12
+    },
+    "DAL+HOU": {
+     "path": {
+      "12": "DAL+HOU",
+      "13": "BUF+TB",
+      "14": "DET+JAX",
+      "15": "GB+SEA",
+      "16": "MIN+NO",
+      "17": "SF",
+      "18": "CAR"
+     },
+     "pay": 194.94,
+     "se": 24.12,
+     "se_vs_best": 58.9,
+     "survive": 0.0367,
+     "alone": 0.0,
+     "split": 0.0369,
+     "diverges": 12
+    },
+    "CLE+JAX": {
+     "path": {
+      "12": "CLE+JAX",
+      "13": "BUF+TB",
+      "14": "DET+MIN",
+      "15": "GB+SEA",
+      "16": "HOU+NO",
+      "17": "SF",
+      "18": "NYG"
+     },
+     "pay": 154.8,
+     "se": 20.08,
+     "se_vs_best": 57.07,
+     "survive": 0.0353,
+     "alone": 0.0,
+     "split": 0.0353,
+     "diverges": 12
+    },
+    "JAX+NYG": {
+     "path": {
+      "12": "JAX+NYG",
+      "13": "BUF+TB",
+      "14": "DET+MIN",
+      "15": "GB+SEA",
+      "16": "HOU+NO",
+      "17": "SF",
+      "18": "BAL"
+     },
+     "pay": 175.25,
+     "se": 22.35,
+     "se_vs_best": 58.48,
+     "survive": 0.0345,
+     "alone": 0.0,
+     "split": 0.0345,
+     "diverges": 12
+    },
+    "JAX+MIN": {
+     "path": {
+      "12": "JAX+MIN",
+      "13": "BUF+TB",
+      "14": "DET+SEA",
+      "15": "GB+NYJ",
+      "16": "HOU+NO",
+      "17": "SF",
+      "18": "NYG"
+     },
+     "pay": 167.51,
+     "se": 15.56,
+     "se_vs_best": 56.99,
+     "survive": 0.0441,
+     "alone": 0.0,
+     "split": 0.0441,
+     "diverges": 12
+    },
+    "CLE+DAL": {
+     "path": {
+      "12": "CLE+DAL",
+      "13": "BUF+WAS",
+      "14": "DET+JAX",
+      "15": "GB+SEA",
+      "16": "HOU+NO",
+      "17": "SF",
+      "18": "NYG"
+     },
+     "pay": 168.62,
+     "se": 18.6,
+     "se_vs_best": 57.57,
+     "survive": 0.0375,
+     "alone": 0.0,
+     "split": 0.0378,
+     "diverges": 12
+    },
+    "MIN+WAS": {
+     "path": {
+      "12": "MIN+WAS",
+      "13": "BUF+TB",
+      "14": "DET+JAX",
+      "15": "GB+SEA",
+      "16": "HOU+NO",
+      "17": "SF",
+      "18": "NYG"
+     },
+     "pay": 170.87,
+     "se": 18.19,
+     "se_vs_best": 57.75,
+     "survive": 0.0417,
+     "alone": 0.0,
+     "split": 0.0417,
+     "diverges": 12
+    },
+    "DAL+NYJ": {
+     "path": {
+      "12": "DAL+NYJ",
+      "13": "BUF+TB",
+      "14": "DET+JAX",
+      "15": "GB+SEA",
+      "16": "HOU+NO",
+      "17": "SF",
+      "18": "NYG"
+     },
+     "pay": 162.96,
+     "se": 19.55,
+     "se_vs_best": 57.92,
+     "survive": 0.0397,
+     "alone": 0.0,
+     "split": 0.0398,
+     "diverges": 12
+    },
+    "NYG+WAS": {
+     "path": {
+      "12": "NYG+WAS",
+      "13": "BUF+TB",
+      "14": "DET+JAX",
+      "15": "GB+SEA",
+      "16": "HOU+NO",
+      "17": "SF",
+      "18": "BAL"
+     },
+     "pay": 172.28,
+     "se": 23.2,
+     "se_vs_best": 58.85,
+     "survive": 0.0355,
+     "alone": 0.0,
+     "split": 0.0355,
+     "diverges": 12
+    },
+    "HOU+JAX": {
+     "path": {
+      "12": "HOU+JAX",
+      "13": "BUF+WAS",
+      "14": "DET+SEA",
+      "15": "GB+SF",
+      "16": "MIN+NO",
+      "17": "CLE",
+      "18": "NYG"
+     },
+     "pay": 130.59,
+     "se": 14.87,
+     "se_vs_best": 56.95,
+     "survive": 0.0331,
+     "alone": 0.0,
+     "split": 0.0333,
+     "diverges": 12
+    },
+    "MIN+NYG": {
+     "path": {
+      "12": "MIN+NYG",
+      "13": "BUF+TB",
+      "14": "DET+JAX",
+      "15": "GB+SEA",
+      "16": "HOU+NO",
+      "17": "SF",
+      "18": "CAR"
+     },
+     "pay": 195.43,
+     "se": 43.48,
+     "se_vs_best": 69.69,
+     "survive": 0.0358,
+     "alone": 0.0,
+     "split": 0.0358,
+     "diverges": 12
+    },
+    "JAX+NYJ": {
+     "path": {
+      "12": "JAX+NYJ",
+      "13": "BUF+TB",
+      "14": "DET+SEA",
+      "15": "GB+SF",
+      "16": "HOU+NO",
+      "17": "CLE",
+      "18": "NYG"
+     },
+     "pay": 132.81,
+     "se": 13.61,
+     "se_vs_best": 56.55,
+     "survive": 0.0386,
+     "alone": 0.0,
+     "split": 0.0389,
+     "diverges": 12
+    }
+   }
+  },
+  {
+   "id": "01a14d87-d062-45e7-8ca1-3f7b505108e5",
+   "name": "Entry 13",
+   "used": [
+    "DAL",
+    "DEN",
+    "DET",
+    "KC",
+    "LAR",
+    "NE"
+   ],
+   "options": [
+    {
+     "path": {
+      "12": "MIN+WAS",
+      "13": "BUF+SF",
+      "14": "CHI+JAX",
+      "15": "GB+SEA",
+      "16": "CIN+HOU",
+      "17": "CLE",
+      "18": "NYG"
+     },
+     "pay": 414.52,
+     "se": 87.94,
+     "se_vs_best": 0.0,
+     "survive": 0.0406,
+     "alone": 0.0,
+     "split": 0.0408,
+     "diverges": null
+    },
+    {
+     "path": {
+      "12": "JAX+MIN",
+      "13": "BUF+TB",
+      "14": "CAR+CHI",
+      "15": "GB+SEA",
+      "16": "CIN+HOU",
+      "17": "SF",
+      "18": "NYG"
+     },
+     "pay": 414.47,
+     "se": 61.74,
+     "se_vs_best": 105.9,
+     "survive": 0.0403,
+     "alone": 0.0,
+     "split": 0.0403,
+     "diverges": 12
+    },
+    {
+     "path": {
+      "12": "JAX+WAS",
+      "13": "BUF+MIN",
+      "14": "CAR+CHI",
+      "15": "GB+SEA",
+      "16": "CIN+HOU",
+      "17": "SF",
+      "18": "NYG"
+     },
+     "pay": 560.59,
+     "se": 81.87,
+     "se_vs_best": 118.2,
+     "survive": 0.0431,
+     "alone": 0.0,
+     "split": 0.0431,
+     "diverges": 12
+    },
+    {
+     "path": {
+      "12": "JAX+WAS",
+      "13": "BUF+TB",
+      "14": "CAR+CHI",
+      "15": "GB+SEA",
+      "16": "CIN+HOU",
+      "17": "CLE",
+      "18": "SF"
+     },
+     "pay": 353.72,
+     "se": 44.34,
+     "se_vs_best": 95.83,
+     "survive": 0.0452,
+     "alone": 0.0,
+     "split": 0.0453,
+     "diverges": 12
+    }
+   ],
+   "by_team": {
+    "MIN+WAS": {
+     "path": {
+      "12": "MIN+WAS",
+      "13": "BUF+SF",
+      "14": "CHI+JAX",
+      "15": "GB+SEA",
+      "16": "CIN+HOU",
+      "17": "CLE",
+      "18": "NYG"
+     },
+     "pay": 414.52,
+     "se": 87.94,
+     "se_vs_best": 0.0,
+     "survive": 0.0406,
+     "alone": 0.0,
+     "split": 0.0408,
+     "diverges": null
+    },
+    "JAX+MIN": {
+     "path": {
+      "12": "JAX+MIN",
+      "13": "BUF+TB",
+      "14": "CAR+CHI",
+      "15": "GB+SEA",
+      "16": "CIN+HOU",
+      "17": "SF",
+      "18": "NYG"
+     },
+     "pay": 414.47,
+     "se": 61.74,
+     "se_vs_best": 105.9,
+     "survive": 0.0403,
+     "alone": 0.0,
+     "split": 0.0403,
+     "diverges": 12
+    },
+    "JAX+WAS": {
+     "path": {
+      "12": "JAX+WAS",
+      "13": "BUF+MIN",
+      "14": "CAR+CHI",
+      "15": "GB+SEA",
+      "16": "CIN+HOU",
+      "17": "SF",
+      "18": "NYG"
+     },
+     "pay": 560.59,
+     "se": 81.87,
+     "se_vs_best": 118.2,
+     "survive": 0.0431,
+     "alone": 0.0,
+     "split": 0.0431,
+     "diverges": 12
+    },
+    "JAX+NYG": {
+     "path": {
+      "12": "JAX+NYG",
+      "13": "BUF+TB",
+      "14": "CHI+MIN",
+      "15": "GB+SEA",
+      "16": "CIN+HOU",
+      "17": "CLE",
+      "18": "SF"
+     },
+     "pay": 420.73,
+     "se": 56.99,
+     "se_vs_best": 104.21,
+     "survive": 0.0461,
+     "alone": 0.0,
+     "split": 0.0462,
+     "diverges": 12
+    },
+    "NYG+WAS": {
+     "path": {
+      "12": "NYG+WAS",
+      "13": "BUF+TB",
+      "14": "CHI+JAX",
+      "15": "GB+SEA",
+      "16": "CIN+HOU",
+      "17": "CLE",
+      "18": "SF"
+     },
+     "pay": 368.34,
+     "se": 42.03,
+     "se_vs_best": 94.52,
+     "survive": 0.0492,
+     "alone": 0.0,
+     "split": 0.0494,
+     "diverges": 12
+    },
+    "MIN+NYG": {
+     "path": {
+      "12": "MIN+NYG",
+      "13": "BUF+TB",
+      "14": "CHI+JAX",
+      "15": "GB+SEA",
+      "16": "CIN+HOU",
+      "17": "CLE",
+      "18": "SF"
+     },
+     "pay": 462.69,
+     "se": 67.39,
+     "se_vs_best": 108.27,
+     "survive": 0.047,
+     "alone": 0.0,
+     "split": 0.0472,
+     "diverges": 12
+    },
+    "HOU+JAX": {
+     "path": {
+      "12": "HOU+JAX",
+      "13": "BUF+TB",
+      "14": "CHI+SEA",
+      "15": "GB+SF",
+      "16": "CIN+MIN",
+      "17": "CLE",
+      "18": "NYG"
+     },
+     "pay": 378.45,
+     "se": 47.49,
+     "se_vs_best": 98.45,
+     "survive": 0.0425,
+     "alone": 0.0,
+     "split": 0.0427,
+     "diverges": 12
+    },
+    "HOU+WAS": {
+     "path": {
+      "12": "HOU+WAS",
+      "13": "BUF+MIN",
+      "14": "CHI+JAX",
+      "15": "GB+SEA",
+      "16": "CIN+NO",
+      "17": "SF",
+      "18": "NYG"
+     },
+     "pay": 297.88,
+     "se": 38.34,
+     "se_vs_best": 95.61,
+     "survive": 0.0519,
+     "alone": 0.0,
+     "split": 0.0522,
+     "diverges": 12
+    },
+    "CIN+WAS": {
+     "path": {
+      "12": "CIN+WAS",
+      "13": "BUF+MIN",
+      "14": "CHI+JAX",
+      "15": "GB+SEA",
+      "16": "HOU+NO",
+      "17": "SF",
+      "18": "NYG"
+     },
+     "pay": 282.19,
+     "se": 49.78,
+     "se_vs_best": 100.7,
+     "survive": 0.0459,
+     "alone": 0.0,
+     "split": 0.0461,
+     "diverges": 12
+    },
+    "HOU+MIN": {
+     "path": {
+      "12": "HOU+MIN",
+      "13": "BUF+TB",
+      "14": "CHI+JAX",
+      "15": "GB+SEA",
+      "16": "CIN+NO",
+      "17": "SF",
+      "18": "NYG"
+     },
+     "pay": 255.51,
+     "se": 28.19,
+     "se_vs_best": 92.12,
+     "survive": 0.0478,
+     "alone": 0.0,
+     "split": 0.048,
+     "diverges": 12
+    },
+    "CIN+JAX": {
+     "path": {
+      "12": "CIN+JAX",
+      "13": "BUF+MIN",
+      "14": "CHI+SEA",
+      "15": "GB+TB",
+      "16": "HOU+NO",
+      "17": "SF",
+      "18": "NYG"
+     },
+     "pay": 217.82,
+     "se": 23.15,
+     "se_vs_best": 90.96,
+     "survive": 0.0427,
+     "alone": 0.0,
+     "split": 0.0428,
+     "diverges": 12
+    },
+    "JAX+NYJ": {
+     "path": {
+      "12": "JAX+NYJ",
+      "13": "BUF+SF",
+      "14": "CHI+MIN",
+      "15": "GB+SEA",
+      "16": "CIN+NO",
+      "17": "CLE",
+      "18": "HOU"
+     },
+     "pay": 233.22,
+     "se": 44.25,
+     "se_vs_best": 98.3,
+     "survive": 0.0484,
+     "alone": 0.0,
+     "split": 0.0486,
+     "diverges": 12
+    },
+    "CIN+MIN": {
+     "path": {
+      "12": "CIN+MIN",
+      "13": "BUF+TB",
+      "14": "CHI+JAX",
+      "15": "GB+SEA",
+      "16": "HOU+NO",
+      "17": "SF",
+      "18": "NYG"
+     },
+     "pay": 211.49,
+     "se": 20.69,
+     "se_vs_best": 89.89,
+     "survive": 0.0462,
+     "alone": 0.0,
+     "split": 0.0464,
+     "diverges": 12
+    },
+    "HOU+NYG": {
+     "path": {
+      "12": "HOU+NYG",
+      "13": "BUF+MIN",
+      "14": "CHI+JAX",
+      "15": "GB+SEA",
+      "16": "CIN+NO",
+      "17": "CLE",
+      "18": "SF"
+     },
+     "pay": 219.78,
+     "se": 21.83,
+     "se_vs_best": 90.26,
+     "survive": 0.0492,
+     "alone": 0.0,
+     "split": 0.0494,
+     "diverges": 12
+    },
+    "CIN+NYG": {
+     "path": {
+      "12": "CIN+NYG",
+      "13": "BUF+TB",
+      "14": "CHI+JAX",
+      "15": "GB+SEA",
+      "16": "HOU+NO",
+      "17": "SF",
+      "18": "CAR"
+     },
+     "pay": 176.67,
+     "se": 16.86,
+     "se_vs_best": 89.42,
+     "survive": 0.0405,
+     "alone": 0.0,
+     "split": 0.0406,
+     "diverges": 12
+    }
+   }
+  },
+  {
+   "id": "01a14d87-d062-4a4f-b998-198162485b75",
+   "name": "Entry 14",
+   "used": [
+    "DAL",
+    "DET",
+    "HOU",
+    "KC",
+    "LAR",
+    "NE"
+   ],
+   "options": [
+    {
+     "path": {
+      "12": "CLE+JAX",
+      "13": "BUF+DEN",
+      "14": "CHI+MIN",
+      "15": "GB+SEA",
+      "16": "CIN+LV",
+      "17": "SF",
+      "18": "NYG"
+     },
+     "pay": 600.44,
+     "se": 99.53,
+     "se_vs_best": 0.0,
+     "survive": 0.0506,
+     "alone": 0.0,
+     "split": 0.0509,
+     "diverges": null
+    },
+    {
+     "path": {
+      "12": "CLE+WAS",
+      "13": "BUF+DEN",
+      "14": "CHI+JAX",
+      "15": "GB+SEA",
+      "16": "CIN+MIN",
+      "17": "SF",
+      "18": "NYG"
+     },
+     "pay": 555.35,
+     "se": 92.92,
+     "se_vs_best": 127.37,
+     "survive": 0.0519,
+     "alone": 0.0,
+     "split": 0.0519,
+     "diverges": 12
+    },
+    {
+     "path": {
+      "12": "NYG+WAS",
+      "13": "BUF+DEN",
+      "14": "CHI+JAX",
+      "15": "GB+SEA",
+      "16": "CIN+MIN",
+      "17": "SF",
+      "18": "CAR"
+     },
+     "pay": 505.21,
+     "se": 58.05,
+     "se_vs_best": 111.08,
+     "survive": 0.0503,
+     "alone": 0.0,
+     "split": 0.0505,
+     "diverges": 12
+    },
+    {
+     "path": {
+      "12": "JAX+MIN",
+      "13": "BUF+DEN",
+      "14": "CHI+SEA",
+      "15": "GB+NYJ",
+      "16": "CIN+LV",
+      "17": "SF",
+      "18": "NYG"
+     },
+     "pay": 530.83,
+     "se": 92.05,
+     "se_vs_best": 72.24,
+     "survive": 0.053,
+     "alone": 0.0,
+     "split": 0.053,
+     "diverges": 12
+    }
+   ],
+   "by_team": {
+    "CLE+JAX": {
+     "path": {
+      "12": "CLE+JAX",
+      "13": "BUF+DEN",
+      "14": "CHI+MIN",
+      "15": "GB+SEA",
+      "16": "CIN+LV",
+      "17": "SF",
+      "18": "NYG"
+     },
+     "pay": 600.44,
+     "se": 99.53,
+     "se_vs_best": 0.0,
+     "survive": 0.0506,
+     "alone": 0.0,
+     "split": 0.0509,
+     "diverges": null
+    },
+    "CLE+WAS": {
+     "path": {
+      "12": "CLE+WAS",
+      "13": "BUF+DEN",
+      "14": "CHI+JAX",
+      "15": "GB+SEA",
+      "16": "CIN+MIN",
+      "17": "SF",
+      "18": "NYG"
+     },
+     "pay": 555.35,
+     "se": 92.92,
+     "se_vs_best": 127.37,
+     "survive": 0.0519,
+     "alone": 0.0,
+     "split": 0.0519,
+     "diverges": 12
+    },
+    "NYG+WAS": {
+     "path": {
+      "12": "NYG+WAS",
+      "13": "BUF+DEN",
+      "14": "CHI+JAX",
+      "15": "GB+SEA",
+      "16": "CIN+MIN",
+      "17": "SF",
+      "18": "CAR"
+     },
+     "pay": 505.21,
+     "se": 58.05,
+     "se_vs_best": 111.08,
+     "survive": 0.0503,
+     "alone": 0.0,
+     "split": 0.0505,
+     "diverges": 12
+    },
+    "JAX+MIN": {
+     "path": {
+      "12": "JAX+MIN",
+      "13": "BUF+DEN",
+      "14": "CHI+SEA",
+      "15": "GB+NYJ",
+      "16": "CIN+LV",
+      "17": "SF",
+      "18": "NYG"
+     },
+     "pay": 530.83,
+     "se": 92.05,
+     "se_vs_best": 72.24,
+     "survive": 0.053,
+     "alone": 0.0,
+     "split": 0.053,
+     "diverges": 12
+    },
+    "JAX+WAS": {
+     "path": {
+      "12": "JAX+WAS",
+      "13": "BUF+DEN",
+      "14": "CAR+CHI",
+      "15": "GB+SEA",
+      "16": "CIN+MIN",
+      "17": "CLE",
+      "18": "SF"
+     },
+     "pay": 398.46,
+     "se": 43.83,
+     "se_vs_best": 106.92,
+     "survive": 0.0514,
+     "alone": 0.0,
+     "split": 0.0516,
+     "diverges": 12
+    },
+    "MIN+WAS": {
+     "path": {
+      "12": "MIN+WAS",
+      "13": "BUF+DEN",
+      "14": "CHI+JAX",
+      "15": "GB+SEA",
+      "16": "CIN+LV",
+      "17": "SF",
+      "18": "CAR"
+     },
+     "pay": 635.68,
+     "se": 100.86,
+     "se_vs_best": 78.79,
+     "survive": 0.0522,
+     "alone": 0.0,
+     "split": 0.0523,
+     "diverges": 12
+    },
+    "NYJ+WAS": {
+     "path": {
+      "12": "NYJ+WAS",
+      "13": "BUF+DEN",
+      "14": "CHI+JAX",
+      "15": "GB+SEA",
+      "16": "CIN+MIN",
+      "17": "SF",
+      "18": "NYG"
+     },
+     "pay": 524.8,
+     "se": 92.01,
+     "se_vs_best": 132.81,
+     "survive": 0.0494,
+     "alone": 0.0,
+     "split": 0.0495,
+     "diverges": 12
+    },
+    "JAX+NYJ": {
+     "path": {
+      "12": "JAX+NYJ",
+      "13": "BUF+DEN",
+      "14": "CHI+SEA",
+      "15": "GB+SF",
+      "16": "CIN+MIN",
+      "17": "CLE",
+      "18": "NYG"
+     },
+     "pay": 283.37,
+     "se": 32.7,
+     "se_vs_best": 103.61,
+     "survive": 0.0441,
+     "alone": 0.0,
+     "split": 0.0444,
+     "diverges": 12
+    },
+    "JAX+NYG": {
+     "path": {
+      "12": "JAX+NYG",
+      "13": "BUF+DEN",
+      "14": "CHI+PHI",
+      "15": "GB+SEA",
+      "16": "CIN+MIN",
+      "17": "CLE",
+      "18": "SF"
+     },
+     "pay": 419.45,
+     "se": 52.75,
+     "se_vs_best": 110.8,
+     "survive": 0.057,
+     "alone": 0.0,
+     "split": 0.0572,
+     "diverges": 12
+    },
+    "CIN+CLE": {
+     "path": {
+      "12": "CIN+CLE",
+      "13": "BUF+DEN",
+      "14": "CHI+JAX",
+      "15": "GB+SEA",
+      "16": "MIN+NO",
+      "17": "SF",
+      "18": "NYG"
+     },
+     "pay": 270.6,
+     "se": 38.82,
+     "se_vs_best": 106.01,
+     "survive": 0.0516,
+     "alone": 0.0,
+     "split": 0.0517,
+     "diverges": 12
+    },
+    "MIN+NYG": {
+     "path": {
+      "12": "MIN+NYG",
+      "13": "BUF+DEN",
+      "14": "CHI+JAX",
+      "15": "GB+SEA",
+      "16": "CIN+NO",
+      "17": "SF",
+      "18": "TB"
+     },
+     "pay": 256.38,
+     "se": 25.28,
+     "se_vs_best": 102.73,
+     "survive": 0.0511,
+     "alone": 0.0,
+     "split": 0.0512,
+     "diverges": 12
+    },
+    "CIN+JAX": {
+     "path": {
+      "12": "CIN+JAX",
+      "13": "BUF+DEN",
+      "14": "CHI+SEA",
+      "15": "GB+NYJ",
+      "16": "MIN+NO",
+      "17": "SF",
+      "18": "NYG"
+     },
+     "pay": 303.03,
+     "se": 26.86,
+     "se_vs_best": 102.56,
+     "survive": 0.0583,
+     "alone": 0.0,
+     "split": 0.0584,
+     "diverges": 12
+    },
+    "MIN+NYJ": {
+     "path": {
+      "12": "MIN+NYJ",
+      "13": "BUF+DEN",
+      "14": "CHI+JAX",
+      "15": "GB+SEA",
+      "16": "CIN+NO",
+      "17": "SF",
+      "18": "NYG"
+     },
+     "pay": 291.99,
+     "se": 29.11,
+     "se_vs_best": 102.85,
+     "survive": 0.0564,
+     "alone": 0.0,
+     "split": 0.0564,
+     "diverges": 12
+    },
+    "CIN+NYG": {
+     "path": {
+      "12": "CIN+NYG",
+      "13": "BUF+DEN",
+      "14": "CHI+JAX",
+      "15": "GB+SEA",
+      "16": "MIN+NO",
+      "17": "CLE",
+      "18": "SF"
+     },
+     "pay": 195.52,
+     "se": 16.84,
+     "se_vs_best": 100.99,
+     "survive": 0.0552,
+     "alone": 0.0,
+     "split": 0.0553,
+     "diverges": 12
+    },
+    "CIN+WAS": {
+     "path": {
+      "12": "CIN+WAS",
+      "13": "BUF+DEN",
+      "14": "CHI+JAX",
+      "15": "GB+SEA",
+      "16": "MIN+NO",
+      "17": "SF",
+      "18": "NYG"
+     },
+     "pay": 220.56,
+     "se": 20.05,
+     "se_vs_best": 100.78,
+     "survive": 0.0552,
+     "alone": 0.0,
+     "split": 0.0553,
+     "diverges": 12
+    },
+    "CLE+MIN": {
+     "path": {
+      "12": "CLE+MIN",
+      "13": "BUF+DEN",
+      "14": "CHI+JAX",
+      "15": "GB+SEA",
+      "16": "CIN+NO",
+      "17": "SF",
+      "18": "NYG"
+     },
+     "pay": 330.42,
+     "se": 31.5,
+     "se_vs_best": 103.36,
+     "survive": 0.0581,
+     "alone": 0.0,
+     "split": 0.0581,
+     "diverges": 12
+    },
+    "NYG+NYJ": {
+     "path": {
+      "12": "NYG+NYJ",
+      "13": "BUF+DEN",
+      "14": "CHI+JAX",
+      "15": "GB+SEA",
+      "16": "CIN+NO",
+      "17": "CLE",
+      "18": "SF"
+     },
+     "pay": 196.46,
+     "se": 16.21,
+     "se_vs_best": 100.86,
+     "survive": 0.0553,
+     "alone": 0.0,
+     "split": 0.0553,
+     "diverges": 12
+    },
+    "CLE+NYG": {
+     "path": {
+      "12": "CLE+NYG",
+      "13": "BUF+DEN",
+      "14": "CHI+JAX",
+      "15": "GB+SEA",
+      "16": "CIN+NO",
+      "17": "SF",
+      "18": "CAR"
+     },
+     "pay": 258.5,
+     "se": 23.68,
+     "se_vs_best": 101.98,
+     "survive": 0.0505,
+     "alone": 0.0,
+     "split": 0.0505,
+     "diverges": 12
+    },
+    "CIN+MIN": {
+     "path": {
+      "12": "CIN+MIN",
+      "13": "BUF+DEN",
+      "14": "CHI+JAX",
+      "15": "GB+SEA",
+      "16": "LV+NO",
+      "17": "SF",
+      "18": "NYG"
+     },
+     "pay": 290.81,
+     "se": 38.45,
+     "se_vs_best": 105.77,
+     "survive": 0.0578,
+     "alone": 0.0,
+     "split": 0.058,
+     "diverges": 12
+    },
+    "JAX+TB": {
+     "path": {
+      "12": "JAX+TB",
+      "13": "BUF+DEN",
+      "14": "CHI+SEA",
+      "15": "GB+SF",
+      "16": "CIN+NO",
+      "17": "CLE",
+      "18": "NYG"
+     },
+     "pay": 163.68,
+     "se": 15.83,
+     "se_vs_best": 100.61,
+     "survive": 0.0453,
+     "alone": 0.0,
+     "split": 0.0453,
+     "diverges": 12
+    }
+   }
+  },
+  {
+   "id": "01a14d87-d062-4a9c-91fe-7af480ecad42",
+   "name": "Entry 15",
+   "used": [
+    "DAL",
+    "DEN",
+    "DET",
+    "KC",
+    "LAR",
+    "NE"
+   ],
+   "options": [
+    {
+     "path": {
+      "12": "MIN+WAS",
+      "13": "BUF+SF",
+      "14": "CHI+JAX",
+      "15": "GB+SEA",
+      "16": "CIN+HOU",
+      "17": "CLE",
+      "18": "NYG"
+     },
+     "pay": 414.52,
+     "se": 87.94,
+     "se_vs_best": 0.0,
+     "survive": 0.0406,
+     "alone": 0.0,
+     "split": 0.0408,
+     "diverges": null
+    },
+    {
+     "path": {
+      "12": "JAX+MIN",
+      "13": "BUF+TB",
+      "14": "CAR+CHI",
+      "15": "GB+SEA",
+      "16": "CIN+HOU",
+      "17": "SF",
+      "18": "NYG"
+     },
+     "pay": 414.47,
+     "se": 61.74,
+     "se_vs_best": 105.9,
+     "survive": 0.0403,
+     "alone": 0.0,
+     "split": 0.0403,
+     "diverges": 12
+    },
+    {
+     "path": {
+      "12": "JAX+WAS",
+      "13": "BUF+MIN",
+      "14": "CAR+CHI",
+      "15": "GB+SEA",
+      "16": "CIN+HOU",
+      "17": "SF",
+      "18": "NYG"
+     },
+     "pay": 560.59,
+     "se": 81.87,
+     "se_vs_best": 118.2,
+     "survive": 0.0431,
+     "alone": 0.0,
+     "split": 0.0431,
+     "diverges": 12
+    },
+    {
+     "path": {
+      "12": "JAX+WAS",
+      "13": "BUF+TB",
+      "14": "CAR+CHI",
+      "15": "GB+SEA",
+      "16": "CIN+HOU",
+      "17": "CLE",
+      "18": "SF"
+     },
+     "pay": 353.72,
+     "se": 44.34,
+     "se_vs_best": 95.83,
+     "survive": 0.0452,
+     "alone": 0.0,
+     "split": 0.0453,
+     "diverges": 12
+    }
+   ],
+   "by_team": {
+    "MIN+WAS": {
+     "path": {
+      "12": "MIN+WAS",
+      "13": "BUF+SF",
+      "14": "CHI+JAX",
+      "15": "GB+SEA",
+      "16": "CIN+HOU",
+      "17": "CLE",
+      "18": "NYG"
+     },
+     "pay": 414.52,
+     "se": 87.94,
+     "se_vs_best": 0.0,
+     "survive": 0.0406,
+     "alone": 0.0,
+     "split": 0.0408,
+     "diverges": null
+    },
+    "JAX+MIN": {
+     "path": {
+      "12": "JAX+MIN",
+      "13": "BUF+TB",
+      "14": "CAR+CHI",
+      "15": "GB+SEA",
+      "16": "CIN+HOU",
+      "17": "SF",
+      "18": "NYG"
+     },
+     "pay": 414.47,
+     "se": 61.74,
+     "se_vs_best": 105.9,
+     "survive": 0.0403,
+     "alone": 0.0,
+     "split": 0.0403,
+     "diverges": 12
+    },
+    "JAX+WAS": {
+     "path": {
+      "12": "JAX+WAS",
+      "13": "BUF+MIN",
+      "14": "CAR+CHI",
+      "15": "GB+SEA",
+      "16": "CIN+HOU",
+      "17": "SF",
+      "18": "NYG"
+     },
+     "pay": 560.59,
+     "se": 81.87,
+     "se_vs_best": 118.2,
+     "survive": 0.0431,
+     "alone": 0.0,
+     "split": 0.0431,
+     "diverges": 12
+    },
+    "JAX+NYG": {
+     "path": {
+      "12": "JAX+NYG",
+      "13": "BUF+TB",
+      "14": "CHI+MIN",
+      "15": "GB+SEA",
+      "16": "CIN+HOU",
+      "17": "CLE",
+      "18": "SF"
+     },
+     "pay": 420.73,
+     "se": 56.99,
+     "se_vs_best": 104.21,
+     "survive": 0.0461,
+     "alone": 0.0,
+     "split": 0.0462,
+     "diverges": 12
+    },
+    "NYG+WAS": {
+     "path": {
+      "12": "NYG+WAS",
+      "13": "BUF+TB",
+      "14": "CHI+JAX",
+      "15": "GB+SEA",
+      "16": "CIN+HOU",
+      "17": "CLE",
+      "18": "SF"
+     },
+     "pay": 368.34,
+     "se": 42.03,
+     "se_vs_best": 94.52,
+     "survive": 0.0492,
+     "alone": 0.0,
+     "split": 0.0494,
+     "diverges": 12
+    },
+    "MIN+NYG": {
+     "path": {
+      "12": "MIN+NYG",
+      "13": "BUF+TB",
+      "14": "CHI+JAX",
+      "15": "GB+SEA",
+      "16": "CIN+HOU",
+      "17": "CLE",
+      "18": "SF"
+     },
+     "pay": 462.69,
+     "se": 67.39,
+     "se_vs_best": 108.27,
+     "survive": 0.047,
+     "alone": 0.0,
+     "split": 0.0472,
+     "diverges": 12
+    },
+    "HOU+JAX": {
+     "path": {
+      "12": "HOU+JAX",
+      "13": "BUF+TB",
+      "14": "CHI+SEA",
+      "15": "GB+SF",
+      "16": "CIN+MIN",
+      "17": "CLE",
+      "18": "NYG"
+     },
+     "pay": 378.45,
+     "se": 47.49,
+     "se_vs_best": 98.45,
+     "survive": 0.0425,
+     "alone": 0.0,
+     "split": 0.0427,
+     "diverges": 12
+    },
+    "HOU+WAS": {
+     "path": {
+      "12": "HOU+WAS",
+      "13": "BUF+MIN",
+      "14": "CHI+JAX",
+      "15": "GB+SEA",
+      "16": "CIN+NO",
+      "17": "SF",
+      "18": "NYG"
+     },
+     "pay": 297.88,
+     "se": 38.34,
+     "se_vs_best": 95.61,
+     "survive": 0.0519,
+     "alone": 0.0,
+     "split": 0.0522,
+     "diverges": 12
+    },
+    "CIN+WAS": {
+     "path": {
+      "12": "CIN+WAS",
+      "13": "BUF+MIN",
+      "14": "CHI+JAX",
+      "15": "GB+SEA",
+      "16": "HOU+NO",
+      "17": "SF",
+      "18": "NYG"
+     },
+     "pay": 282.19,
+     "se": 49.78,
+     "se_vs_best": 100.7,
+     "survive": 0.0459,
+     "alone": 0.0,
+     "split": 0.0461,
+     "diverges": 12
+    },
+    "HOU+MIN": {
+     "path": {
+      "12": "HOU+MIN",
+      "13": "BUF+TB",
+      "14": "CHI+JAX",
+      "15": "GB+SEA",
+      "16": "CIN+NO",
+      "17": "SF",
+      "18": "NYG"
+     },
+     "pay": 255.51,
+     "se": 28.19,
+     "se_vs_best": 92.12,
+     "survive": 0.0478,
+     "alone": 0.0,
+     "split": 0.048,
+     "diverges": 12
+    },
+    "CIN+JAX": {
+     "path": {
+      "12": "CIN+JAX",
+      "13": "BUF+MIN",
+      "14": "CHI+SEA",
+      "15": "GB+TB",
+      "16": "HOU+NO",
+      "17": "SF",
+      "18": "NYG"
+     },
+     "pay": 217.82,
+     "se": 23.15,
+     "se_vs_best": 90.96,
+     "survive": 0.0427,
+     "alone": 0.0,
+     "split": 0.0428,
+     "diverges": 12
+    },
+    "JAX+NYJ": {
+     "path": {
+      "12": "JAX+NYJ",
+      "13": "BUF+SF",
+      "14": "CHI+MIN",
+      "15": "GB+SEA",
+      "16": "CIN+NO",
+      "17": "CLE",
+      "18": "HOU"
+     },
+     "pay": 233.22,
+     "se": 44.25,
+     "se_vs_best": 98.3,
+     "survive": 0.0484,
+     "alone": 0.0,
+     "split": 0.0486,
+     "diverges": 12
+    },
+    "CIN+MIN": {
+     "path": {
+      "12": "CIN+MIN",
+      "13": "BUF+TB",
+      "14": "CHI+JAX",
+      "15": "GB+SEA",
+      "16": "HOU+NO",
+      "17": "SF",
+      "18": "NYG"
+     },
+     "pay": 211.49,
+     "se": 20.69,
+     "se_vs_best": 89.89,
+     "survive": 0.0462,
+     "alone": 0.0,
+     "split": 0.0464,
+     "diverges": 12
+    },
+    "HOU+NYG": {
+     "path": {
+      "12": "HOU+NYG",
+      "13": "BUF+MIN",
+      "14": "CHI+JAX",
+      "15": "GB+SEA",
+      "16": "CIN+NO",
+      "17": "CLE",
+      "18": "SF"
+     },
+     "pay": 219.78,
+     "se": 21.83,
+     "se_vs_best": 90.26,
+     "survive": 0.0492,
+     "alone": 0.0,
+     "split": 0.0494,
+     "diverges": 12
+    },
+    "CIN+NYG": {
+     "path": {
+      "12": "CIN+NYG",
+      "13": "BUF+TB",
+      "14": "CHI+JAX",
+      "15": "GB+SEA",
+      "16": "HOU+NO",
+      "17": "SF",
+      "18": "CAR"
+     },
+     "pay": 176.67,
+     "se": 16.86,
+     "se_vs_best": 89.42,
+     "survive": 0.0405,
+     "alone": 0.0,
+     "split": 0.0406,
+     "diverges": 12
+    }
+   }
+  }
+ ]
+}

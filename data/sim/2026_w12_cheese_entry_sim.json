@@ -1,0 +1,229 @@
+{
+ "season": 2026,
+ "week": 12,
+ "slug": "cheese",
+ "name": "Cheese Bowl",
+ "built": "2026-11-25T23:32:09Z",
+ "code": "5d00888373e7a53d4c6e2651d88103e240dc3acc+dirty",
+ "board": "season/2026_w12/2026_w12_cheese_board_final",
+ "worlds": 12800,
+ "priced_on": 6400,
+ "pot": 135000.0,
+ "beam": 400,
+ "floor": 0.42,
+ "field_alive": 100,
+ "field_by_week": {
+  "12": 100.0,
+  "13": 77.0,
+  "14": 61.65,
+  "15": 47.18,
+  "16": 38.48,
+  "17": 26.98,
+  "18": 19.07
+ },
+ "field_after_last": 13.54,
+ "field_extinct": 0.0675,
+ "entries": [
+  {
+   "id": "01a077bf-ba51-42ea-bd83-7dbc516eb1fc",
+   "name": "Entry 6",
+   "used": [
+    "CIN",
+    "HOU",
+    "KC",
+    "LAR",
+    "MIN",
+    "NE",
+    "PHI",
+    "PIT",
+    "SEA",
+    "SF",
+    "WAS"
+   ],
+   "options": [
+    {
+     "path": {
+      "12": "DAL",
+      "13": "DEN",
+      "14": "CHI",
+      "15": "TB",
+      "16": "DET",
+      "17": "BUF",
+      "18": "JAX"
+     },
+     "pay": 3648.46,
+     "se": 181.77,
+     "se_vs_best": 0.0,
+     "survive": 0.1684,
+     "alone": 0.0078,
+     "split": 0.1639,
+     "diverges": null
+    },
+    {
+     "path": {
+      "12": "DAL",
+      "13": "DEN",
+      "14": "DET",
+      "15": "GB",
+      "16": "CHI",
+      "17": "BUF",
+      "18": "JAX"
+     },
+     "pay": 3348.33,
+     "se": 140.36,
+     "se_vs_best": 215.37,
+     "survive": 0.2167,
+     "alone": 0.003,
+     "split": 0.2152,
+     "diverges": 14
+    },
+    {
+     "path": {
+      "12": "NYG",
+      "13": "DEN",
+      "14": "CHI",
+      "15": "GB",
+      "16": "DET",
+      "17": "BUF",
+      "18": "JAX"
+     },
+     "pay": 3324.95,
+     "se": 144.86,
+     "se_vs_best": 194.49,
+     "survive": 0.2086,
+     "alone": 0.0036,
+     "split": 0.2067,
+     "diverges": 12
+    },
+    {
+     "path": {
+      "12": "DAL",
+      "13": "DEN",
+      "14": "CHI",
+      "15": "GB",
+      "16": "DET",
+      "17": "BUF",
+      "18": "JAX"
+     },
+     "pay": 3442.46,
+     "se": 145.38,
+     "se_vs_best": 161.1,
+     "survive": 0.2259,
+     "alone": 0.0037,
+     "split": 0.2234,
+     "diverges": 15
+    }
+   ],
+   "by_team": {
+    "DAL": {
+     "path": {
+      "12": "DAL",
+      "13": "DEN",
+      "14": "CHI",
+      "15": "TB",
+      "16": "DET",
+      "17": "BUF",
+      "18": "JAX"
+     },
+     "pay": 3648.46,
+     "se": 181.77,
+     "se_vs_best": 0.0,
+     "survive": 0.1684,
+     "alone": 0.0078,
+     "split": 0.1639,
+     "diverges": null
+    },
+    "NYG": {
+     "path": {
+      "12": "NYG",
+      "13": "DEN",
+      "14": "CHI",
+      "15": "GB",
+      "16": "DET",
+      "17": "BUF",
+      "18": "JAX"
+     },
+     "pay": 3324.95,
+     "se": 144.86,
+     "se_vs_best": 194.49,
+     "survive": 0.2086,
+     "alone": 0.0036,
+     "split": 0.2067,
+     "diverges": 12
+    },
+    "JAX": {
+     "path": {
+      "12": "JAX",
+      "13": "DEN",
+      "14": "CHI",
+      "15": "GB",
+      "16": "DET",
+      "17": "BUF",
+      "18": "BAL"
+     },
+     "pay": 3178.06,
+     "se": 149.65,
+     "se_vs_best": 197.12,
+     "survive": 0.1836,
+     "alone": 0.0042,
+     "split": 0.1841,
+     "diverges": 12
+    },
+    "CLE": {
+     "path": {
+      "12": "CLE",
+      "13": "DEN",
+      "14": "CHI",
+      "15": "GB",
+      "16": "DET",
+      "17": "BUF",
+      "18": "JAX"
+     },
+     "pay": 3067.11,
+     "se": 139.97,
+     "se_vs_best": 189.93,
+     "survive": 0.1919,
+     "alone": 0.0036,
+     "split": 0.1905,
+     "diverges": 12
+    },
+    "NYJ": {
+     "path": {
+      "12": "NYJ",
+      "13": "DEN",
+      "14": "CHI",
+      "15": "GB",
+      "16": "DET",
+      "17": "BUF",
+      "18": "JAX"
+     },
+     "pay": 2936.73,
+     "se": 136.77,
+     "se_vs_best": 185.53,
+     "survive": 0.1839,
+     "alone": 0.0031,
+     "split": 0.1822,
+     "diverges": 12
+    },
+    "TB": {
+     "path": {
+      "12": "TB",
+      "13": "DEN",
+      "14": "CHI",
+      "15": "GB",
+      "16": "DET",
+      "17": "BUF",
+      "18": "JAX"
+     },
+     "pay": 2768.82,
+     "se": 133.54,
+     "se_vs_best": 189.22,
+     "survive": 0.1667,
+     "alone": 0.003,
+     "split": 0.1647,
+     "diverges": 12
+    }
+   }
+  }
+ ]
+}

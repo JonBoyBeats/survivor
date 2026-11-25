@@ -1,0 +1,226 @@
+{
+ "season": 2026,
+ "week": 12,
+ "slug": "w4k50",
+ "name": "Week 4 $50k",
+ "built": "2026-11-25T23:35:02Z",
+ "code": "5d00888373e7a53d4c6e2651d88103e240dc3acc+dirty",
+ "board": "season/2026_w12/2026_w12_w4k50_board",
+ "worlds": 12800,
+ "priced_on": 6400,
+ "pot": 50000.0,
+ "beam": 400,
+ "floor": 0.42,
+ "field_alive": 773,
+ "field_by_week": {
+  "12": 773.0,
+  "13": 604.0,
+  "14": 493.42,
+  "15": 392.19,
+  "16": 317.25,
+  "17": 224.04,
+  "18": 166.01
+ },
+ "field_after_last": 127.08,
+ "field_extinct": 0.0008,
+ "entries": [
+  {
+   "id": "01a0fb30-cfd2-4225-944f-a066beb55d92",
+   "name": "Entry 3",
+   "used": [
+    "BUF",
+    "CHI",
+    "DAL",
+    "DEN",
+    "HOU",
+    "KC",
+    "MIN",
+    "NE"
+   ],
+   "options": [
+    {
+     "path": {
+      "12": "WAS",
+      "13": "TB",
+      "14": "DET",
+      "15": "SEA",
+      "16": "CIN",
+      "17": "SF",
+      "18": "JAX"
+     },
+     "pay": 107.75,
+     "se": 4.77,
+     "se_vs_best": 0.0,
+     "survive": 0.1898,
+     "alone": 0.0,
+     "split": 0.1898,
+     "diverges": null
+    },
+    {
+     "path": {
+      "12": "NYG",
+      "13": "TB",
+      "14": "DET",
+      "15": "SEA",
+      "16": "CIN",
+      "17": "SF",
+      "18": "JAX"
+     },
+     "pay": 102.97,
+     "se": 4.36,
+     "se_vs_best": 4.24,
+     "survive": 0.1848,
+     "alone": 0.0,
+     "split": 0.1848,
+     "diverges": 12
+    },
+    {
+     "path": {
+      "12": "WAS",
+      "13": "TB",
+      "14": "SEA",
+      "15": "GB",
+      "16": "CIN",
+      "17": "SF",
+      "18": "JAX"
+     },
+     "pay": 92.81,
+     "se": 4.43,
+     "se_vs_best": 5.73,
+     "survive": 0.1889,
+     "alone": 0.0,
+     "split": 0.1889,
+     "diverges": 14
+    },
+    {
+     "path": {
+      "12": "WAS",
+      "13": "GB",
+      "14": "DET",
+      "15": "SEA",
+      "16": "CIN",
+      "17": "SF",
+      "18": "JAX"
+     },
+     "pay": 109.49,
+     "se": 5.06,
+     "se_vs_best": 3.62,
+     "survive": 0.1816,
+     "alone": 0.0,
+     "split": 0.1816,
+     "diverges": 13
+    }
+   ],
+   "by_team": {
+    "WAS": {
+     "path": {
+      "12": "WAS",
+      "13": "TB",
+      "14": "DET",
+      "15": "SEA",
+      "16": "CIN",
+      "17": "SF",
+      "18": "JAX"
+     },
+     "pay": 107.75,
+     "se": 4.77,
+     "se_vs_best": 0.0,
+     "survive": 0.1898,
+     "alone": 0.0,
+     "split": 0.1898,
+     "diverges": null
+    },
+    "NYG": {
+     "path": {
+      "12": "NYG",
+      "13": "TB",
+      "14": "DET",
+      "15": "SEA",
+      "16": "CIN",
+      "17": "SF",
+      "18": "JAX"
+     },
+     "pay": 102.97,
+     "se": 4.36,
+     "se_vs_best": 4.24,
+     "survive": 0.1848,
+     "alone": 0.0,
+     "split": 0.1848,
+     "diverges": 12
+    },
+    "JAX": {
+     "path": {
+      "12": "JAX",
+      "13": "TB",
+      "14": "DET",
+      "15": "SEA",
+      "16": "CIN",
+      "17": "SF",
+      "18": "NYG"
+     },
+     "pay": 109.54,
+     "se": 4.78,
+     "se_vs_best": 5.45,
+     "survive": 0.1908,
+     "alone": 0.0,
+     "split": 0.1908,
+     "diverges": 12
+    },
+    "CIN": {
+     "path": {
+      "12": "CIN",
+      "13": "TB",
+      "14": "SEA",
+      "15": "GB",
+      "16": "DET",
+      "17": "SF",
+      "18": "JAX"
+     },
+     "pay": 86.44,
+     "se": 4.66,
+     "se_vs_best": 6.41,
+     "survive": 0.1553,
+     "alone": 0.0,
+     "split": 0.1553,
+     "diverges": 12
+    },
+    "CLE": {
+     "path": {
+      "12": "CLE",
+      "13": "TB",
+      "14": "DET",
+      "15": "SEA",
+      "16": "CIN",
+      "17": "SF",
+      "18": "JAX"
+     },
+     "pay": 95.4,
+     "se": 4.35,
+     "se_vs_best": 4.04,
+     "survive": 0.1689,
+     "alone": 0.0,
+     "split": 0.1689,
+     "diverges": 12
+    },
+    "NYJ": {
+     "path": {
+      "12": "NYJ",
+      "13": "TB",
+      "14": "DET",
+      "15": "SEA",
+      "16": "CIN",
+      "17": "SF",
+      "18": "JAX"
+     },
+     "pay": 98.11,
+     "se": 4.78,
+     "se_vs_best": 3.76,
+     "survive": 0.1633,
+     "alone": 0.0,
+     "split": 0.1633,
+     "diverges": 12
+    }
+   }
+  }
+ ]
+}

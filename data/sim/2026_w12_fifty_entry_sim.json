@@ -1,0 +1,994 @@
+{
+ "season": 2026,
+ "week": 12,
+ "slug": "fifty",
+ "name": "Splash $50k",
+ "built": "2026-11-25T23:32:40Z",
+ "code": "5d00888373e7a53d4c6e2651d88103e240dc3acc+dirty",
+ "board": "season/2026_w12/2026_w12_fifty_board_final",
+ "worlds": 12800,
+ "priced_on": 6400,
+ "pot": 50004.0,
+ "beam": 400,
+ "floor": 0.42,
+ "field_alive": 111,
+ "field_by_week": {
+  "12": 111.0,
+  "13": 86.24,
+  "14": 71.66,
+  "15": 55.14,
+  "16": 44.37,
+  "17": 31.12,
+  "18": 22.33
+ },
+ "field_after_last": 16.07,
+ "field_extinct": 0.0382,
+ "entries": [
+  {
+   "id": "01a06427-5fa4-4ba8-aa29-d351a7b2cc55",
+   "name": "Entry 39",
+   "used": [
+    "BUF",
+    "CAR",
+    "CHI",
+    "CIN",
+    "DEN",
+    "HOU",
+    "JAX",
+    "KC",
+    "MIN",
+    "NE",
+    "SEA"
+   ],
+   "options": [
+    {
+     "path": {
+      "12": "DAL",
+      "13": "TB",
+      "14": "DET",
+      "15": "GB",
+      "16": "LV",
+      "17": "PIT",
+      "18": "SF"
+     },
+     "pay": 580.33,
+     "se": 33.22,
+     "se_vs_best": 0.0,
+     "survive": 0.1253,
+     "alone": 0.0009,
+     "split": 0.1245,
+     "diverges": null
+    },
+    {
+     "path": {
+      "12": "DAL",
+      "13": "TB",
+      "14": "DET",
+      "15": "GB",
+      "16": "LV",
+      "17": "LAR",
+      "18": "SF"
+     },
+     "pay": 584.29,
+     "se": 33.55,
+     "se_vs_best": 30.59,
+     "survive": 0.127,
+     "alone": 0.0013,
+     "split": 0.1261,
+     "diverges": 17
+    },
+    {
+     "path": {
+      "12": "DAL",
+      "13": "TB",
+      "14": "DET",
+      "15": "GB",
+      "16": "LV",
+      "17": "SF",
+      "18": "BAL"
+     },
+     "pay": 570.33,
+     "se": 35.52,
+     "se_vs_best": 35.04,
+     "survive": 0.1169,
+     "alone": 0.0016,
+     "split": 0.1163,
+     "diverges": 17
+    },
+    {
+     "path": {
+      "12": "DAL",
+      "13": "GB",
+      "14": "DET",
+      "15": "LAR",
+      "16": "LV",
+      "17": "SF",
+      "18": "NYG"
+     },
+     "pay": 563.71,
+     "se": 37.11,
+     "se_vs_best": 46.25,
+     "survive": 0.1072,
+     "alone": 0.0019,
+     "split": 0.108,
+     "diverges": 13
+    }
+   ],
+   "by_team": {
+    "DAL": {
+     "path": {
+      "12": "DAL",
+      "13": "TB",
+      "14": "DET",
+      "15": "GB",
+      "16": "LV",
+      "17": "PIT",
+      "18": "SF"
+     },
+     "pay": 580.33,
+     "se": 33.22,
+     "se_vs_best": 0.0,
+     "survive": 0.1253,
+     "alone": 0.0009,
+     "split": 0.1245,
+     "diverges": null
+    },
+    "NYG": {
+     "path": {
+      "12": "NYG",
+      "13": "TB",
+      "14": "DET",
+      "15": "GB",
+      "16": "LV",
+      "17": "SF",
+      "18": "BAL"
+     },
+     "pay": 511.5,
+     "se": 32.69,
+     "se_vs_best": 40.33,
+     "survive": 0.1055,
+     "alone": 0.0013,
+     "split": 0.105,
+     "diverges": 12
+    },
+    "CLE": {
+     "path": {
+      "12": "CLE",
+      "13": "TB",
+      "14": "DET",
+      "15": "GB",
+      "16": "BAL",
+      "17": "SF",
+      "18": "NYG"
+     },
+     "pay": 505.65,
+     "se": 29.77,
+     "se_vs_best": 41.18,
+     "survive": 0.1144,
+     "alone": 0.0006,
+     "split": 0.1148,
+     "diverges": 12
+    },
+    "WAS": {
+     "path": {
+      "12": "WAS",
+      "13": "TB",
+      "14": "DET",
+      "15": "GB",
+      "16": "LV",
+      "17": "SF",
+      "18": "NYG"
+     },
+     "pay": 532.06,
+     "se": 27.38,
+     "se_vs_best": 36.43,
+     "survive": 0.1298,
+     "alone": 0.0003,
+     "split": 0.1314,
+     "diverges": 12
+    },
+    "NYJ": {
+     "path": {
+      "12": "NYJ",
+      "13": "TB",
+      "14": "DET",
+      "15": "GB",
+      "16": "BAL",
+      "17": "SF",
+      "18": "NYG"
+     },
+     "pay": 458.72,
+     "se": 26.77,
+     "se_vs_best": 40.58,
+     "survive": 0.108,
+     "alone": 0.0005,
+     "split": 0.1084,
+     "diverges": 12
+    },
+    "LAR": {
+     "path": {
+      "12": "LAR",
+      "13": "TB",
+      "14": "DET",
+      "15": "GB",
+      "16": "NO",
+      "17": "SF",
+      "18": "NYG"
+     },
+     "pay": 277.06,
+     "se": 13.56,
+     "se_vs_best": 35.82,
+     "survive": 0.1091,
+     "alone": 0.0,
+     "split": 0.1095,
+     "diverges": 12
+    },
+    "TB": {
+     "path": {
+      "12": "TB",
+      "13": "WAS",
+      "14": "DET",
+      "15": "GB",
+      "16": "NO",
+      "17": "SF",
+      "18": "NYG"
+     },
+     "pay": 329.93,
+     "se": 15.35,
+     "se_vs_best": 36.33,
+     "survive": 0.1244,
+     "alone": 0.0,
+     "split": 0.1253,
+     "diverges": 12
+    },
+    "LAC": {
+     "path": {
+      "12": "LAC",
+      "13": "TB",
+      "14": "DET",
+      "15": "GB",
+      "16": "NO",
+      "17": "SF",
+      "18": "NYG"
+     },
+     "pay": 270.21,
+     "se": 14.12,
+     "se_vs_best": 35.58,
+     "survive": 0.1027,
+     "alone": 0.0,
+     "split": 0.1033,
+     "diverges": 12
+    },
+    "SF": {
+     "path": {
+      "12": "SF",
+      "13": "TB",
+      "14": "DET",
+      "15": "GB",
+      "16": "NO",
+      "17": "CLE",
+      "18": "NYG"
+     },
+     "pay": 190.6,
+     "se": 9.49,
+     "se_vs_best": 34.7,
+     "survive": 0.1014,
+     "alone": 0.0,
+     "split": 0.1019,
+     "diverges": 12
+    }
+   }
+  },
+  {
+   "id": "01a077a2-3696-405e-99f3-0d333f9187a3",
+   "name": "Entry 51",
+   "used": [
+    "BAL",
+    "CHI",
+    "CIN",
+    "DET",
+    "KC",
+    "LAR",
+    "MIN",
+    "NE",
+    "PIT",
+    "SEA",
+    "SF"
+   ],
+   "options": [
+    {
+     "path": {
+      "12": "NYG",
+      "13": "DEN",
+      "14": "CAR",
+      "15": "GB",
+      "16": "HOU",
+      "17": "BUF",
+      "18": "JAX"
+     },
+     "pay": 819.8,
+     "se": 40.66,
+     "se_vs_best": 0.0,
+     "survive": 0.1691,
+     "alone": 0.0017,
+     "split": 0.1686,
+     "diverges": null
+    },
+    {
+     "path": {
+      "12": "NYG",
+      "13": "TB",
+      "14": "JAX",
+      "15": "GB",
+      "16": "HOU",
+      "17": "BUF",
+      "18": "DEN"
+     },
+     "pay": 782.42,
+     "se": 39.45,
+     "se_vs_best": 47.87,
+     "survive": 0.1516,
+     "alone": 0.0014,
+     "split": 0.1519,
+     "diverges": 13
+    },
+    {
+     "path": {
+      "12": "NYG",
+      "13": "DEN",
+      "14": "PHI",
+      "15": "GB",
+      "16": "HOU",
+      "17": "BUF",
+      "18": "JAX"
+     },
+     "pay": 787.94,
+     "se": 39.76,
+     "se_vs_best": 40.52,
+     "survive": 0.1666,
+     "alone": 0.0019,
+     "split": 0.1661,
+     "diverges": 14
+    },
+    {
+     "path": {
+      "12": "JAX",
+      "13": "TB",
+      "14": "PHI",
+      "15": "GB",
+      "16": "HOU",
+      "17": "BUF",
+      "18": "DEN"
+     },
+     "pay": 742.57,
+     "se": 37.87,
+     "se_vs_best": 50.05,
+     "survive": 0.1494,
+     "alone": 0.0013,
+     "split": 0.1494,
+     "diverges": 12
+    }
+   ],
+   "by_team": {
+    "NYG": {
+     "path": {
+      "12": "NYG",
+      "13": "DEN",
+      "14": "CAR",
+      "15": "GB",
+      "16": "HOU",
+      "17": "BUF",
+      "18": "JAX"
+     },
+     "pay": 819.8,
+     "se": 40.66,
+     "se_vs_best": 0.0,
+     "survive": 0.1691,
+     "alone": 0.0017,
+     "split": 0.1686,
+     "diverges": null
+    },
+    "JAX": {
+     "path": {
+      "12": "JAX",
+      "13": "TB",
+      "14": "PHI",
+      "15": "GB",
+      "16": "HOU",
+      "17": "BUF",
+      "18": "DEN"
+     },
+     "pay": 742.57,
+     "se": 37.87,
+     "se_vs_best": 50.05,
+     "survive": 0.1494,
+     "alone": 0.0013,
+     "split": 0.1494,
+     "diverges": 12
+    },
+    "DAL": {
+     "path": {
+      "12": "DAL",
+      "13": "DEN",
+      "14": "JAX",
+      "15": "TB",
+      "16": "LV",
+      "17": "BUF",
+      "18": "HOU"
+     },
+     "pay": 889.22,
+     "se": 46.91,
+     "se_vs_best": 60.82,
+     "survive": 0.157,
+     "alone": 0.003,
+     "split": 0.1561,
+     "diverges": 12
+    },
+    "WAS": {
+     "path": {
+      "12": "WAS",
+      "13": "DEN",
+      "14": "PHI",
+      "15": "GB",
+      "16": "HOU",
+      "17": "BUF",
+      "18": "JAX"
+     },
+     "pay": 757.45,
+     "se": 38.63,
+     "se_vs_best": 46.91,
+     "survive": 0.1616,
+     "alone": 0.0016,
+     "split": 0.1611,
+     "diverges": 12
+    },
+    "CLE": {
+     "path": {
+      "12": "CLE",
+      "13": "DEN",
+      "14": "PHI",
+      "15": "GB",
+      "16": "HOU",
+      "17": "BUF",
+      "18": "JAX"
+     },
+     "pay": 748.89,
+     "se": 37.74,
+     "se_vs_best": 45.83,
+     "survive": 0.1528,
+     "alone": 0.0014,
+     "split": 0.1523,
+     "diverges": 12
+    },
+    "NYJ": {
+     "path": {
+      "12": "NYJ",
+      "13": "DEN",
+      "14": "PHI",
+      "15": "GB",
+      "16": "HOU",
+      "17": "BUF",
+      "18": "JAX"
+     },
+     "pay": 721.69,
+     "se": 37.96,
+     "se_vs_best": 48.22,
+     "survive": 0.1408,
+     "alone": 0.0014,
+     "split": 0.1403,
+     "diverges": 12
+    },
+    "HOU": {
+     "path": {
+      "12": "HOU",
+      "13": "DEN",
+      "14": "PHI",
+      "15": "GB",
+      "16": "LV",
+      "17": "BUF",
+      "18": "JAX"
+     },
+     "pay": 712.17,
+     "se": 36.03,
+     "se_vs_best": 50.05,
+     "survive": 0.1491,
+     "alone": 0.0011,
+     "split": 0.1494,
+     "diverges": 12
+    },
+    "TB": {
+     "path": {
+      "12": "TB",
+      "13": "DEN",
+      "14": "JAX",
+      "15": "GB",
+      "16": "NO",
+      "17": "BUF",
+      "18": "HOU"
+     },
+     "pay": 554.02,
+     "se": 20.43,
+     "se_vs_best": 44.82,
+     "survive": 0.1869,
+     "alone": 0.0,
+     "split": 0.188,
+     "diverges": 12
+    },
+    "DEN": {
+     "path": {
+      "12": "DEN",
+      "13": "BUF",
+      "14": "JAX",
+      "15": "GB",
+      "16": "NO",
+      "17": "CLE",
+      "18": "HOU"
+     },
+     "pay": 397.66,
+     "se": 17.68,
+     "se_vs_best": 44.76,
+     "survive": 0.1603,
+     "alone": 0.0002,
+     "split": 0.1613,
+     "diverges": 12
+    }
+   }
+  },
+  {
+   "id": "01a082fd-7804-475d-a92f-5b7d9177e737",
+   "name": "Entry 70",
+   "used": [
+    "BAL",
+    "BUF",
+    "CIN",
+    "DET",
+    "HOU",
+    "KC",
+    "MIN",
+    "NE",
+    "PHI",
+    "SEA",
+    "SF"
+   ],
+   "options": [
+    {
+     "path": {
+      "12": "NYG",
+      "13": "DEN",
+      "14": "CHI",
+      "15": "GB",
+      "16": "LV",
+      "17": "DAL",
+      "18": "JAX"
+     },
+     "pay": 569.55,
+     "se": 32.78,
+     "se_vs_best": 0.0,
+     "survive": 0.1331,
+     "alone": 0.0013,
+     "split": 0.1325,
+     "diverges": null
+    },
+    {
+     "path": {
+      "12": "WAS",
+      "13": "DEN",
+      "14": "CHI",
+      "15": "GB",
+      "16": "LV",
+      "17": "PIT",
+      "18": "JAX"
+     },
+     "pay": 628.58,
+     "se": 35.4,
+     "se_vs_best": 38.67,
+     "survive": 0.1453,
+     "alone": 0.0016,
+     "split": 0.1445,
+     "diverges": 12
+    },
+    {
+     "path": {
+      "12": "JAX",
+      "13": "DEN",
+      "14": "CHI",
+      "15": "GB",
+      "16": "LV",
+      "17": "DAL",
+      "18": "CAR"
+     },
+     "pay": 561.21,
+     "se": 33.22,
+     "se_vs_best": 32.26,
+     "survive": 0.1267,
+     "alone": 0.0013,
+     "split": 0.1264,
+     "diverges": 12
+    },
+    {
+     "path": {
+      "12": "DAL",
+      "13": "DEN",
+      "14": "CHI",
+      "15": "GB",
+      "16": "LV",
+      "17": "PIT",
+      "18": "JAX"
+     },
+     "pay": 638.84,
+     "se": 35.18,
+     "se_vs_best": 40.17,
+     "survive": 0.153,
+     "alone": 0.0016,
+     "split": 0.1522,
+     "diverges": 12
+    }
+   ],
+   "by_team": {
+    "NYG": {
+     "path": {
+      "12": "NYG",
+      "13": "DEN",
+      "14": "CHI",
+      "15": "GB",
+      "16": "LV",
+      "17": "DAL",
+      "18": "JAX"
+     },
+     "pay": 569.55,
+     "se": 32.78,
+     "se_vs_best": 0.0,
+     "survive": 0.1331,
+     "alone": 0.0013,
+     "split": 0.1325,
+     "diverges": null
+    },
+    "WAS": {
+     "path": {
+      "12": "WAS",
+      "13": "DEN",
+      "14": "CHI",
+      "15": "GB",
+      "16": "LV",
+      "17": "PIT",
+      "18": "JAX"
+     },
+     "pay": 628.58,
+     "se": 35.4,
+     "se_vs_best": 38.67,
+     "survive": 0.1453,
+     "alone": 0.0016,
+     "split": 0.1445,
+     "diverges": 12
+    },
+    "JAX": {
+     "path": {
+      "12": "JAX",
+      "13": "DEN",
+      "14": "CHI",
+      "15": "GB",
+      "16": "LV",
+      "17": "DAL",
+      "18": "CAR"
+     },
+     "pay": 561.21,
+     "se": 33.22,
+     "se_vs_best": 32.26,
+     "survive": 0.1267,
+     "alone": 0.0013,
+     "split": 0.1264,
+     "diverges": 12
+    },
+    "DAL": {
+     "path": {
+      "12": "DAL",
+      "13": "DEN",
+      "14": "CHI",
+      "15": "GB",
+      "16": "LV",
+      "17": "PIT",
+      "18": "JAX"
+     },
+     "pay": 638.84,
+     "se": 35.18,
+     "se_vs_best": 40.17,
+     "survive": 0.153,
+     "alone": 0.0016,
+     "split": 0.1522,
+     "diverges": 12
+    },
+    "CLE": {
+     "path": {
+      "12": "CLE",
+      "13": "DEN",
+      "14": "CHI",
+      "15": "GB",
+      "16": "LV",
+      "17": "JAX",
+      "18": "NYG"
+     },
+     "pay": 528.52,
+     "se": 27.47,
+     "se_vs_best": 34.27,
+     "survive": 0.1366,
+     "alone": 0.0005,
+     "split": 0.1378,
+     "diverges": 12
+    },
+    "NYJ": {
+     "path": {
+      "12": "NYJ",
+      "13": "DEN",
+      "14": "CHI",
+      "15": "GB",
+      "16": "LV",
+      "17": "JAX",
+      "18": "NYG"
+     },
+     "pay": 514.24,
+     "se": 28.11,
+     "se_vs_best": 37.32,
+     "survive": 0.1281,
+     "alone": 0.0005,
+     "split": 0.1297,
+     "diverges": 12
+    },
+    "TB": {
+     "path": {
+      "12": "TB",
+      "13": "DEN",
+      "14": "CHI",
+      "15": "GB",
+      "16": "NO",
+      "17": "JAX",
+      "18": "NYG"
+     },
+     "pay": 309.57,
+     "se": 13.5,
+     "se_vs_best": 35.5,
+     "survive": 0.133,
+     "alone": 0.0,
+     "split": 0.1334,
+     "diverges": 12
+    },
+    "LAR": {
+     "path": {
+      "12": "LAR",
+      "13": "DEN",
+      "14": "CHI",
+      "15": "GB",
+      "16": "NO",
+      "17": "JAX",
+      "18": "NYG"
+     },
+     "pay": 305.8,
+     "se": 14.04,
+     "se_vs_best": 35.58,
+     "survive": 0.127,
+     "alone": 0.0,
+     "split": 0.1273,
+     "diverges": 12
+    }
+   }
+  },
+  {
+   "id": "01a082fd-7804-4a7f-a760-2f710ad25e70",
+   "name": "Entry 74",
+   "used": [
+    "CHI",
+    "CIN",
+    "DET",
+    "HOU",
+    "KC",
+    "LAR",
+    "MIN",
+    "NE",
+    "PHI",
+    "PIT",
+    "SF"
+   ],
+   "options": [
+    {
+     "path": {
+      "12": "DAL",
+      "13": "DEN",
+      "14": "SEA",
+      "15": "GB",
+      "16": "LV",
+      "17": "BUF",
+      "18": "JAX"
+     },
+     "pay": 883.61,
+     "se": 40.93,
+     "se_vs_best": 0.0,
+     "survive": 0.1969,
+     "alone": 0.0019,
+     "split": 0.1958,
+     "diverges": null
+    },
+    {
+     "path": {
+      "12": "DAL",
+      "13": "DEN",
+      "14": "SEA",
+      "15": "GB",
+      "16": "BAL",
+      "17": "BUF",
+      "18": "JAX"
+     },
+     "pay": 850.95,
+     "se": 40.43,
+     "se_vs_best": 39.33,
+     "survive": 0.1803,
+     "alone": 0.0016,
+     "split": 0.1798,
+     "diverges": 16
+    },
+    {
+     "path": {
+      "12": "JAX",
+      "13": "TB",
+      "14": "SEA",
+      "15": "GB",
+      "16": "BAL",
+      "17": "BUF",
+      "18": "DEN"
+     },
+     "pay": 775.51,
+     "se": 39.23,
+     "se_vs_best": 53.23,
+     "survive": 0.1475,
+     "alone": 0.0014,
+     "split": 0.1477,
+     "diverges": 12
+    },
+    {
+     "path": {
+      "12": "DAL",
+      "13": "DEN",
+      "14": "SEA",
+      "15": "GB",
+      "16": "TB",
+      "17": "BUF",
+      "18": "JAX"
+     },
+     "pay": 809.96,
+     "se": 42.07,
+     "se_vs_best": 39.17,
+     "survive": 0.1639,
+     "alone": 0.002,
+     "split": 0.163,
+     "diverges": 16
+    }
+   ],
+   "by_team": {
+    "DAL": {
+     "path": {
+      "12": "DAL",
+      "13": "DEN",
+      "14": "SEA",
+      "15": "GB",
+      "16": "LV",
+      "17": "BUF",
+      "18": "JAX"
+     },
+     "pay": 883.61,
+     "se": 40.93,
+     "se_vs_best": 0.0,
+     "survive": 0.1969,
+     "alone": 0.0019,
+     "split": 0.1958,
+     "diverges": null
+    },
+    "JAX": {
+     "path": {
+      "12": "JAX",
+      "13": "TB",
+      "14": "SEA",
+      "15": "GB",
+      "16": "BAL",
+      "17": "BUF",
+      "18": "DEN"
+     },
+     "pay": 775.51,
+     "se": 39.23,
+     "se_vs_best": 53.23,
+     "survive": 0.1475,
+     "alone": 0.0014,
+     "split": 0.1477,
+     "diverges": 12
+    },
+    "NYG": {
+     "path": {
+      "12": "NYG",
+      "13": "DEN",
+      "14": "SEA",
+      "15": "GB",
+      "16": "BAL",
+      "17": "BUF",
+      "18": "JAX"
+     },
+     "pay": 772.15,
+     "se": 37.13,
+     "se_vs_best": 44.1,
+     "survive": 0.1622,
+     "alone": 0.0011,
+     "split": 0.1627,
+     "diverges": 12
+    },
+    "WAS": {
+     "path": {
+      "12": "WAS",
+      "13": "DEN",
+      "14": "SEA",
+      "15": "GB",
+      "16": "LV",
+      "17": "BUF",
+      "18": "JAX"
+     },
+     "pay": 856.17,
+     "se": 41.6,
+     "se_vs_best": 28.54,
+     "survive": 0.1814,
+     "alone": 0.002,
+     "split": 0.1798,
+     "diverges": 12
+    },
+    "CLE": {
+     "path": {
+      "12": "CLE",
+      "13": "DEN",
+      "14": "SEA",
+      "15": "GB",
+      "16": "BAL",
+      "17": "BUF",
+      "18": "JAX"
+     },
+     "pay": 744.28,
+     "se": 37.51,
+     "se_vs_best": 45.2,
+     "survive": 0.1498,
+     "alone": 0.0013,
+     "split": 0.1498,
+     "diverges": 12
+    },
+    "NYJ": {
+     "path": {
+      "12": "NYJ",
+      "13": "DEN",
+      "14": "SEA",
+      "15": "GB",
+      "16": "LV",
+      "17": "BUF",
+      "18": "JAX"
+     },
+     "pay": 756.37,
+     "se": 37.05,
+     "se_vs_best": 30.29,
+     "survive": 0.1547,
+     "alone": 0.0011,
+     "split": 0.1547,
+     "diverges": 12
+    },
+    "TB": {
+     "path": {
+      "12": "TB",
+      "13": "DEN",
+      "14": "SEA",
+      "15": "GB",
+      "16": "NO",
+      "17": "BUF",
+      "18": "JAX"
+     },
+     "pay": 495.74,
+     "se": 21.99,
+     "se_vs_best": 44.91,
+     "survive": 0.1645,
+     "alone": 0.0003,
+     "split": 0.1648,
+     "diverges": 12
+    }
+   }
+  }
+ ]
+}
