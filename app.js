@@ -891,7 +891,8 @@
     }
     const pl = d.plan, pr = pl.priced;
     const usd = v => '$' + Math.round(v).toLocaleString();
-    const lin = pl.lineages.map(r => `<tr><td><b>${esc(r.lineage)}</b></td><td class="num">${r.entries}</td>
+    const named = pl.lineages.some(r => r.members && r.members.length);
+    const lin = pl.lineages.map(r => `<tr><td><b>${esc(r.lineage)}</b>${r.split ? ' <span class="tie">split</span>' : ''}</td><td class="num">${r.entries}${r.members && r.members.length ? `<div class="muted small">${esc(r.members.join(', '))}</div>` : ''}${r.used && r.used.length ? `<div class="muted small">used ${esc(r.used.join(' '))}</div>` : ''}</td>
       <td><b>${esc(r.pick)}</b><div class="muted small">${esc(r.game || '')}</div></td>
       <td>${r.early ? '<span class="tie">early</span> ' : ''}${esc(r.locks)}</td>
       <td class="path">${Object.entries(r.path).map(([w, t]) => `<span class="muted">${esc(w)}</span> ${esc(t)}`).join(' · ')}</td>
@@ -912,14 +913,14 @@
     $('#main').innerHTML = `<section class="contest pad">
       <h2 style="margin-top:0">${esc(d.name || slug)} <span class="muted small">week ${d.week} plan · built ${esc((d.built || '').replace('T', ' ').slice(0, 16))} UTC</span></h2>
       <div class="cards">
-        <div class="card"><div class="k">Structure</div><div class="v">${esc(pl.structure)}</div><div class="k">${d.ours} entries, lineages of ${pl.lineages[0].entries}</div></div>
+        <div class="card"><div class="k">Structure</div><div class="v">${esc(pl.structure)}</div><div class="k">${d.ours} entries${named ? ' alive' : ''}, lineages of ${[...new Set(pl.lineages.map(r => r.entries))].join(', ')}</div></div>
         <div class="card"><div class="k">Expected, greedy field</div><div class="v">${usd(pr.greedy.payout)}</div><div class="k">±${usd(pr.greedy.se)} · paid in ${(100 * pr.greedy.p_paid).toFixed(1)}% of seasons</div></div>
         <div class="card"><div class="k">Expected, perfect field</div><div class="v">${usd(pr.optimal.payout)}</div><div class="k">±${usd(pr.optimal.se)} · paid in ${(100 * pr.optimal.p_paid).toFixed(1)}%</div></div>
         <div class="card"><div class="k">Fair share</div><div class="v">${usd(d.fair_share)}</div><div class="k">pot × ours ÷ every entry</div></div>
       </div>
       ${early.length ? `<div class="note">Lock before the early kickoffs: ${early.map(r => `lineage ${esc(r.lineage)}'s ${r.entries} entries on <b>${esc(r.pick)}</b>, ${esc(r.locks)}`).join('; ')}.</div>` : '<div class="note">No lineage takes a team playing before Sunday this week.</div>'}
       <div class="tablewrap"><table><thead><tr><th>Lineage</th><th class="num">Entries</th><th>Week ${d.week}</th><th>Locks</th><th>Provisional path</th><th class="num">Survives wks ${d.week}–18</th><th class="num">Saved set survives the playoffs</th><th class="num">Survives it all</th></tr></thead><tbody>${lin}</tbody></table></div>
-      <p class="muted small">Entries in a lineage pick the same team every week until the playoffs, where they split their Wild Card picks to cover. Any of our entries can go in any lineage. The path after this week is re-solved every week. The saved set's playoff value is the chance one entry keeping the teams its path leaves survives all four playoff rounds, in the seasons the path gets there; ${d.every_team_kept !== undefined ? (100 * d.every_team_kept).toFixed(1) + '% is the most, every team kept' : ''}.</p>
+      <p class="muted small">Entries in a lineage pick the same team every week until the playoffs, where they split their Wild Card picks to cover. ${named ? 'Each lineage is the entries named in it, which share their used teams; a lineage splits only where the split prices better on seasons it was not chosen on, and never merges with another.' : 'Any of our entries can go in any lineage.'} The path after this week is re-solved every week. The saved set's playoff value is the chance one entry keeping the teams its path leaves survives all four playoff rounds, in the seasons the path gets there; ${d.every_team_kept !== undefined ? (100 * d.every_team_kept).toFixed(1) + '% is the most, every team kept' : ''}.</p>
       ${ds ? `<h3>Do not spend</h3>
       <div class="tablewrap"><table><thead><tr><th>Team</th><th class="num">Playoff cost</th><th class="num">Of the most</th><th class="num">Wins wk ${d.week}</th></tr></thead><tbody>${ds}</tbody></table></div>
       <p class="muted small">What spending the team in the regular season costs the playoffs: how much the chance an entry keeping every other team survives all four rounds falls, in points and as a share of the most an entry can have.</p>` : ''}
