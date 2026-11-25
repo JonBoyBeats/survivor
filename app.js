@@ -910,8 +910,34 @@
     const curve = (d.curve || []).map(c => `<tr><td class="num">${c.size}</td><td class="num">${(100 * c.value).toFixed(1)}%</td>
       <td class="num">${c.gain !== undefined ? '+' + (100 * c.gain).toFixed(1) : ''}</td><td>${esc(c.teams.join(' '))}</td></tr>`).join('');
     const fp = d.field.picks[String(d.week)] || {};
+    const pct = v => (100 * v).toFixed(1) + '%';
+    const locksNote = d.locks ? `<div class="note"><b>Locks:</b> ${d.locks.map(r => `${esc(r.game)} ${esc(r.day.slice(0, 3))} ${esc(r.et)} ET`).join(' · ')} · every other pick before the Sunday 1pm ET window.</div>` : '';
+    const op = d.options;
+    const optHtml = op ? `<h3>Week ${d.week} options</h3>
+      <div class="tablewrap"><table><thead><tr><th>Openers</th><th>Locks</th><th class="num">Greedy field</th><th class="num">Perfect field</th><th class="num">Any paid (greedy / perfect)</th><th class="num">Gap to best</th></tr></thead><tbody>${op.combos.map((c, i) => `<tr${i === 0 ? ' class="cur"' : ''}>
+        <td><b>${esc(c.openers.join(' · '))}</b></td><td class="small">${esc(c.locks.join(', '))}</td>
+        <td class="num">${usd(c.priced.greedy.payout)} <span class="se">±${usd(c.priced.greedy.se)}</span></td>
+        <td class="num">${usd(c.priced.optimal.payout)} <span class="se">±${usd(c.priced.optimal.se)}</span></td>
+        <td class="num">${pct(c.priced.greedy.p_paid)} / ${pct(c.priced.optimal.p_paid)}</td>
+        <td class="num">${c.gap.worst ? usd(c.gap.worst) : 'best'}</td></tr>`).join('')}</tbody></table></div>
+      <p class="muted small">The best ${op.combos.length} of ${op.combos_priced} combinations of week ${d.week} picks for ${op.groups.length} groups of ${[...new Set(op.groups.map(g => g.entries))].join(', ')}, each pick with the best path behind it. Every one is priced on ${d.priced_on.toLocaleString()} seasons its paths were not chosen on, against a field that plays the playoffs greedily and one that plays them perfectly. The gap is the most either falls short of the best combination.</p>
+      ${op.alternatives.map(a => `<h4>Group ${a.group}: ${a.entries} entries${a.members.length ? ' (' + esc(a.members.join(', ')) + ')' : ''}${a.used.length ? ', used ' + esc(a.used.join(' ')) : ''}, the others held on ${esc(a.holding.join(' · '))}</h4>
+      <div class="tablewrap"><table><thead><tr><th>Week ${d.week} pick</th><th>Locks</th><th class="num">Wins</th><th class="num">Field takes</th><th class="num">Greedy field</th><th class="num">Perfect field</th><th class="num">Gap</th><th class="num">Playoff cost</th><th>Weeks ${d.week + 1}–18</th></tr></thead><tbody>${a.rows.map(r => `<tr>
+        <td><b>${esc(r.team)}</b><div class="muted small">${esc(r.game || '')}</div></td>
+        <td>${r.early ? '<span class="tie">early</span> ' : ''}${esc(r.lock)}</td>
+        <td class="num">${Math.round(100 * r.win)}%</td><td class="num">${pct(r.field_own)}</td>
+        <td class="num">${usd(r.priced.greedy.payout)}</td><td class="num">${usd(r.priced.optimal.payout)}</td>
+        <td class="num">${r.gap.worst ? usd(r.gap.worst) : 'best'}</td><td class="num">${(100 * r.tax).toFixed(2)} pts</td>
+        <td class="path">${Object.entries(r.path).map(([w, t]) => `<span class="muted">${esc(w)}</span> ${esc(t)}`).join(' · ')}</td></tr>`).join('')}</tbody></table></div>`).join('')}
+      <p class="muted small">Each group's best ${op.alternatives[0] ? op.alternatives[0].rows.length : ''} picks with the other groups held on the best combination: what it wins this week, the share of the field projected to take it, the whole book's value against each field, the gap to the best combination, what spending it costs the playoffs, and its provisional path.</p>` : '';
     $('#main').innerHTML = `<section class="contest pad">
       <h2 style="margin-top:0">${esc(d.name || slug)} <span class="muted small">week ${d.week} plan · built ${esc((d.built || '').replace('T', ' ').slice(0, 16))} UTC</span></h2>
+      ${locksNote}
+      ${optHtml}
+      ${op && ds ? `<h3>Do not spend</h3>
+      <div class="tablewrap"><table><thead><tr><th>Team</th><th class="num">Playoff cost</th><th class="num">Of the most</th><th class="num">Wins wk ${d.week}</th></tr></thead><tbody>${ds}</tbody></table></div>
+      <p class="muted small">What spending the team in the regular season costs the playoffs: how much the chance an entry keeping every other team survives all four rounds falls, in points and as a share of the most an entry can have.</p>` : ''}
+      ${op ? '<h3>The plan</h3>' : ''}
       <div class="cards">
         <div class="card"><div class="k">Structure</div><div class="v">${esc(pl.structure)}</div><div class="k">${d.ours} entries${named ? ' alive' : ''}, lineages of ${[...new Set(pl.lineages.map(r => r.entries))].join(', ')}</div></div>
         <div class="card"><div class="k">Expected, greedy field</div><div class="v">${usd(pr.greedy.payout)}</div><div class="k">±${usd(pr.greedy.se)} · paid in ${(100 * pr.greedy.p_paid).toFixed(1)}% of seasons</div></div>
@@ -921,7 +947,7 @@
       ${early.length ? `<div class="note">Lock before the early kickoffs: ${early.map(r => `lineage ${esc(r.lineage)}'s ${r.entries} entries on <b>${esc(r.pick)}</b>, ${esc(r.locks)}`).join('; ')}.</div>` : '<div class="note">No lineage takes a team playing before Sunday this week.</div>'}
       <div class="tablewrap"><table><thead><tr><th>Lineage</th><th class="num">Entries</th><th>Week ${d.week}</th><th>Locks</th><th>Provisional path</th><th class="num">Survives wks ${d.week}–18</th><th class="num">Saved set survives the playoffs</th><th class="num">Survives it all</th></tr></thead><tbody>${lin}</tbody></table></div>
       <p class="muted small">Entries in a lineage pick the same team every week until the playoffs, where they split their Wild Card picks to cover. ${named ? 'Each lineage is the entries named in it, which share their used teams; a lineage splits only where the split prices better on seasons it was not chosen on, and never merges with another.' : 'Any of our entries can go in any lineage.'} The path after this week is re-solved every week. The saved set's playoff value is the chance one entry keeping the teams its path leaves survives all four playoff rounds, in the seasons the path gets there; ${d.every_team_kept !== undefined ? (100 * d.every_team_kept).toFixed(1) + '% is the most, every team kept' : ''}.</p>
-      ${ds ? `<h3>Do not spend</h3>
+      ${ds && !op ? `<h3>Do not spend</h3>
       <div class="tablewrap"><table><thead><tr><th>Team</th><th class="num">Playoff cost</th><th class="num">Of the most</th><th class="num">Wins wk ${d.week}</th></tr></thead><tbody>${ds}</tbody></table></div>
       <p class="muted small">What spending the team in the regular season costs the playoffs: how much the chance an entry keeping every other team survives all four rounds falls, in points and as a share of the most an entry can have.</p>` : ''}
       <h3>Every structure priced</h3>
