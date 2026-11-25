@@ -4,8 +4,8 @@
  "contest": "turkey_2026",
  "slug": "turkey",
  "name": "Turkey Bowl Survivor",
- "built": "2026-11-25T16:19:01Z",
- "code": "8068c0ff3857f5f46e419e38ff2344dcd75c9454+dirty",
+ "built": "2026-11-25T18:21:16Z",
+ "code": "f753be40f47401c62623dc33979d2289a6f41bfc+dirty",
  "bracket": "season/2026_w12/2026_w12_bracket.npz",
  "worlds": 2000,
  "priced_on": 1000,
@@ -16,67 +16,67 @@
  "field": {
   "source": "fresh: 4488 entries, every team unused, the field's average habits",
   "entries": 4488,
-  "alive_into_playoffs": 532.5,
+  "alive_into_playoffs": 624.0,
   "after_super_bowl": {
-   "greedy": 4.16,
-   "optimal": 13.34
+   "greedy": 5.7,
+   "optimal": 17.24
   },
   "picks": {
    "12": {
-    "JAX": 27.4,
-    "DAL": 23.6,
-    "CIN": 13.8,
-    "WAS": 11.2,
-    "MIN": 8.1,
-    "LAC": 3.8
+    "DAL": 28.4,
+    "JAX": 22.3,
+    "WAS": 12.5,
+    "CIN": 9.1,
+    "NYG": 8.1,
+    "MIN": 8.0
    },
    "13": {
-    "DEN": 66.6,
-    "BUF": 7.6,
-    "SEA": 5.7,
-    "MIN": 5.7,
-    "TB": 4.3,
-    "CIN": 2.2
+    "DEN": 53.5,
+    "BUF": 15.0,
+    "TB": 7.5,
+    "WAS": 4.9,
+    "MIN": 4.6,
+    "SEA": 3.6
    },
    "14": {
-    "CHI": 45.3,
-    "DET": 31.7,
-    "SEA": 10.4,
-    "MIN": 3.4,
-    "JAX": 2.9,
-    "CAR": 1.7
+    "CHI": 47.5,
+    "DET": 29.3,
+    "PHI": 6.2,
+    "SEA": 6.1,
+    "JAX": 4.5,
+    "MIN": 2.5
    },
    "15": {
-    "GB": 63.1,
-    "SEA": 11.8,
-    "KC": 11.2,
-    "LAR": 4.9,
-    "TB": 2.8,
-    "SF": 1.0
+    "GB": 65.7,
+    "SEA": 10.2,
+    "KC": 9.6,
+    "TB": 2.4,
+    "SF": 2.2,
+    "NYJ": 2.1
    },
    "16": {
-    "NO": 35.4,
-    "CIN": 16.8,
-    "DET": 9.8,
-    "HOU": 9.3,
-    "MIN": 7.9,
-    "LAC": 5.0
+    "NO": 35.0,
+    "CIN": 32.4,
+    "HOU": 6.6,
+    "DET": 5.5,
+    "LAC": 4.4,
+    "MIN": 3.6
    },
    "17": {
-    "SF": 23.3,
-    "BUF": 16.0,
-    "CLE": 10.0,
-    "JAX": 8.6,
-    "MIN": 6.6,
-    "PIT": 6.3
+    "CLE": 30.4,
+    "SF": 19.1,
+    "BUF": 14.4,
+    "SEA": 5.4,
+    "CIN": 5.0,
+    "LV": 4.7
    },
    "18": {
-    "HOU": 29.4,
-    "SF": 18.3,
-    "BUF": 16.0,
-    "KC": 14.9,
-    "JAX": 6.7,
-    "CIN": 5.7
+    "HOU": 32.7,
+    "SF": 18.4,
+    "KC": 16.3,
+    "JAX": 10.4,
+    "BUF": 7.0,
+    "CIN": 3.7
    }
   }
  },
@@ -136,129 +136,13 @@
   "combos": [
    {
     "openers": [
-     "DAL",
-     "MIN",
+     "WAS",
+     "HOU",
      "JAX"
     ],
     "locks": [
-     "Thu 15:30 ET",
      "Sun before 1pm ET",
-     "Sun before 1pm ET"
-    ],
-    "paths": [
-     {
-      "12": "DAL",
-      "13": "TB",
-      "14": "SEA",
-      "15": "GB",
-      "16": "NO",
-      "17": "PIT",
-      "18": "NYG"
-     },
-     {
-      "12": "MIN",
-      "13": "TB",
-      "14": "ATL",
-      "15": "GB",
-      "16": "NO",
-      "17": "DAL",
-      "18": "HOU"
-     },
-     {
-      "12": "JAX",
-      "13": "TB",
-      "14": "SEA",
-      "15": "NYJ",
-      "16": "NO",
-      "17": "DAL",
-      "18": "HOU"
-     }
-    ],
-    "priced": {
-     "greedy": {
-      "payout": 12679,
-      "se": 820,
-      "p_paid": 0.1346
-     },
-     "optimal": {
-      "payout": 2833,
-      "se": 254,
-      "p_paid": 0.0826
-     }
-    },
-    "gap": {
-     "greedy": 0,
-     "optimal": 212,
-     "worst": 212
-    }
-   },
-   {
-    "openers": [
-     "CLE",
-     "DAL",
-     "MIN"
-    ],
-    "locks": [
      "Sun before 1pm ET",
-     "Thu 15:30 ET",
-     "Sun before 1pm ET"
-    ],
-    "paths": [
-     {
-      "12": "CLE",
-      "13": "TB",
-      "14": "SEA",
-      "15": "NYJ",
-      "16": "NO",
-      "17": "DAL",
-      "18": "HOU"
-     },
-     {
-      "12": "DAL",
-      "13": "TB",
-      "14": "SEA",
-      "15": "GB",
-      "16": "NO",
-      "17": "PIT",
-      "18": "NYG"
-     },
-     {
-      "12": "MIN",
-      "13": "TB",
-      "14": "ATL",
-      "15": "GB",
-      "16": "NO",
-      "17": "DAL",
-      "18": "HOU"
-     }
-    ],
-    "priced": {
-     "greedy": {
-      "payout": 12387,
-      "se": 820,
-      "p_paid": 0.1339
-     },
-     "optimal": {
-      "payout": 3045,
-      "se": 285,
-      "p_paid": 0.0829
-     }
-    },
-    "gap": {
-     "greedy": 292,
-     "optimal": 0,
-     "worst": 292
-    }
-   },
-   {
-    "openers": [
-     "WAS",
-     "DAL",
-     "MIN"
-    ],
-    "locks": [
-     "Sun before 1pm ET",
-     "Thu 15:30 ET",
      "Sun before 1pm ET"
     ],
     "paths": [
@@ -269,254 +153,22 @@
       "15": "NYJ",
       "16": "NO",
       "17": "DAL",
-      "18": "GB"
-     },
-     {
-      "12": "DAL",
-      "13": "TB",
-      "14": "SEA",
-      "15": "GB",
-      "16": "NO",
-      "17": "PIT",
-      "18": "NYG"
-     },
-     {
-      "12": "MIN",
-      "13": "TB",
-      "14": "ATL",
-      "15": "GB",
-      "16": "NO",
-      "17": "DAL",
-      "18": "HOU"
-     }
-    ],
-    "priced": {
-     "greedy": {
-      "payout": 12120,
-      "se": 806,
-      "p_paid": 0.1315
-     },
-     "optimal": {
-      "payout": 2795,
-      "se": 267,
-      "p_paid": 0.0803
-     }
-    },
-    "gap": {
-     "greedy": 559,
-     "optimal": 250,
-     "worst": 559
-    }
-   },
-   {
-    "openers": [
-     "NYG",
-     "DAL",
-     "MIN"
-    ],
-    "locks": [
-     "Sun before 1pm ET",
-     "Thu 15:30 ET",
-     "Sun before 1pm ET"
-    ],
-    "paths": [
-     {
-      "12": "NYG",
-      "13": "TB",
-      "14": "SEA",
-      "15": "NYJ",
-      "16": "NO",
-      "17": "DAL",
-      "18": "HOU"
-     },
-     {
-      "12": "DAL",
-      "13": "TB",
-      "14": "SEA",
-      "15": "GB",
-      "16": "NO",
-      "17": "PIT",
-      "18": "NYG"
-     },
-     {
-      "12": "MIN",
-      "13": "TB",
-      "14": "ATL",
-      "15": "GB",
-      "16": "NO",
-      "17": "DAL",
-      "18": "HOU"
-     }
-    ],
-    "priced": {
-     "greedy": {
-      "payout": 12062,
-      "se": 809,
-      "p_paid": 0.13
-     },
-     "optimal": {
-      "payout": 2742,
-      "se": 257,
-      "p_paid": 0.0796
-     }
-    },
-    "gap": {
-     "greedy": 617,
-     "optimal": 303,
-     "worst": 617
-    }
-   },
-   {
-    "openers": [
-     "DAL",
-     "MIN",
-     "MIN"
-    ],
-    "locks": [
-     "Thu 15:30 ET",
-     "Sun before 1pm ET",
-     "Sun before 1pm ET"
-    ],
-    "paths": [
-     {
-      "12": "DAL",
-      "13": "TB",
-      "14": "SEA",
-      "15": "GB",
-      "16": "NO",
-      "17": "PIT",
-      "18": "NYG"
-     },
-     {
-      "12": "MIN",
-      "13": "TB",
-      "14": "ATL",
-      "15": "GB",
-      "16": "NO",
-      "17": "DAL",
-      "18": "HOU"
-     },
-     {
-      "12": "MIN",
-      "13": "TB",
-      "14": "SEA",
-      "15": "NYJ",
-      "16": "NO",
-      "17": "DAL",
-      "18": "GB"
-     }
-    ],
-    "priced": {
-     "greedy": {
-      "payout": 12030,
-      "se": 801,
-      "p_paid": 0.1312
-     },
-     "optimal": {
-      "payout": 2831,
-      "se": 280,
-      "p_paid": 0.0796
-     }
-    },
-    "gap": {
-     "greedy": 649,
-     "optimal": 214,
-     "worst": 649
-    }
-   },
-   {
-    "openers": [
-     "LAC",
-     "DAL",
-     "MIN"
-    ],
-    "locks": [
-     "Sun before 1pm ET",
-     "Thu 15:30 ET",
-     "Sun before 1pm ET"
-    ],
-    "paths": [
-     {
-      "12": "LAC",
-      "13": "TB",
-      "14": "SEA",
-      "15": "NYJ",
-      "16": "NO",
-      "17": "DAL",
-      "18": "HOU"
-     },
-     {
-      "12": "DAL",
-      "13": "TB",
-      "14": "SEA",
-      "15": "GB",
-      "16": "NO",
-      "17": "PIT",
-      "18": "NYG"
-     },
-     {
-      "12": "MIN",
-      "13": "TB",
-      "14": "ATL",
-      "15": "GB",
-      "16": "NO",
-      "17": "DAL",
-      "18": "HOU"
-     }
-    ],
-    "priced": {
-     "greedy": {
-      "payout": 12004,
-      "se": 795,
-      "p_paid": 0.1306
-     },
-     "optimal": {
-      "payout": 2830,
-      "se": 267,
-      "p_paid": 0.0798
-     }
-    },
-    "gap": {
-     "greedy": 675,
-     "optimal": 215,
-     "worst": 675
-    }
-   },
-   {
-    "openers": [
-     "HOU",
-     "DAL",
-     "MIN"
-    ],
-    "locks": [
-     "Sun before 1pm ET",
-     "Thu 15:30 ET",
-     "Sun before 1pm ET"
-    ],
-    "paths": [
-     {
-      "12": "HOU",
-      "13": "TB",
-      "14": "SEA",
-      "15": "NYJ",
-      "16": "NO",
-      "17": "GB",
       "18": "NE"
      },
      {
-      "12": "DAL",
-      "13": "TB",
+      "12": "HOU",
+      "13": "DEN",
       "14": "SEA",
-      "15": "GB",
+      "15": "LAR",
       "16": "NO",
-      "17": "PIT",
-      "18": "NYG"
+      "17": "DAL",
+      "18": "BAL"
      },
      {
-      "12": "MIN",
-      "13": "TB",
-      "14": "ATL",
-      "15": "GB",
+      "12": "JAX",
+      "13": "GB",
+      "14": "SEA",
+      "15": "NYG",
       "16": "NO",
       "17": "DAL",
       "18": "HOU"
@@ -524,57 +176,57 @@
     ],
     "priced": {
      "greedy": {
-      "payout": 11818,
-      "se": 796,
-      "p_paid": 0.1256
+      "payout": 14111,
+      "se": 826,
+      "p_paid": 0.1509
      },
      "optimal": {
-      "payout": 2724,
-      "se": 269,
-      "p_paid": 0.0782
+      "payout": 2554,
+      "se": 225,
+      "p_paid": 0.0883
      }
     },
     "gap": {
-     "greedy": 861,
-     "optimal": 321,
-     "worst": 861
+     "greedy": 0,
+     "optimal": 123,
+     "worst": 123
     }
    },
    {
     "openers": [
-     "DAL",
-     "DAL",
+     "WAS",
+     "HOU",
      "MIN"
     ],
     "locks": [
-     "Thu 15:30 ET",
-     "Thu 15:30 ET",
+     "Sun before 1pm ET",
+     "Sun before 1pm ET",
      "Sun before 1pm ET"
     ],
     "paths": [
      {
-      "12": "DAL",
-      "13": "TB",
-      "14": "SEA",
-      "15": "GB",
-      "16": "NO",
-      "17": "PIT",
-      "18": "NYG"
-     },
-     {
-      "12": "DAL",
+      "12": "WAS",
       "13": "TB",
       "14": "SEA",
       "15": "NYJ",
       "16": "NO",
-      "17": "GB",
-      "18": "ATL"
+      "17": "DAL",
+      "18": "NE"
+     },
+     {
+      "12": "HOU",
+      "13": "DEN",
+      "14": "SEA",
+      "15": "LAR",
+      "16": "NO",
+      "17": "DAL",
+      "18": "BAL"
      },
      {
       "12": "MIN",
-      "13": "TB",
-      "14": "ATL",
-      "15": "GB",
+      "13": "GB",
+      "14": "SEA",
+      "15": "NYG",
       "16": "NO",
       "17": "DAL",
       "18": "HOU"
@@ -582,26 +234,84 @@
     ],
     "priced": {
      "greedy": {
-      "payout": 11613,
-      "se": 774,
-      "p_paid": 0.1269
+      "payout": 14029,
+      "se": 836,
+      "p_paid": 0.1514
      },
      "optimal": {
-      "payout": 2731,
-      "se": 257,
-      "p_paid": 0.078
+      "payout": 2524,
+      "se": 221,
+      "p_paid": 0.0899
      }
     },
     "gap": {
-     "greedy": 1066,
-     "optimal": 314,
-     "worst": 1066
+     "greedy": 82,
+     "optimal": 153,
+     "worst": 153
     }
    },
    {
     "openers": [
      "CLE",
-     "LAC",
+     "HOU",
+     "JAX"
+    ],
+    "locks": [
+     "Sun before 1pm ET",
+     "Sun before 1pm ET",
+     "Sun before 1pm ET"
+    ],
+    "paths": [
+     {
+      "12": "CLE",
+      "13": "TB",
+      "14": "SEA",
+      "15": "NYJ",
+      "16": "NO",
+      "17": "DAL",
+      "18": "BAL"
+     },
+     {
+      "12": "HOU",
+      "13": "DEN",
+      "14": "SEA",
+      "15": "LAR",
+      "16": "NO",
+      "17": "DAL",
+      "18": "BAL"
+     },
+     {
+      "12": "JAX",
+      "13": "GB",
+      "14": "SEA",
+      "15": "NYG",
+      "16": "NO",
+      "17": "DAL",
+      "18": "HOU"
+     }
+    ],
+    "priced": {
+     "greedy": {
+      "payout": 13498,
+      "se": 828,
+      "p_paid": 0.1409
+     },
+     "optimal": {
+      "payout": 2656,
+      "se": 242,
+      "p_paid": 0.0826
+     }
+    },
+    "gap": {
+     "greedy": 613,
+     "optimal": 21,
+     "worst": 613
+    }
+   },
+   {
+    "openers": [
+     "CLE",
+     "HOU",
      "MIN"
     ],
     "locks": [
@@ -617,22 +327,22 @@
       "15": "NYJ",
       "16": "NO",
       "17": "DAL",
-      "18": "HOU"
+      "18": "BAL"
      },
      {
-      "12": "LAC",
-      "13": "TB",
+      "12": "HOU",
+      "13": "DEN",
       "14": "SEA",
-      "15": "NYG",
+      "15": "LAR",
       "16": "NO",
       "17": "DAL",
-      "18": "GB"
+      "18": "BAL"
      },
      {
       "12": "MIN",
-      "13": "TB",
-      "14": "ATL",
-      "15": "GB",
+      "13": "GB",
+      "14": "SEA",
+      "15": "NYG",
       "16": "NO",
       "17": "DAL",
       "18": "HOU"
@@ -640,78 +350,368 @@
     ],
     "priced": {
      "greedy": {
-      "payout": 11307,
-      "se": 787,
-      "p_paid": 0.1221
+      "payout": 13488,
+      "se": 842,
+      "p_paid": 0.1428
      },
      "optimal": {
-      "payout": 2952,
-      "se": 302,
-      "p_paid": 0.0768
+      "payout": 2631,
+      "se": 240,
+      "p_paid": 0.0848
      }
     },
     "gap": {
-     "greedy": 1372,
-     "optimal": 93,
-     "worst": 1372
+     "greedy": 623,
+     "optimal": 46,
+     "worst": 623
     }
    },
    {
     "openers": [
-     "DAL",
-     "JAX",
-     "JAX"
+     "CLE",
+     "WAS",
+     "MIN"
     ],
     "locks": [
-     "Thu 15:30 ET",
+     "Sun before 1pm ET",
      "Sun before 1pm ET",
      "Sun before 1pm ET"
     ],
     "paths": [
      {
-      "12": "DAL",
-      "13": "TB",
-      "14": "SEA",
-      "15": "GB",
-      "16": "NO",
-      "17": "PIT",
-      "18": "NYG"
-     },
-     {
-      "12": "JAX",
+      "12": "CLE",
       "13": "TB",
       "14": "SEA",
       "15": "NYJ",
       "16": "NO",
       "17": "DAL",
-      "18": "HOU"
+      "18": "BAL"
      },
      {
-      "12": "JAX",
-      "13": "TB",
+      "12": "WAS",
+      "13": "DEN",
+      "14": "SEA",
+      "15": "NYJ",
+      "16": "NO",
+      "17": "DAL",
+      "18": "NE"
+     },
+     {
+      "12": "MIN",
+      "13": "GB",
       "14": "SEA",
       "15": "NYG",
       "16": "NO",
       "17": "DAL",
-      "18": "GB"
+      "18": "HOU"
      }
     ],
     "priced": {
      "greedy": {
-      "payout": 11163,
-      "se": 761,
-      "p_paid": 0.1186
+      "payout": 13426,
+      "se": 836,
+      "p_paid": 0.1446
      },
      "optimal": {
-      "payout": 2678,
-      "se": 243,
-      "p_paid": 0.0727
+      "payout": 2656,
+      "se": 239,
+      "p_paid": 0.0872
      }
     },
     "gap": {
-     "greedy": 1516,
-     "optimal": 367,
-     "worst": 1516
+     "greedy": 685,
+     "optimal": 21,
+     "worst": 685
+    }
+   },
+   {
+    "openers": [
+     "CLE",
+     "WAS",
+     "JAX"
+    ],
+    "locks": [
+     "Sun before 1pm ET",
+     "Sun before 1pm ET",
+     "Sun before 1pm ET"
+    ],
+    "paths": [
+     {
+      "12": "CLE",
+      "13": "TB",
+      "14": "SEA",
+      "15": "NYJ",
+      "16": "NO",
+      "17": "DAL",
+      "18": "BAL"
+     },
+     {
+      "12": "WAS",
+      "13": "DEN",
+      "14": "SEA",
+      "15": "NYJ",
+      "16": "NO",
+      "17": "DAL",
+      "18": "NE"
+     },
+     {
+      "12": "JAX",
+      "13": "GB",
+      "14": "SEA",
+      "15": "NYG",
+      "16": "NO",
+      "17": "DAL",
+      "18": "HOU"
+     }
+    ],
+    "priced": {
+     "greedy": {
+      "payout": 13379,
+      "se": 815,
+      "p_paid": 0.1427
+     },
+     "optimal": {
+      "payout": 2677,
+      "se": 242,
+      "p_paid": 0.0849
+     }
+    },
+    "gap": {
+     "greedy": 732,
+     "optimal": 0,
+     "worst": 732
+    }
+   },
+   {
+    "openers": [
+     "NYG",
+     "HOU",
+     "JAX"
+    ],
+    "locks": [
+     "Sun before 1pm ET",
+     "Sun before 1pm ET",
+     "Sun before 1pm ET"
+    ],
+    "paths": [
+     {
+      "12": "NYG",
+      "13": "TB",
+      "14": "SEA",
+      "15": "NYJ",
+      "16": "NO",
+      "17": "DAL",
+      "18": "BAL"
+     },
+     {
+      "12": "HOU",
+      "13": "DEN",
+      "14": "SEA",
+      "15": "LAR",
+      "16": "NO",
+      "17": "DAL",
+      "18": "BAL"
+     },
+     {
+      "12": "JAX",
+      "13": "GB",
+      "14": "SEA",
+      "15": "NYG",
+      "16": "NO",
+      "17": "DAL",
+      "18": "HOU"
+     }
+    ],
+    "priced": {
+     "greedy": {
+      "payout": 13226,
+      "se": 820,
+      "p_paid": 0.1415
+     },
+     "optimal": {
+      "payout": 2433,
+      "se": 221,
+      "p_paid": 0.0826
+     }
+    },
+    "gap": {
+     "greedy": 885,
+     "optimal": 244,
+     "worst": 885
+    }
+   },
+   {
+    "openers": [
+     "WAS",
+     "NYJ",
+     "HOU"
+    ],
+    "locks": [
+     "Sun before 1pm ET",
+     "Sun before 1pm ET",
+     "Sun before 1pm ET"
+    ],
+    "paths": [
+     {
+      "12": "WAS",
+      "13": "TB",
+      "14": "SEA",
+      "15": "NYJ",
+      "16": "NO",
+      "17": "DAL",
+      "18": "NE"
+     },
+     {
+      "12": "NYJ",
+      "13": "GB",
+      "14": "SEA",
+      "15": "NYG",
+      "16": "NO",
+      "17": "DAL",
+      "18": "HOU"
+     },
+     {
+      "12": "HOU",
+      "13": "DEN",
+      "14": "SEA",
+      "15": "LAR",
+      "16": "NO",
+      "17": "DAL",
+      "18": "BAL"
+     }
+    ],
+    "priced": {
+     "greedy": {
+      "payout": 13204,
+      "se": 821,
+      "p_paid": 0.1407
+     },
+     "optimal": {
+      "payout": 2367,
+      "se": 213,
+      "p_paid": 0.083
+     }
+    },
+    "gap": {
+     "greedy": 907,
+     "optimal": 310,
+     "worst": 907
+    }
+   },
+   {
+    "openers": [
+     "NYG",
+     "HOU",
+     "MIN"
+    ],
+    "locks": [
+     "Sun before 1pm ET",
+     "Sun before 1pm ET",
+     "Sun before 1pm ET"
+    ],
+    "paths": [
+     {
+      "12": "NYG",
+      "13": "TB",
+      "14": "SEA",
+      "15": "NYJ",
+      "16": "NO",
+      "17": "DAL",
+      "18": "BAL"
+     },
+     {
+      "12": "HOU",
+      "13": "DEN",
+      "14": "SEA",
+      "15": "LAR",
+      "16": "NO",
+      "17": "DAL",
+      "18": "BAL"
+     },
+     {
+      "12": "MIN",
+      "13": "GB",
+      "14": "SEA",
+      "15": "NYG",
+      "16": "NO",
+      "17": "DAL",
+      "18": "HOU"
+     }
+    ],
+    "priced": {
+     "greedy": {
+      "payout": 13103,
+      "se": 827,
+      "p_paid": 0.1415
+     },
+     "optimal": {
+      "payout": 2423,
+      "se": 218,
+      "p_paid": 0.0838
+     }
+    },
+    "gap": {
+     "greedy": 1008,
+     "optimal": 254,
+     "worst": 1008
+    }
+   },
+   {
+    "openers": [
+     "WAS",
+     "WAS",
+     "MIN"
+    ],
+    "locks": [
+     "Sun before 1pm ET",
+     "Sun before 1pm ET",
+     "Sun before 1pm ET"
+    ],
+    "paths": [
+     {
+      "12": "WAS",
+      "13": "TB",
+      "14": "SEA",
+      "15": "NYJ",
+      "16": "NO",
+      "17": "DAL",
+      "18": "NE"
+     },
+     {
+      "12": "WAS",
+      "13": "HOU",
+      "14": "SEA",
+      "15": "LAR",
+      "16": "NO",
+      "17": "DAL",
+      "18": "BAL"
+     },
+     {
+      "12": "MIN",
+      "13": "GB",
+      "14": "SEA",
+      "15": "NYG",
+      "16": "NO",
+      "17": "DAL",
+      "18": "HOU"
+     }
+    ],
+    "priced": {
+     "greedy": {
+      "payout": 13096,
+      "se": 821,
+      "p_paid": 0.1411
+     },
+     "optimal": {
+      "payout": 2578,
+      "se": 233,
+      "p_paid": 0.0843
+     }
+    },
+    "gap": {
+     "greedy": 1015,
+     "optimal": 99,
+     "worst": 1015
     }
    }
   ],
@@ -722,246 +722,42 @@
     "used": [],
     "members": [],
     "holding": [
-     "MIN",
+     "HOU",
      "JAX"
     ],
     "rows": [
      {
-      "team": "DAL",
-      "game": "PHI@DAL",
-      "lock": "Thu 15:30 ET",
-      "early": true,
-      "win": 0.778,
-      "field_own": 0.236,
+      "team": "WAS",
+      "game": "WAS@ARI",
+      "lock": "Sun before 1pm ET",
+      "early": false,
+      "win": 0.768,
+      "field_own": 0.125,
       "priced": {
        "greedy": {
-        "payout": 12679,
-        "se": 820,
-        "p_paid": 0.1346
+        "payout": 14111,
+        "se": 826,
+        "p_paid": 0.1509
        },
        "optimal": {
-        "payout": 2833,
-        "se": 254,
-        "p_paid": 0.0826
+        "payout": 2554,
+        "se": 225,
+        "p_paid": 0.0883
        }
       },
       "gap": {
        "greedy": 0,
-       "optimal": 212,
-       "worst": 212
+       "optimal": 123,
+       "worst": 123
       },
-      "tax": 0.00212,
+      "tax": 0.0011,
       "path": {
        "13": "TB",
        "14": "SEA",
-       "15": "GB",
-       "16": "NO",
-       "17": "PIT",
-       "18": "NYG"
-      }
-     },
-     {
-      "team": "LAR",
-      "game": "GB@LAR",
-      "lock": "Wed 20:00 ET",
-      "early": true,
-      "win": 0.622,
-      "field_own": 0.008,
-      "priced": {
-       "greedy": {
-        "payout": 12110,
-        "se": 792,
-        "p_paid": 0.1291
-       },
-       "optimal": {
-        "payout": 2760,
-        "se": 257,
-        "p_paid": 0.0793
-       }
-      },
-      "gap": {
-       "greedy": 569,
-       "optimal": 285,
-       "worst": 569
-      },
-      "tax": 0.00652,
-      "path": {
-       "13": "TB",
-       "14": "SEA",
-       "15": "GB",
-       "16": "NO",
-       "17": "PIT",
-       "18": "NE"
-      }
-     },
-     {
-      "team": "NYJ",
-      "game": "NYJ@MIA",
-      "lock": "Sun before 1pm ET",
-      "early": false,
-      "win": 0.62,
-      "field_own": 0.013,
-      "priced": {
-       "greedy": {
-        "payout": 12009,
-        "se": 794,
-        "p_paid": 0.1279
-       },
-       "optimal": {
-        "payout": 2722,
-        "se": 250,
-        "p_paid": 0.0777
-       }
-      },
-      "gap": {
-       "greedy": 670,
-       "optimal": 323,
-       "worst": 670
-      },
-      "tax": 3e-05,
-      "path": {
-       "13": "TB",
-       "14": "SEA",
-       "15": "GB",
-       "16": "NO",
-       "17": "PIT",
-       "18": "NYG"
-      }
-     },
-     {
-      "team": "LAC",
-      "game": "NE@LAC",
-      "lock": "Sun before 1pm ET",
-      "early": false,
-      "win": 0.668,
-      "field_own": 0.038,
-      "priced": {
-       "greedy": {
-        "payout": 11599,
-        "se": 788,
-        "p_paid": 0.1235
-       },
-       "optimal": {
-        "payout": 2731,
-        "se": 271,
-        "p_paid": 0.077
-       }
-      },
-      "gap": {
-       "greedy": 1080,
-       "optimal": 314,
-       "worst": 1080
-      },
-      "tax": 0.0,
-      "path": {
-       "13": "TB",
-       "14": "SEA",
-       "15": "NYG",
+       "15": "NYJ",
        "16": "NO",
        "17": "DAL",
-       "18": "GB"
-      }
-     },
-     {
-      "team": "CHI",
-      "game": "CHI@DET",
-      "lock": "Thu 13:00 ET",
-      "early": true,
-      "win": 0.582,
-      "field_own": 0.002,
-      "priced": {
-       "greedy": {
-        "payout": 11401,
-        "se": 775,
-        "p_paid": 0.1242
-       },
-       "optimal": {
-        "payout": 2688,
-        "se": 254,
-        "p_paid": 0.0751
-       }
-      },
-      "gap": {
-       "greedy": 1278,
-       "optimal": 357,
-       "worst": 1278
-      },
-      "tax": 0.01512,
-      "path": {
-       "13": "TB",
-       "14": "SEA",
-       "15": "GB",
-       "16": "BAL",
-       "17": "PIT",
-       "18": "HOU"
-      }
-     },
-     {
-      "team": "DEN",
-      "game": "DEN@PIT",
-      "lock": "Fri 15:00 ET",
-      "early": true,
-      "win": 0.582,
-      "field_own": 0.001,
-      "priced": {
-       "greedy": {
-        "payout": 11334,
-        "se": 762,
-        "p_paid": 0.1232
-       },
-       "optimal": {
-        "payout": 2423,
-        "se": 239,
-        "p_paid": 0.0727
-       }
-      },
-      "gap": {
-       "greedy": 1345,
-       "optimal": 622,
-       "worst": 1345
-      },
-      "tax": 0.01263,
-      "path": {
-       "13": "TB",
-       "14": "SEA",
-       "15": "GB",
-       "16": "NO",
-       "17": "PIT",
-       "18": "NYG"
-      }
-     },
-     {
-      "team": "CAR",
-      "game": "CAR@TB",
-      "lock": "Sun before 1pm ET",
-      "early": false,
-      "win": 0.446,
-      "field_own": 0.001,
-      "priced": {
-       "greedy": {
-        "payout": 11317,
-        "se": 783,
-        "p_paid": 0.1212
-       },
-       "optimal": {
-        "payout": 2640,
-        "se": 259,
-        "p_paid": 0.0732
-       }
-      },
-      "gap": {
-       "greedy": 1362,
-       "optimal": 405,
-       "worst": 1362
-      },
-      "tax": 0.00093,
-      "path": {
-       "13": "TB",
-       "14": "SEA",
-       "15": "GB",
-       "16": "BAL",
-       "17": "PIT",
-       "18": "HOU"
+       "18": "NE"
       }
      },
      {
@@ -969,33 +765,237 @@
       "game": "LV@CLE",
       "lock": "Sun before 1pm ET",
       "early": false,
-      "win": 0.652,
-      "field_own": 0.026,
+      "win": 0.684,
+      "field_own": 0.028,
       "priced": {
        "greedy": {
-        "payout": 11312,
-        "se": 771,
-        "p_paid": 0.1227
+        "payout": 13498,
+        "se": 828,
+        "p_paid": 0.1409
        },
        "optimal": {
-        "payout": 2640,
-        "se": 251,
-        "p_paid": 0.0736
+        "payout": 2656,
+        "se": 242,
+        "p_paid": 0.0826
        }
       },
       "gap": {
-       "greedy": 1367,
-       "optimal": 405,
-       "worst": 1367
+       "greedy": 613,
+       "optimal": 21,
+       "worst": 613
       },
-      "tax": 0.00166,
+      "tax": 0.00144,
       "path": {
        "13": "TB",
        "14": "SEA",
-       "15": "LAR",
+       "15": "NYJ",
        "16": "NO",
        "17": "DAL",
-       "18": "GB"
+       "18": "BAL"
+      }
+     },
+     {
+      "team": "CIN",
+      "game": "NO@CIN",
+      "lock": "Sun before 1pm ET",
+      "early": false,
+      "win": 0.817,
+      "field_own": 0.091,
+      "priced": {
+       "greedy": {
+        "payout": 13300,
+        "se": 810,
+        "p_paid": 0.1411
+       },
+       "optimal": {
+        "payout": 2375,
+        "se": 217,
+        "p_paid": 0.0806
+       }
+      },
+      "gap": {
+       "greedy": 811,
+       "optimal": 302,
+       "worst": 811
+      },
+      "tax": 0.01892,
+      "path": {
+       "13": "WAS",
+       "14": "SEA",
+       "15": "NYJ",
+       "16": "NO",
+       "17": "DAL",
+       "18": "NYG"
+      }
+     },
+     {
+      "team": "MIN",
+      "game": "ATL@MIN",
+      "lock": "Sun before 1pm ET",
+      "early": false,
+      "win": 0.753,
+      "field_own": 0.08,
+      "priced": {
+       "greedy": {
+        "payout": 13256,
+        "se": 794,
+        "p_paid": 0.1445
+       },
+       "optimal": {
+        "payout": 2238,
+        "se": 198,
+        "p_paid": 0.0823
+       }
+      },
+      "gap": {
+       "greedy": 855,
+       "optimal": 439,
+       "worst": 855
+      },
+      "tax": 0.00674,
+      "path": {
+       "13": "TB",
+       "14": "PHI",
+       "15": "SEA",
+       "16": "NO",
+       "17": "DAL",
+       "18": "BAL"
+      }
+     },
+     {
+      "team": "NYG",
+      "game": "NYG@IND",
+      "lock": "Sun before 1pm ET",
+      "early": false,
+      "win": 0.751,
+      "field_own": 0.081,
+      "priced": {
+       "greedy": {
+        "payout": 13226,
+        "se": 820,
+        "p_paid": 0.1415
+       },
+       "optimal": {
+        "payout": 2433,
+        "se": 221,
+        "p_paid": 0.0826
+       }
+      },
+      "gap": {
+       "greedy": 885,
+       "optimal": 244,
+       "worst": 885
+      },
+      "tax": 0.00155,
+      "path": {
+       "13": "TB",
+       "14": "SEA",
+       "15": "NYJ",
+       "16": "NO",
+       "17": "DAL",
+       "18": "BAL"
+      }
+     },
+     {
+      "team": "TB",
+      "game": "CAR@TB",
+      "lock": "Sun before 1pm ET",
+      "early": false,
+      "win": 0.594,
+      "field_own": 0.005,
+      "priced": {
+       "greedy": {
+        "payout": 13122,
+        "se": 808,
+        "p_paid": 0.1403
+       },
+       "optimal": {
+        "payout": 2316,
+        "se": 210,
+        "p_paid": 0.0811
+       }
+      },
+      "gap": {
+       "greedy": 989,
+       "optimal": 361,
+       "worst": 989
+      },
+      "tax": 0.00137,
+      "path": {
+       "13": "DEN",
+       "14": "SEA",
+       "15": "NYJ",
+       "16": "NO",
+       "17": "DAL",
+       "18": "HOU"
+      }
+     },
+     {
+      "team": "JAX",
+      "game": "TEN@JAX",
+      "lock": "Sun before 1pm ET",
+      "early": false,
+      "win": 0.89,
+      "field_own": 0.223,
+      "priced": {
+       "greedy": {
+        "payout": 13073,
+        "se": 797,
+        "p_paid": 0.1376
+       },
+       "optimal": {
+        "payout": 2358,
+        "se": 212,
+        "p_paid": 0.0793
+       }
+      },
+      "gap": {
+       "greedy": 1038,
+       "optimal": 319,
+       "worst": 1038
+      },
+      "tax": 0.01907,
+      "path": {
+       "13": "WAS",
+       "14": "SEA",
+       "15": "NYJ",
+       "16": "NO",
+       "17": "DAL",
+       "18": "NYG"
+      }
+     },
+     {
+      "team": "DAL",
+      "game": "PHI@DAL",
+      "lock": "Thu 15:30 ET",
+      "early": true,
+      "win": 0.797,
+      "field_own": 0.284,
+      "priced": {
+       "greedy": {
+        "payout": 13039,
+        "se": 797,
+        "p_paid": 0.1417
+       },
+       "optimal": {
+        "payout": 2260,
+        "se": 210,
+        "p_paid": 0.0811
+       }
+      },
+      "gap": {
+       "greedy": 1072,
+       "optimal": 417,
+       "worst": 1072
+      },
+      "tax": 0.00209,
+      "path": {
+       "13": "WAS",
+       "14": "SEA",
+       "15": "NYJ",
+       "16": "NO",
+       "17": "GB",
+       "18": "NYG"
       }
      }
     ]
@@ -1006,107 +1006,175 @@
     "used": [],
     "members": [],
     "holding": [
-     "DAL",
+     "WAS",
      "JAX"
     ],
     "rows": [
      {
-      "team": "MIN",
-      "game": "ATL@MIN",
+      "team": "HOU",
+      "game": "BAL@HOU",
       "lock": "Sun before 1pm ET",
       "early": false,
-      "win": 0.755,
-      "field_own": 0.081,
+      "win": 0.733,
+      "field_own": 0.046,
       "priced": {
        "greedy": {
-        "payout": 12679,
-        "se": 820,
-        "p_paid": 0.1346
+        "payout": 14111,
+        "se": 826,
+        "p_paid": 0.1509
        },
        "optimal": {
-        "payout": 2833,
-        "se": 254,
-        "p_paid": 0.0826
+        "payout": 2554,
+        "se": 225,
+        "p_paid": 0.0883
        }
       },
       "gap": {
        "greedy": 0,
-       "optimal": 212,
-       "worst": 212
+       "optimal": 123,
+       "worst": 123
       },
-      "tax": 0.00775,
+      "tax": 0.00211,
       "path": {
-       "13": "TB",
-       "14": "ATL",
-       "15": "GB",
+       "13": "DEN",
+       "14": "SEA",
+       "15": "LAR",
        "16": "NO",
        "17": "DAL",
-       "18": "HOU"
+       "18": "BAL"
       }
      },
      {
-      "team": "NYJ",
-      "game": "NYJ@MIA",
+      "team": "CLE",
+      "game": "LV@CLE",
       "lock": "Sun before 1pm ET",
       "early": false,
-      "win": 0.62,
-      "field_own": 0.013,
+      "win": 0.684,
+      "field_own": 0.028,
       "priced": {
        "greedy": {
-        "payout": 12095,
-        "se": 789,
-        "p_paid": 0.1291
+        "payout": 13826,
+        "se": 851,
+        "p_paid": 0.146
        },
        "optimal": {
-        "payout": 2973,
-        "se": 264,
-        "p_paid": 0.0797
+        "payout": 2647,
+        "se": 237,
+        "p_paid": 0.0889
        }
       },
       "gap": {
-       "greedy": 584,
-       "optimal": 72,
-       "worst": 584
+       "greedy": 285,
+       "optimal": 30,
+       "worst": 285
       },
-      "tax": 3e-05,
+      "tax": 0.00144,
       "path": {
-       "13": "TB",
-       "14": "MIN",
-       "15": "SEA",
-       "16": "BAL",
+       "13": "DEN",
+       "14": "SEA",
+       "15": "NYJ",
+       "16": "NO",
        "17": "DAL",
-       "18": "HOU"
+       "18": "GB"
       }
      },
      {
-      "team": "KC",
-      "game": "KC@BUF",
-      "lock": "Thu 20:20 ET",
-      "early": true,
-      "win": 0.425,
-      "field_own": 0.0,
+      "team": "NYG",
+      "game": "NYG@IND",
+      "lock": "Sun before 1pm ET",
+      "early": false,
+      "win": 0.751,
+      "field_own": 0.081,
       "priced": {
        "greedy": {
-        "payout": 11208,
-        "se": 773,
-        "p_paid": 0.1171
+        "payout": 13543,
+        "se": 798,
+        "p_paid": 0.1466
        },
        "optimal": {
-        "payout": 2483,
-        "se": 227,
-        "p_paid": 0.0723
+        "payout": 2437,
+        "se": 214,
+        "p_paid": 0.0863
        }
       },
       "gap": {
-       "greedy": 1471,
-       "optimal": 562,
-       "worst": 1471
+       "greedy": 568,
+       "optimal": 240,
+       "worst": 568
       },
-      "tax": 0.01863,
+      "tax": 0.00155,
       "path": {
-       "13": "TB",
-       "14": "DET",
-       "15": "GB",
+       "13": "DEN",
+       "14": "SEA",
+       "15": "LAR",
+       "16": "NO",
+       "17": "DAL",
+       "18": "BAL"
+      }
+     },
+     {
+      "team": "CIN",
+      "game": "NO@CIN",
+      "lock": "Sun before 1pm ET",
+      "early": false,
+      "win": 0.817,
+      "field_own": 0.091,
+      "priced": {
+       "greedy": {
+        "payout": 13314,
+        "se": 797,
+        "p_paid": 0.1446
+       },
+       "optimal": {
+        "payout": 2399,
+        "se": 223,
+        "p_paid": 0.0838
+       }
+      },
+      "gap": {
+       "greedy": 797,
+       "optimal": 278,
+       "worst": 797
+      },
+      "tax": 0.01892,
+      "path": {
+       "13": "HOU",
+       "14": "PHI",
+       "15": "SEA",
+       "16": "NO",
+       "17": "DAL",
+       "18": "BAL"
+      }
+     },
+     {
+      "team": "WAS",
+      "game": "WAS@ARI",
+      "lock": "Sun before 1pm ET",
+      "early": false,
+      "win": 0.768,
+      "field_own": 0.125,
+      "priced": {
+       "greedy": {
+        "payout": 12978,
+        "se": 802,
+        "p_paid": 0.1401
+       },
+       "optimal": {
+        "payout": 2598,
+        "se": 237,
+        "p_paid": 0.082
+       }
+      },
+      "gap": {
+       "greedy": 1133,
+       "optimal": 79,
+       "worst": 1133
+      },
+      "tax": 0.0011,
+      "path": {
+       "13": "HOU",
+       "14": "SEA",
+       "15": "LAR",
        "16": "NO",
        "17": "DAL",
        "18": "BAL"
@@ -1117,67 +1185,67 @@
       "game": "TEN@JAX",
       "lock": "Sun before 1pm ET",
       "early": false,
-      "win": 0.886,
-      "field_own": 0.274,
+      "win": 0.89,
+      "field_own": 0.223,
       "priced": {
        "greedy": {
-        "payout": 11163,
-        "se": 761,
-        "p_paid": 0.1186
+        "payout": 12835,
+        "se": 789,
+        "p_paid": 0.1378
        },
        "optimal": {
-        "payout": 2678,
-        "se": 243,
-        "p_paid": 0.0727
+        "payout": 2532,
+        "se": 232,
+        "p_paid": 0.08
        }
       },
       "gap": {
-       "greedy": 1516,
-       "optimal": 367,
-       "worst": 1516
+       "greedy": 1276,
+       "optimal": 145,
+       "worst": 1276
       },
-      "tax": 0.01902,
+      "tax": 0.01907,
       "path": {
        "13": "TB",
        "14": "SEA",
-       "15": "NYG",
+       "15": "LAR",
        "16": "NO",
        "17": "DAL",
-       "18": "GB"
+       "18": "BAL"
       }
      },
      {
-      "team": "LAC",
-      "game": "NE@LAC",
+      "team": "MIN",
+      "game": "ATL@MIN",
       "lock": "Sun before 1pm ET",
       "early": false,
-      "win": 0.668,
-      "field_own": 0.038,
+      "win": 0.753,
+      "field_own": 0.08,
       "priced": {
        "greedy": {
-        "payout": 11145,
-        "se": 761,
-        "p_paid": 0.1196
+        "payout": 12769,
+        "se": 781,
+        "p_paid": 0.1399
        },
        "optimal": {
-        "payout": 2694,
-        "se": 256,
-        "p_paid": 0.0741
+        "payout": 2313,
+        "se": 209,
+        "p_paid": 0.0828
        }
       },
       "gap": {
-       "greedy": 1534,
-       "optimal": 351,
-       "worst": 1534
+       "greedy": 1342,
+       "optimal": 364,
+       "worst": 1342
       },
-      "tax": 0.0,
+      "tax": 0.00674,
       "path": {
        "13": "TB",
-       "14": "SEA",
-       "15": "NYG",
+       "14": "PHI",
+       "15": "SEA",
        "16": "NO",
        "17": "DAL",
-       "18": "GB"
+       "18": "BAL"
       }
      },
      {
@@ -1185,101 +1253,33 @@
       "game": "CAR@TB",
       "lock": "Sun before 1pm ET",
       "early": false,
-      "win": 0.554,
-      "field_own": 0.004,
+      "win": 0.594,
+      "field_own": 0.005,
       "priced": {
        "greedy": {
-        "payout": 11078,
-        "se": 758,
-        "p_paid": 0.118
+        "payout": 12752,
+        "se": 813,
+        "p_paid": 0.1369
        },
        "optimal": {
-        "payout": 2494,
-        "se": 219,
-        "p_paid": 0.0725
+        "payout": 2366,
+        "se": 221,
+        "p_paid": 0.0821
        }
       },
       "gap": {
-       "greedy": 1601,
-       "optimal": 551,
-       "worst": 1601
+       "greedy": 1359,
+       "optimal": 311,
+       "worst": 1359
       },
-      "tax": 0.00154,
+      "tax": 0.00137,
       "path": {
-       "13": "ATL",
-       "14": "MIN",
-       "15": "SEA",
+       "13": "DEN",
+       "14": "SEA",
+       "15": "NYJ",
        "16": "NO",
        "17": "DAL",
        "18": "HOU"
-      }
-     },
-     {
-      "team": "CLE",
-      "game": "LV@CLE",
-      "lock": "Sun before 1pm ET",
-      "early": false,
-      "win": 0.652,
-      "field_own": 0.026,
-      "priced": {
-       "greedy": {
-        "payout": 11024,
-        "se": 756,
-        "p_paid": 0.1193
-       },
-       "optimal": {
-        "payout": 2672,
-        "se": 240,
-        "p_paid": 0.0725
-       }
-      },
-      "gap": {
-       "greedy": 1655,
-       "optimal": 373,
-       "worst": 1655
-      },
-      "tax": 0.00166,
-      "path": {
-       "13": "TB",
-       "14": "SEA",
-       "15": "LAR",
-       "16": "NO",
-       "17": "DAL",
-       "18": "GB"
-      }
-     },
-     {
-      "team": "HOU",
-      "game": "BAL@HOU",
-      "lock": "Sun before 1pm ET",
-      "early": false,
-      "win": 0.707,
-      "field_own": 0.037,
-      "priced": {
-       "greedy": {
-        "payout": 10997,
-        "se": 760,
-        "p_paid": 0.1161
-       },
-       "optimal": {
-        "payout": 2397,
-        "se": 210,
-        "p_paid": 0.0716
-       }
-      },
-      "gap": {
-       "greedy": 1682,
-       "optimal": 648,
-       "worst": 1682
-      },
-      "tax": 0.0021,
-      "path": {
-       "13": "TB",
-       "14": "SEA",
-       "15": "LAR",
-       "16": "NO",
-       "17": "GB",
-       "18": "NE"
       }
      }
     ]
@@ -1290,8 +1290,8 @@
     "used": [],
     "members": [],
     "holding": [
-     "DAL",
-     "MIN"
+     "WAS",
+     "HOU"
     ],
     "rows": [
      {
@@ -1299,30 +1299,98 @@
       "game": "TEN@JAX",
       "lock": "Sun before 1pm ET",
       "early": false,
-      "win": 0.886,
-      "field_own": 0.274,
+      "win": 0.89,
+      "field_own": 0.223,
       "priced": {
        "greedy": {
-        "payout": 12679,
-        "se": 820,
-        "p_paid": 0.1346
+        "payout": 14111,
+        "se": 826,
+        "p_paid": 0.1509
        },
        "optimal": {
-        "payout": 2833,
-        "se": 254,
-        "p_paid": 0.0826
+        "payout": 2554,
+        "se": 225,
+        "p_paid": 0.0883
        }
       },
       "gap": {
        "greedy": 0,
-       "optimal": 212,
-       "worst": 212
+       "optimal": 123,
+       "worst": 123
       },
-      "tax": 0.01902,
+      "tax": 0.01907,
       "path": {
-       "13": "TB",
+       "13": "GB",
        "14": "SEA",
-       "15": "NYJ",
+       "15": "NYG",
+       "16": "NO",
+       "17": "DAL",
+       "18": "HOU"
+      }
+     },
+     {
+      "team": "MIN",
+      "game": "ATL@MIN",
+      "lock": "Sun before 1pm ET",
+      "early": false,
+      "win": 0.753,
+      "field_own": 0.08,
+      "priced": {
+       "greedy": {
+        "payout": 14029,
+        "se": 836,
+        "p_paid": 0.1514
+       },
+       "optimal": {
+        "payout": 2524,
+        "se": 221,
+        "p_paid": 0.0899
+       }
+      },
+      "gap": {
+       "greedy": 82,
+       "optimal": 153,
+       "worst": 153
+      },
+      "tax": 0.00674,
+      "path": {
+       "13": "GB",
+       "14": "SEA",
+       "15": "NYG",
+       "16": "NO",
+       "17": "DAL",
+       "18": "HOU"
+      }
+     },
+     {
+      "team": "CLE",
+      "game": "LV@CLE",
+      "lock": "Sun before 1pm ET",
+      "early": false,
+      "win": 0.684,
+      "field_own": 0.028,
+      "priced": {
+       "greedy": {
+        "payout": 13259,
+        "se": 812,
+        "p_paid": 0.1436
+       },
+       "optimal": {
+        "payout": 2477,
+        "se": 228,
+        "p_paid": 0.0853
+       }
+      },
+      "gap": {
+       "greedy": 852,
+       "optimal": 200,
+       "worst": 852
+      },
+      "tax": 0.00144,
+      "path": {
+       "13": "GB",
+       "14": "SEA",
+       "15": "NYG",
        "16": "NO",
        "17": "DAL",
        "18": "HOU"
@@ -1333,234 +1401,166 @@
       "game": "NYJ@MIA",
       "lock": "Sun before 1pm ET",
       "early": false,
-      "win": 0.62,
-      "field_own": 0.013,
+      "win": 0.672,
+      "field_own": 0.025,
       "priced": {
        "greedy": {
-        "payout": 12416,
-        "se": 827,
-        "p_paid": 0.1301
+        "payout": 13204,
+        "se": 821,
+        "p_paid": 0.1407
        },
        "optimal": {
-        "payout": 2842,
-        "se": 276,
+        "payout": 2367,
+        "se": 213,
+        "p_paid": 0.083
+       }
+      },
+      "gap": {
+       "greedy": 907,
+       "optimal": 310,
+       "worst": 907
+      },
+      "tax": 0.0001,
+      "path": {
+       "13": "GB",
+       "14": "SEA",
+       "15": "NYG",
+       "16": "NO",
+       "17": "DAL",
+       "18": "HOU"
+      }
+     },
+     {
+      "team": "CIN",
+      "game": "NO@CIN",
+      "lock": "Sun before 1pm ET",
+      "early": false,
+      "win": 0.817,
+      "field_own": 0.091,
+      "priced": {
+       "greedy": {
+        "payout": 12621,
+        "se": 810,
+        "p_paid": 0.1312
+       },
+       "optimal": {
+        "payout": 2321,
+        "se": 217,
+        "p_paid": 0.0784
+       }
+      },
+      "gap": {
+       "greedy": 1490,
+       "optimal": 356,
+       "worst": 1490
+      },
+      "tax": 0.01892,
+      "path": {
+       "13": "WAS",
+       "14": "SEA",
+       "15": "NYJ",
+       "16": "NO",
+       "17": "DAL",
+       "18": "NYG"
+      }
+     },
+     {
+      "team": "TB",
+      "game": "CAR@TB",
+      "lock": "Sun before 1pm ET",
+      "early": false,
+      "win": 0.594,
+      "field_own": 0.005,
+      "priced": {
+       "greedy": {
+        "payout": 12525,
+        "se": 809,
+        "p_paid": 0.1321
+       },
+       "optimal": {
+        "payout": 2174,
+        "se": 203,
         "p_paid": 0.0805
        }
       },
       "gap": {
-       "greedy": 263,
-       "optimal": 203,
-       "worst": 263
+       "greedy": 1586,
+       "optimal": 503,
+       "worst": 1586
       },
-      "tax": 3e-05,
+      "tax": 0.00137,
       "path": {
-       "13": "TB",
-       "14": "ATL",
-       "15": "SEA",
-       "16": "NO",
-       "17": "DEN",
-       "18": "HOU"
-      }
-     },
-     {
-      "team": "CLE",
-      "game": "LV@CLE",
-      "lock": "Sun before 1pm ET",
-      "early": false,
-      "win": 0.652,
-      "field_own": 0.026,
-      "priced": {
-       "greedy": {
-        "payout": 12387,
-        "se": 820,
-        "p_paid": 0.1339
-       },
-       "optimal": {
-        "payout": 3045,
-        "se": 285,
-        "p_paid": 0.0829
-       }
-      },
-      "gap": {
-       "greedy": 292,
-       "optimal": 0,
-       "worst": 292
-      },
-      "tax": 0.00166,
-      "path": {
-       "13": "TB",
+       "13": "WAS",
        "14": "SEA",
-       "15": "NYJ",
-       "16": "NO",
-       "17": "DAL",
-       "18": "HOU"
-      }
-     },
-     {
-      "team": "WAS",
-      "game": "WAS@ARI",
-      "lock": "Sun before 1pm ET",
-      "early": false,
-      "win": 0.744,
-      "field_own": 0.112,
-      "priced": {
-       "greedy": {
-        "payout": 12149,
-        "se": 786,
-        "p_paid": 0.133
-       },
-       "optimal": {
-        "payout": 2790,
-        "se": 251,
-        "p_paid": 0.0808
-       }
-      },
-      "gap": {
-       "greedy": 530,
-       "optimal": 255,
-       "worst": 530
-      },
-      "tax": 0.00076,
-      "path": {
-       "13": "TB",
-       "14": "SEA",
-       "15": "NYJ",
-       "16": "NO",
-       "17": "DAL",
-       "18": "NE"
-      }
-     },
-     {
-      "team": "MIN",
-      "game": "ATL@MIN",
-      "lock": "Sun before 1pm ET",
-      "early": false,
-      "win": 0.755,
-      "field_own": 0.081,
-      "priced": {
-       "greedy": {
-        "payout": 12030,
-        "se": 801,
-        "p_paid": 0.1312
-       },
-       "optimal": {
-        "payout": 2831,
-        "se": 280,
-        "p_paid": 0.0796
-       }
-      },
-      "gap": {
-       "greedy": 649,
-       "optimal": 214,
-       "worst": 649
-      },
-      "tax": 0.00775,
-      "path": {
-       "13": "TB",
-       "14": "SEA",
-       "15": "NYJ",
-       "16": "NO",
-       "17": "DAL",
-       "18": "GB"
-      }
-     },
-     {
-      "team": "LAC",
-      "game": "NE@LAC",
-      "lock": "Sun before 1pm ET",
-      "early": false,
-      "win": 0.668,
-      "field_own": 0.038,
-      "priced": {
-       "greedy": {
-        "payout": 12004,
-        "se": 795,
-        "p_paid": 0.1306
-       },
-       "optimal": {
-        "payout": 2830,
-        "se": 267,
-        "p_paid": 0.0798
-       }
-      },
-      "gap": {
-       "greedy": 675,
-       "optimal": 215,
-       "worst": 675
-      },
-      "tax": 0.0,
-      "path": {
-       "13": "TB",
-       "14": "SEA",
-       "15": "NYJ",
-       "16": "NO",
-       "17": "DAL",
-       "18": "HOU"
-      }
-     },
-     {
-      "team": "NYG",
-      "game": "NYG@IND",
-      "lock": "Sun before 1pm ET",
-      "early": false,
-      "win": 0.676,
-      "field_own": 0.027,
-      "priced": {
-       "greedy": {
-        "payout": 11934,
-        "se": 787,
-        "p_paid": 0.1294
-       },
-       "optimal": {
-        "payout": 2781,
-        "se": 264,
-        "p_paid": 0.0787
-       }
-      },
-      "gap": {
-       "greedy": 745,
-       "optimal": 264,
-       "worst": 745
-      },
-      "tax": 0.00147,
-      "path": {
-       "13": "TB",
-       "14": "SEA",
-       "15": "NYJ",
-       "16": "HOU",
-       "17": "DAL",
-       "18": "GB"
-      }
-     },
-     {
-      "team": "KC",
-      "game": "KC@BUF",
-      "lock": "Thu 20:20 ET",
-      "early": true,
-      "win": 0.425,
-      "field_own": 0.0,
-      "priced": {
-       "greedy": {
-        "payout": 11881,
-        "se": 806,
-        "p_paid": 0.1259
-       },
-       "optimal": {
-        "payout": 2621,
-        "se": 255,
-        "p_paid": 0.0771
-       }
-      },
-      "gap": {
-       "greedy": 798,
-       "optimal": 424,
-       "worst": 798
-      },
-      "tax": 0.01863,
-      "path": {
-       "13": "TB",
-       "14": "DET",
        "15": "GB",
+       "16": "NO",
+       "17": "DAL",
+       "18": "BAL"
+      }
+     },
+     {
+      "team": "DAL",
+      "game": "PHI@DAL",
+      "lock": "Thu 15:30 ET",
+      "early": true,
+      "win": 0.797,
+      "field_own": 0.284,
+      "priced": {
+       "greedy": {
+        "payout": 12390,
+        "se": 785,
+        "p_paid": 0.1322
+       },
+       "optimal": {
+        "payout": 2215,
+        "se": 207,
+        "p_paid": 0.0794
+       }
+      },
+      "gap": {
+       "greedy": 1721,
+       "optimal": 462,
+       "worst": 1721
+      },
+      "tax": 0.00209,
+      "path": {
+       "13": "WAS",
+       "14": "SEA",
+       "15": "NYJ",
+       "16": "NO",
+       "17": "GB",
+       "18": "NYG"
+      }
+     },
+     {
+      "team": "HOU",
+      "game": "BAL@HOU",
+      "lock": "Sun before 1pm ET",
+      "early": false,
+      "win": 0.733,
+      "field_own": 0.046,
+      "priced": {
+       "greedy": {
+        "payout": 12068,
+        "se": 781,
+        "p_paid": 0.1281
+       },
+       "optimal": {
+        "payout": 2350,
+        "se": 212,
+        "p_paid": 0.0786
+       }
+      },
+      "gap": {
+       "greedy": 2043,
+       "optimal": 327,
+       "worst": 2043
+      },
+      "tax": 0.00211,
+      "path": {
+       "13": "TB",
+       "14": "PHI",
+       "15": "SEA",
        "16": "NO",
        "17": "DAL",
        "18": "BAL"
@@ -1574,84 +1574,108 @@
  "dont_spend": [
   {
    "team": "SF",
-   "tax": 0.03127,
-   "share": 0.341,
-   "wins_now": 0.582
+   "tax": 0.03172,
+   "share": 0.343,
+   "wins_now": 0.614
   },
   {
    "team": "BUF",
-   "tax": 0.0303,
-   "share": 0.331,
-   "wins_now": 0.575
-  },
-  {
-   "team": "JAX",
-   "tax": 0.01902,
-   "share": 0.208,
-   "wins_now": 0.886
+   "tax": 0.03134,
+   "share": 0.339,
+   "wins_now": 0.573
   },
   {
    "team": "KC",
-   "tax": 0.01863,
-   "share": 0.203,
-   "wins_now": 0.425
+   "tax": 0.01961,
+   "share": 0.212,
+   "wins_now": 0.427
+  },
+  {
+   "team": "JAX",
+   "tax": 0.01907,
+   "share": 0.206,
+   "wins_now": 0.89
   },
   {
    "team": "CIN",
-   "tax": 0.01847,
-   "share": 0.201,
-   "wins_now": 0.825
+   "tax": 0.01892,
+   "share": 0.205,
+   "wins_now": 0.817
   },
   {
    "team": "CHI",
-   "tax": 0.01512,
-   "share": 0.165,
-   "wins_now": 0.582
+   "tax": 0.01476,
+   "share": 0.16,
+   "wins_now": 0.534
   },
   {
    "team": "DEN",
-   "tax": 0.01263,
-   "share": 0.138,
-   "wins_now": 0.582
+   "tax": 0.01401,
+   "share": 0.152,
+   "wins_now": 0.652
   },
   {
    "team": "MIN",
-   "tax": 0.00775,
-   "share": 0.085,
-   "wins_now": 0.755
+   "tax": 0.00674,
+   "share": 0.073,
+   "wins_now": 0.753
   },
   {
    "team": "LAR",
-   "tax": 0.00652,
-   "share": 0.071,
-   "wins_now": 0.622
+   "tax": 0.00664,
+   "share": 0.072,
+   "wins_now": 0.551
   },
   {
    "team": "DET",
-   "tax": 0.00642,
-   "share": 0.07,
-   "wins_now": 0.418
+   "tax": 0.00659,
+   "share": 0.071,
+   "wins_now": 0.466
   },
   {
    "team": "SEA",
-   "tax": 0.00609,
-   "share": 0.066,
-   "wins_now": 0.418
+   "tax": 0.00643,
+   "share": 0.07,
+   "wins_now": 0.386
   },
   {
    "team": "GB",
-   "tax": 0.00307,
-   "share": 0.034,
-   "wins_now": 0.379
+   "tax": 0.00339,
+   "share": 0.037,
+   "wins_now": 0.449
   }
  ],
  "fair_share": 533,
  "plan": {
-  "structure": "3x4",
+  "structure": "4x3",
   "lineages": [
    {
     "lineage": "A",
-    "entries": 4,
+    "entries": 3,
+    "pick": "WAS",
+    "game": "WAS@ARI",
+    "kickoff": "Sunday 2026-11-29 16:25 ET",
+    "locks": "Sunday before the 1pm ET window",
+    "early": false,
+    "path": {
+     "12": "WAS",
+     "13": "DEN",
+     "14": "SEA",
+     "15": "NYJ",
+     "16": "NO",
+     "17": "DAL",
+     "18": "NE"
+    },
+    "used": [],
+    "members": [],
+    "split": false,
+    "rs_survive": 0.1405,
+    "playoff_value": 0.067,
+    "win_all": 0.00942
+   },
+   {
+    "lineage": "B",
+    "entries": 3,
     "pick": "DAL",
     "game": "PHI@DAL",
     "kickoff": "Thursday 2026-11-26 15:30 ET",
@@ -1659,47 +1683,47 @@
     "early": true,
     "path": {
      "12": "DAL",
-     "13": "TB",
+     "13": "WAS",
      "14": "SEA",
-     "15": "GB",
+     "15": "NYJ",
      "16": "NO",
-     "17": "PIT",
+     "17": "GB",
      "18": "NYG"
     },
     "used": [],
     "members": [],
     "split": false,
-    "rs_survive": 0.1145,
-    "playoff_value": 0.0724,
-    "win_all": 0.00829
+    "rs_survive": 0.098,
+    "playoff_value": 0.0764,
+    "win_all": 0.00749
    },
    {
-    "lineage": "B",
-    "entries": 4,
-    "pick": "MIN",
-    "game": "ATL@MIN",
+    "lineage": "C",
+    "entries": 3,
+    "pick": "NYG",
+    "game": "NYG@IND",
     "kickoff": "Sunday 2026-11-29 13:00 ET",
     "locks": "Sunday before the 1pm ET window",
     "early": false,
     "path": {
-     "12": "MIN",
-     "13": "TB",
-     "14": "ATL",
-     "15": "GB",
+     "12": "NYG",
+     "13": "DEN",
+     "14": "SEA",
+     "15": "LAR",
      "16": "NO",
      "17": "DAL",
-     "18": "HOU"
+     "18": "BAL"
     },
     "used": [],
     "members": [],
     "split": false,
-    "rs_survive": 0.1185,
-    "playoff_value": 0.0721,
-    "win_all": 0.00854
+    "rs_survive": 0.139,
+    "playoff_value": 0.0605,
+    "win_all": 0.0084
    },
    {
-    "lineage": "C",
-    "entries": 4,
+    "lineage": "D",
+    "entries": 3,
     "pick": "JAX",
     "game": "TEN@JAX",
     "kickoff": "Sunday 2026-11-29 13:00 ET",
@@ -1707,9 +1731,9 @@
     "early": false,
     "path": {
      "12": "JAX",
-     "13": "TB",
+     "13": "GB",
      "14": "SEA",
-     "15": "NYJ",
+     "15": "NYG",
      "16": "NO",
      "17": "DAL",
      "18": "HOU"
@@ -1717,21 +1741,21 @@
     "used": [],
     "members": [],
     "split": false,
-    "rs_survive": 0.12,
-    "playoff_value": 0.0588,
-    "win_all": 0.00706
+    "rs_survive": 0.1345,
+    "playoff_value": 0.0571,
+    "win_all": 0.00768
    }
   ],
   "priced": {
    "greedy": {
-    "payout": 12679,
-    "se": 820,
-    "p_paid": 0.1346
+    "payout": 13344,
+    "se": 729,
+    "p_paid": 0.1511
    },
    "optimal": {
-    "payout": 2833,
-    "se": 254,
-    "p_paid": 0.0826
+    "payout": 2051,
+    "se": 177,
+    "p_paid": 0.0847
    }
   },
   "regret": {
@@ -1740,30 +1764,31 @@
     0
    ],
    "optimal": [
-    0,
-    0
+    345,
+    204
    ]
   }
  },
  "candidates": [
   {
-   "structure": "3x4",
+   "structure": "4x3",
    "built_on": "greedy",
    "openers": [
+    "WAS",
     "DAL",
-    "MIN",
+    "NYG",
     "JAX"
    ],
    "priced": {
     "greedy": {
-     "payout": 12679,
-     "se": 820,
-     "p_paid": 0.1346
+     "payout": 13344,
+     "se": 729,
+     "p_paid": 0.1511
     },
     "optimal": {
-     "payout": 2833,
-     "se": 254,
-     "p_paid": 0.0826
+     "payout": 2051,
+     "se": 177,
+     "p_paid": 0.0847
     }
    },
    "regret": {
@@ -1772,179 +1797,178 @@
      0
     ],
     "optimal": [
-     0,
-     0
+     345,
+     204
     ]
    },
-   "worst_regret": 0
-  },
-  {
-   "structure": "4x3",
-   "built_on": "greedy",
-   "openers": [
-    "DAL",
-    "MIN",
-    "JAX",
-    "WAS"
-   ],
-   "priced": {
-    "greedy": {
-     "payout": 11920,
-     "se": 760,
-     "p_paid": 0.1323
-    },
-    "optimal": {
-     "payout": 2664,
-     "se": 238,
-     "p_paid": 0.0784
-    }
-   },
-   "regret": {
-    "greedy": [
-     759,
-     309
-    ],
-    "optimal": [
-     169,
-     123
-    ]
-   },
-   "worst_regret": 759
+   "worst_regret": 345
   },
   {
    "structure": "6x2",
    "built_on": "greedy",
    "openers": [
-    "DAL",
+    "NYG",
+    "WAS",
     "JAX",
-    "MIN",
-    "CIN",
-    "NYJ",
-    "CHI"
+    "DAL",
+    "TB",
+    "CIN"
    ],
    "priced": {
     "greedy": {
-     "payout": 11120,
-     "se": 660,
-     "p_paid": 0.1304
+     "payout": 12830,
+     "se": 679,
+     "p_paid": 0.155
     },
     "optimal": {
-     "payout": 2255,
-     "se": 205,
-     "p_paid": 0.0734
+     "payout": 1926,
+     "se": 163,
+     "p_paid": 0.0844
     }
    },
    "regret": {
     "greedy": [
-     1558,
-     487
+     514,
+     401
     ],
     "optimal": [
-     578,
-     189
+     470,
+     192
     ]
    },
-   "worst_regret": 1558
+   "worst_regret": 514
   },
   {
    "structure": "3x4",
    "built_on": "optimal",
    "openers": [
-    "WAS",
     "NYG",
-    "DAL"
+    "WAS",
+    "CLE"
    ],
    "priced": {
     "greedy": {
-     "payout": 10030,
-     "se": 728,
-     "p_paid": 0.1075
+     "payout": 11690,
+     "se": 774,
+     "p_paid": 0.1304
     },
     "optimal": {
-     "payout": 2382,
-     "se": 220,
-     "p_paid": 0.0666
+     "payout": 2396,
+     "se": 226,
+     "p_paid": 0.0769
     }
    },
    "regret": {
     "greedy": [
-     2649,
-     664
+     1655,
+     637
     ],
     "optimal": [
-     451,
-     222
+     0,
+     0
     ]
    },
-   "worst_regret": 2649
+   "worst_regret": 1655
   },
   {
-   "structure": "4x3",
-   "built_on": "optimal",
+   "structure": "3x4",
+   "built_on": "greedy",
    "openers": [
-    "CLE",
-    "NYJ",
+    "WAS",
     "DAL",
-    "LAC"
+    "HOU"
    ],
    "priced": {
     "greedy": {
-     "payout": 9580,
-     "se": 685,
-     "p_paid": 0.1054
+     "payout": 11372,
+     "se": 755,
+     "p_paid": 0.1263
     },
     "optimal": {
-     "payout": 2706,
-     "se": 290,
-     "p_paid": 0.0639
+     "payout": 2052,
+     "se": 190,
+     "p_paid": 0.0769
     }
    },
    "regret": {
     "greedy": [
-     3099,
-     805
+     1973,
+     633
     ],
     "optimal": [
-     127,
-     328
+     344,
+     249
     ]
    },
-   "worst_regret": 3099
+   "worst_regret": 1973
   },
   {
    "structure": "6x2",
    "built_on": "optimal",
    "openers": [
-    "CLE",
-    "NYJ",
-    "DAL",
-    "LAC",
+    "NYG",
+    "WAS",
+    "WAS",
     "CIN",
-    "CHI"
+    "CLE",
+    "DAL"
    ],
    "priced": {
     "greedy": {
-     "payout": 9001,
-     "se": 589,
-     "p_paid": 0.108
+     "payout": 11102,
+     "se": 627,
+     "p_paid": 0.1356
     },
     "optimal": {
-     "payout": 2374,
-     "se": 254,
-     "p_paid": 0.0614
+     "payout": 2108,
+     "se": 185,
+     "p_paid": 0.0742
     }
    },
    "regret": {
     "greedy": [
-     3678,
-     781
+     2242,
+     581
     ],
     "optimal": [
-     459,
-     312
+     288,
+     162
     ]
    },
-   "worst_regret": 3678
+   "worst_regret": 2242
+  },
+  {
+   "structure": "4x3",
+   "built_on": "optimal",
+   "openers": [
+    "NYG",
+    "WAS",
+    "CLE",
+    "NYG"
+   ],
+   "priced": {
+    "greedy": {
+     "payout": 10656,
+     "se": 679,
+     "p_paid": 0.1242
+    },
+    "optimal": {
+     "payout": 2079,
+     "se": 191,
+     "p_paid": 0.0702
+    }
+   },
+   "regret": {
+    "greedy": [
+     2688,
+     604
+    ],
+    "optimal": [
+     317,
+     89
+    ]
+   },
+   "worst_regret": 2688
   }
  ],
  "curve": [
@@ -1956,7 +1980,7 @@
     "CIN",
     "JAX"
    ],
-   "value": 0.0048
+   "value": 0.0046
   },
   {
    "size": 5,
@@ -1967,9 +1991,9 @@
     "JAX",
     "SF"
    ],
-   "value": 0.0198,
+   "value": 0.0197,
    "added": "SF",
-   "gain": 0.015
+   "gain": 0.0151
   },
   {
    "size": 6,
@@ -1981,9 +2005,9 @@
     "SF",
     "KC"
    ],
-   "value": 0.0315,
+   "value": 0.0319,
    "added": "KC",
-   "gain": 0.0117
+   "gain": 0.0122
   },
   {
    "size": 7,
@@ -1996,9 +2020,9 @@
     "KC",
     "DEN"
    ],
-   "value": 0.0438,
+   "value": 0.0448,
    "added": "DEN",
-   "gain": 0.0123
+   "gain": 0.0129
   },
   {
    "size": 8,
@@ -2010,11 +2034,11 @@
     "SF",
     "KC",
     "DEN",
-    "MIN"
+    "DET"
    ],
-   "value": 0.0527,
-   "added": "MIN",
-   "gain": 0.0089
+   "value": 0.053,
+   "added": "DET",
+   "gain": 0.0082
   },
   {
    "size": 9,
@@ -2026,12 +2050,12 @@
     "SF",
     "KC",
     "DEN",
-    "MIN",
-    "DET"
+    "DET",
+    "MIN"
    ],
-   "value": 0.0607,
-   "added": "DET",
-   "gain": 0.008
+   "value": 0.0612,
+   "added": "MIN",
+   "gain": 0.0082
   },
   {
    "size": 10,
@@ -2043,13 +2067,13 @@
     "SF",
     "KC",
     "DEN",
-    "MIN",
     "DET",
+    "MIN",
     "LAR"
    ],
-   "value": 0.0674,
+   "value": 0.068,
    "added": "LAR",
-   "gain": 0.0067
+   "gain": 0.0068
   },
   {
    "size": 11,
@@ -2061,14 +2085,14 @@
     "SF",
     "KC",
     "DEN",
-    "MIN",
     "DET",
+    "MIN",
     "LAR",
     "SEA"
    ],
-   "value": 0.0739,
+   "value": 0.0748,
    "added": "SEA",
-   "gain": 0.0065
+   "gain": 0.0068
   },
   {
    "size": 12,
@@ -2080,15 +2104,15 @@
     "SF",
     "KC",
     "DEN",
-    "MIN",
     "DET",
+    "MIN",
     "LAR",
     "SEA",
     "GB"
    ],
-   "value": 0.0772,
+   "value": 0.0784,
    "added": "GB",
-   "gain": 0.0033
+   "gain": 0.0036
   },
   {
    "size": 13,
@@ -2100,14 +2124,14 @@
     "SF",
     "KC",
     "DEN",
-    "MIN",
     "DET",
+    "MIN",
     "LAR",
     "SEA",
     "GB",
     "NYG"
    ],
-   "value": 0.0796,
+   "value": 0.0808,
    "added": "NYG",
    "gain": 0.0024
   },
@@ -2121,20 +2145,20 @@
     "SF",
     "KC",
     "DEN",
-    "MIN",
     "DET",
+    "MIN",
     "LAR",
     "SEA",
     "GB",
     "NYG",
     "HOU"
    ],
-   "value": 0.0818,
+   "value": 0.0831,
    "added": "HOU",
-   "gain": 0.0022
+   "gain": 0.0023
   }
  ],
- "every_team_kept": 0.0917,
+ "every_team_kept": 0.0924,
  "caveats": [
   "one season simulated on this week's lines and futures; the paths after this week are provisional and re-solved weekly",
   "the field at its average habits where it has no history in this format, with a playoff-saving term whose size is a prior",
