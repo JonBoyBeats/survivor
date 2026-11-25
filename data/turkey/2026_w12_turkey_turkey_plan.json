@@ -4,8 +4,8 @@
  "contest": "turkey_2026",
  "slug": "turkey",
  "name": "Splash Turkey regular season and playoffs",
- "built": "2026-11-25T00:24:07Z",
- "code": "deb23d47936b0a3df14ac4091b2561e5237a443f+dirty",
+ "built": "2026-11-25T00:34:12Z",
+ "code": "5cec10b6881eb2eb8aba5ec2eab1eadc7172cace+dirty",
  "bracket": "season/2026_w12/2026_w12_bracket.npz",
  "worlds": 2000,
  "priced_on": 1000,
@@ -80,6 +80,80 @@
    }
   }
  },
+ "dont_spend": [
+  {
+   "team": "SF",
+   "tax": 0.03127,
+   "share": 0.341,
+   "wins_now": 0.582
+  },
+  {
+   "team": "BUF",
+   "tax": 0.0303,
+   "share": 0.331,
+   "wins_now": 0.575
+  },
+  {
+   "team": "JAX",
+   "tax": 0.01902,
+   "share": 0.208,
+   "wins_now": 0.886
+  },
+  {
+   "team": "KC",
+   "tax": 0.01863,
+   "share": 0.203,
+   "wins_now": 0.425
+  },
+  {
+   "team": "CIN",
+   "tax": 0.01847,
+   "share": 0.201,
+   "wins_now": 0.825
+  },
+  {
+   "team": "CHI",
+   "tax": 0.01512,
+   "share": 0.165,
+   "wins_now": 0.582
+  },
+  {
+   "team": "DEN",
+   "tax": 0.01263,
+   "share": 0.138,
+   "wins_now": 0.582
+  },
+  {
+   "team": "MIN",
+   "tax": 0.00775,
+   "share": 0.085,
+   "wins_now": 0.755
+  },
+  {
+   "team": "LAR",
+   "tax": 0.00652,
+   "share": 0.071,
+   "wins_now": 0.622
+  },
+  {
+   "team": "DET",
+   "tax": 0.00642,
+   "share": 0.07,
+   "wins_now": 0.418
+  },
+  {
+   "team": "SEA",
+   "tax": 0.00609,
+   "share": 0.066,
+   "wins_now": 0.418
+  },
+  {
+   "team": "GB",
+   "tax": 0.00307,
+   "share": 0.034,
+   "wins_now": 0.379
+  }
+ ],
  "fair_share": 533,
  "plan": {
   "structure": "3x4",
@@ -100,7 +174,10 @@
      "16": "NO",
      "17": "PIT",
      "18": "NYG"
-    }
+    },
+    "rs_survive": 0.1145,
+    "playoff_value": 0.0724,
+    "win_all": 0.00829
    },
    {
     "lineage": "B",
@@ -118,7 +195,10 @@
      "16": "NO",
      "17": "DAL",
      "18": "HOU"
-    }
+    },
+    "rs_survive": 0.1185,
+    "playoff_value": 0.0721,
+    "win_all": 0.00854
    },
    {
     "lineage": "C",
@@ -136,7 +216,10 @@
      "16": "NO",
      "17": "DAL",
      "18": "HOU"
-    }
+    },
+    "rs_survive": 0.12,
+    "playoff_value": 0.0588,
+    "win_all": 0.00706
    }
   ],
   "priced": {
@@ -551,6 +634,7 @@
    "gain": 0.0022
   }
  ],
+ "every_team_kept": 0.0917,
  "caveats": [
   "one season simulated on this week's lines and futures; the paths after this week are provisional and re-solved weekly",
   "the field at its average habits where it has no history in this format, with a playoff-saving term whose size is a prior",

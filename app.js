@@ -894,7 +894,12 @@
     const lin = pl.lineages.map(r => `<tr><td><b>${esc(r.lineage)}</b></td><td class="num">${r.entries}</td>
       <td><b>${esc(r.pick)}</b><div class="muted small">${esc(r.game || '')}</div></td>
       <td>${r.early ? '<span class="tie">early</span> ' : ''}${esc(r.locks)}</td>
-      <td class="path">${Object.entries(r.path).map(([w, t]) => `<span class="muted">${esc(w)}</span> ${esc(t)}`).join(' · ')}</td></tr>`).join('');
+      <td class="path">${Object.entries(r.path).map(([w, t]) => `<span class="muted">${esc(w)}</span> ${esc(t)}`).join(' · ')}</td>
+      <td class="num">${r.rs_survive !== undefined ? (100 * r.rs_survive).toFixed(1) + '%' : '—'}</td>
+      <td class="num">${r.playoff_value !== undefined ? (100 * r.playoff_value).toFixed(1) + '%' : '—'}</td>
+      <td class="num">${r.win_all !== undefined ? (100 * r.win_all).toFixed(2) + '%' : '—'}</td></tr>`).join('');
+    const ds = (d.dont_spend || []).map(r => `<tr><td><b>${esc(r.team)}</b></td><td class="num">${(100 * r.tax).toFixed(2)} pts</td>
+      <td class="num">${Math.round(100 * r.share)}%</td><td class="num">${r.wins_now ? Math.round(100 * r.wins_now) + '%' : 'bye'}</td></tr>`).join('');
     const early = pl.lineages.filter(r => r.early);
     const cands = d.candidates.map(c => `<tr${c.structure === pl.structure && c.openers.join() === pl.lineages.map(r => r.pick).join() ? ' class="cur"' : ''}>
       <td>${esc(c.structure)}</td><td>${esc(c.built_on)}</td><td>${esc(c.openers.join(' '))}</td>
@@ -913,8 +918,11 @@
         <div class="card"><div class="k">Fair share</div><div class="v">${usd(d.fair_share)}</div><div class="k">pot × ours ÷ every entry</div></div>
       </div>
       ${early.length ? `<div class="note">Lock before the early kickoffs: ${early.map(r => `lineage ${esc(r.lineage)}'s ${r.entries} entries on <b>${esc(r.pick)}</b>, ${esc(r.locks)}`).join('; ')}.</div>` : '<div class="note">No lineage takes a team playing before Sunday this week.</div>'}
-      <div class="tablewrap"><table><thead><tr><th>Lineage</th><th class="num">Entries</th><th>Week ${d.week}</th><th>Locks</th><th>Provisional path</th></tr></thead><tbody>${lin}</tbody></table></div>
-      <p class="muted small">Entries in a lineage pick the same team every week until the playoffs, where they split their Wild Card picks to cover. Any of our entries can go in any lineage. The path after this week is re-solved every week.</p>
+      <div class="tablewrap"><table><thead><tr><th>Lineage</th><th class="num">Entries</th><th>Week ${d.week}</th><th>Locks</th><th>Provisional path</th><th class="num">Survives wks ${d.week}–18</th><th class="num">Saved set survives the playoffs</th><th class="num">Survives it all</th></tr></thead><tbody>${lin}</tbody></table></div>
+      <p class="muted small">Entries in a lineage pick the same team every week until the playoffs, where they split their Wild Card picks to cover. Any of our entries can go in any lineage. The path after this week is re-solved every week. The saved set's playoff value is the chance one entry keeping the teams its path leaves survives all four playoff rounds, in the seasons the path gets there; ${d.every_team_kept !== undefined ? (100 * d.every_team_kept).toFixed(1) + '% is the most, every team kept' : ''}.</p>
+      ${ds ? `<h3>Do not spend</h3>
+      <div class="tablewrap"><table><thead><tr><th>Team</th><th class="num">Playoff cost</th><th class="num">Of the most</th><th class="num">Wins wk ${d.week}</th></tr></thead><tbody>${ds}</tbody></table></div>
+      <p class="muted small">What spending the team in the regular season costs the playoffs: how much the chance an entry keeping every other team survives all four rounds falls, in points and as a share of the most an entry can have.</p>` : ''}
       <h3>Every structure priced</h3>
       <div class="tablewrap"><table><thead><tr><th>Structure</th><th>Built against</th><th>Openers</th><th class="num">Greedy field</th><th class="num">Perfect field</th><th class="num">Worst regret</th></tr></thead><tbody>${cands}</tbody></table></div>
       <p class="muted small">Each plan is priced on ${d.priced_on.toLocaleString()} seasons it was not chosen on, ${d.draws} playoff draws each, the same results for us and the field. The written plan is the one whose worst shortfall against the best plan for either kind of field is smallest.</p>
