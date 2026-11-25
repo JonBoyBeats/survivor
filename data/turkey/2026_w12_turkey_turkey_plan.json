@@ -1,0 +1,560 @@
+{
+ "season": 2026,
+ "week": 12,
+ "contest": "turkey_2026",
+ "slug": "turkey",
+ "name": "Splash Turkey regular season and playoffs",
+ "built": "2026-11-25T00:24:07Z",
+ "code": "deb23d47936b0a3df14ac4091b2561e5237a443f+dirty",
+ "bracket": "season/2026_w12/2026_w12_bracket.npz",
+ "worlds": 2000,
+ "priced_on": 1000,
+ "draws": 16,
+ "kappa": 1.0,
+ "pot": 200000.0,
+ "ours": 12,
+ "field": {
+  "source": "fresh: 4488 entries, every team unused, the field's average habits",
+  "entries": 4488,
+  "alive_into_playoffs": 532.5,
+  "after_super_bowl": {
+   "greedy": 4.16,
+   "optimal": 13.34
+  },
+  "picks": {
+   "12": {
+    "JAX": 27.4,
+    "DAL": 23.6,
+    "CIN": 13.8,
+    "WAS": 11.2,
+    "MIN": 8.1,
+    "LAC": 3.8
+   },
+   "13": {
+    "DEN": 66.6,
+    "BUF": 7.6,
+    "SEA": 5.7,
+    "MIN": 5.7,
+    "TB": 4.3,
+    "CIN": 2.2
+   },
+   "14": {
+    "CHI": 45.3,
+    "DET": 31.7,
+    "SEA": 10.4,
+    "MIN": 3.4,
+    "JAX": 2.9,
+    "CAR": 1.7
+   },
+   "15": {
+    "GB": 63.1,
+    "SEA": 11.8,
+    "KC": 11.2,
+    "LAR": 4.9,
+    "TB": 2.8,
+    "SF": 1.0
+   },
+   "16": {
+    "NO": 35.4,
+    "CIN": 16.8,
+    "DET": 9.8,
+    "HOU": 9.3,
+    "MIN": 7.9,
+    "LAC": 5.0
+   },
+   "17": {
+    "SF": 23.3,
+    "BUF": 16.0,
+    "CLE": 10.0,
+    "JAX": 8.6,
+    "MIN": 6.6,
+    "PIT": 6.3
+   },
+   "18": {
+    "HOU": 29.4,
+    "SF": 18.3,
+    "BUF": 16.0,
+    "KC": 14.9,
+    "JAX": 6.7,
+    "CIN": 5.7
+   }
+  }
+ },
+ "fair_share": 533,
+ "plan": {
+  "structure": "3x4",
+  "lineages": [
+   {
+    "lineage": "A",
+    "entries": 4,
+    "pick": "DAL",
+    "game": "PHI@DAL",
+    "kickoff": "Thursday 2026-11-26 15:30 ET",
+    "locks": "at its own kickoff, Thursday 15:30 ET",
+    "early": true,
+    "path": {
+     "12": "DAL",
+     "13": "TB",
+     "14": "SEA",
+     "15": "GB",
+     "16": "NO",
+     "17": "PIT",
+     "18": "NYG"
+    }
+   },
+   {
+    "lineage": "B",
+    "entries": 4,
+    "pick": "MIN",
+    "game": "ATL@MIN",
+    "kickoff": "Sunday 2026-11-29 13:00 ET",
+    "locks": "Sunday before the 1pm ET window",
+    "early": false,
+    "path": {
+     "12": "MIN",
+     "13": "TB",
+     "14": "ATL",
+     "15": "GB",
+     "16": "NO",
+     "17": "DAL",
+     "18": "HOU"
+    }
+   },
+   {
+    "lineage": "C",
+    "entries": 4,
+    "pick": "JAX",
+    "game": "TEN@JAX",
+    "kickoff": "Sunday 2026-11-29 13:00 ET",
+    "locks": "Sunday before the 1pm ET window",
+    "early": false,
+    "path": {
+     "12": "JAX",
+     "13": "TB",
+     "14": "SEA",
+     "15": "NYJ",
+     "16": "NO",
+     "17": "DAL",
+     "18": "HOU"
+    }
+   }
+  ],
+  "priced": {
+   "greedy": {
+    "payout": 12679,
+    "se": 820,
+    "p_paid": 0.1346
+   },
+   "optimal": {
+    "payout": 2833,
+    "se": 254,
+    "p_paid": 0.0826
+   }
+  },
+  "regret": {
+   "greedy": [
+    0,
+    0
+   ],
+   "optimal": [
+    0,
+    0
+   ]
+  }
+ },
+ "candidates": [
+  {
+   "structure": "3x4",
+   "built_on": "greedy",
+   "openers": [
+    "DAL",
+    "MIN",
+    "JAX"
+   ],
+   "priced": {
+    "greedy": {
+     "payout": 12679,
+     "se": 820,
+     "p_paid": 0.1346
+    },
+    "optimal": {
+     "payout": 2833,
+     "se": 254,
+     "p_paid": 0.0826
+    }
+   },
+   "regret": {
+    "greedy": [
+     0,
+     0
+    ],
+    "optimal": [
+     0,
+     0
+    ]
+   },
+   "worst_regret": 0
+  },
+  {
+   "structure": "4x3",
+   "built_on": "greedy",
+   "openers": [
+    "DAL",
+    "MIN",
+    "JAX",
+    "WAS"
+   ],
+   "priced": {
+    "greedy": {
+     "payout": 11920,
+     "se": 760,
+     "p_paid": 0.1323
+    },
+    "optimal": {
+     "payout": 2664,
+     "se": 238,
+     "p_paid": 0.0784
+    }
+   },
+   "regret": {
+    "greedy": [
+     759,
+     309
+    ],
+    "optimal": [
+     169,
+     123
+    ]
+   },
+   "worst_regret": 759
+  },
+  {
+   "structure": "6x2",
+   "built_on": "greedy",
+   "openers": [
+    "DAL",
+    "JAX",
+    "MIN",
+    "CIN",
+    "NYJ",
+    "CHI"
+   ],
+   "priced": {
+    "greedy": {
+     "payout": 11120,
+     "se": 660,
+     "p_paid": 0.1304
+    },
+    "optimal": {
+     "payout": 2255,
+     "se": 205,
+     "p_paid": 0.0734
+    }
+   },
+   "regret": {
+    "greedy": [
+     1558,
+     487
+    ],
+    "optimal": [
+     578,
+     189
+    ]
+   },
+   "worst_regret": 1558
+  },
+  {
+   "structure": "3x4",
+   "built_on": "optimal",
+   "openers": [
+    "WAS",
+    "NYG",
+    "DAL"
+   ],
+   "priced": {
+    "greedy": {
+     "payout": 10030,
+     "se": 728,
+     "p_paid": 0.1075
+    },
+    "optimal": {
+     "payout": 2382,
+     "se": 220,
+     "p_paid": 0.0666
+    }
+   },
+   "regret": {
+    "greedy": [
+     2649,
+     664
+    ],
+    "optimal": [
+     451,
+     222
+    ]
+   },
+   "worst_regret": 2649
+  },
+  {
+   "structure": "4x3",
+   "built_on": "optimal",
+   "openers": [
+    "CLE",
+    "NYJ",
+    "DAL",
+    "LAC"
+   ],
+   "priced": {
+    "greedy": {
+     "payout": 9580,
+     "se": 685,
+     "p_paid": 0.1054
+    },
+    "optimal": {
+     "payout": 2706,
+     "se": 290,
+     "p_paid": 0.0639
+    }
+   },
+   "regret": {
+    "greedy": [
+     3099,
+     805
+    ],
+    "optimal": [
+     127,
+     328
+    ]
+   },
+   "worst_regret": 3099
+  },
+  {
+   "structure": "6x2",
+   "built_on": "optimal",
+   "openers": [
+    "CLE",
+    "NYJ",
+    "DAL",
+    "LAC",
+    "CIN",
+    "CHI"
+   ],
+   "priced": {
+    "greedy": {
+     "payout": 9001,
+     "se": 589,
+     "p_paid": 0.108
+    },
+    "optimal": {
+     "payout": 2374,
+     "se": 254,
+     "p_paid": 0.0614
+    }
+   },
+   "regret": {
+    "greedy": [
+     3678,
+     781
+    ],
+    "optimal": [
+     459,
+     312
+    ]
+   },
+   "worst_regret": 3678
+  }
+ ],
+ "curve": [
+  {
+   "size": 4,
+   "teams": [
+    "BUF",
+    "CHI",
+    "CIN",
+    "JAX"
+   ],
+   "value": 0.0048
+  },
+  {
+   "size": 5,
+   "teams": [
+    "BUF",
+    "CHI",
+    "CIN",
+    "JAX",
+    "SF"
+   ],
+   "value": 0.0198,
+   "added": "SF",
+   "gain": 0.015
+  },
+  {
+   "size": 6,
+   "teams": [
+    "BUF",
+    "CHI",
+    "CIN",
+    "JAX",
+    "SF",
+    "KC"
+   ],
+   "value": 0.0315,
+   "added": "KC",
+   "gain": 0.0117
+  },
+  {
+   "size": 7,
+   "teams": [
+    "BUF",
+    "CHI",
+    "CIN",
+    "JAX",
+    "SF",
+    "KC",
+    "DEN"
+   ],
+   "value": 0.0438,
+   "added": "DEN",
+   "gain": 0.0123
+  },
+  {
+   "size": 8,
+   "teams": [
+    "BUF",
+    "CHI",
+    "CIN",
+    "JAX",
+    "SF",
+    "KC",
+    "DEN",
+    "MIN"
+   ],
+   "value": 0.0527,
+   "added": "MIN",
+   "gain": 0.0089
+  },
+  {
+   "size": 9,
+   "teams": [
+    "BUF",
+    "CHI",
+    "CIN",
+    "JAX",
+    "SF",
+    "KC",
+    "DEN",
+    "MIN",
+    "DET"
+   ],
+   "value": 0.0607,
+   "added": "DET",
+   "gain": 0.008
+  },
+  {
+   "size": 10,
+   "teams": [
+    "BUF",
+    "CHI",
+    "CIN",
+    "JAX",
+    "SF",
+    "KC",
+    "DEN",
+    "MIN",
+    "DET",
+    "LAR"
+   ],
+   "value": 0.0674,
+   "added": "LAR",
+   "gain": 0.0067
+  },
+  {
+   "size": 11,
+   "teams": [
+    "BUF",
+    "CHI",
+    "CIN",
+    "JAX",
+    "SF",
+    "KC",
+    "DEN",
+    "MIN",
+    "DET",
+    "LAR",
+    "SEA"
+   ],
+   "value": 0.0739,
+   "added": "SEA",
+   "gain": 0.0065
+  },
+  {
+   "size": 12,
+   "teams": [
+    "BUF",
+    "CHI",
+    "CIN",
+    "JAX",
+    "SF",
+    "KC",
+    "DEN",
+    "MIN",
+    "DET",
+    "LAR",
+    "SEA",
+    "GB"
+   ],
+   "value": 0.0772,
+   "added": "GB",
+   "gain": 0.0033
+  },
+  {
+   "size": 13,
+   "teams": [
+    "BUF",
+    "CHI",
+    "CIN",
+    "JAX",
+    "SF",
+    "KC",
+    "DEN",
+    "MIN",
+    "DET",
+    "LAR",
+    "SEA",
+    "GB",
+    "NYG"
+   ],
+   "value": 0.0796,
+   "added": "NYG",
+   "gain": 0.0024
+  },
+  {
+   "size": 14,
+   "teams": [
+    "BUF",
+    "CHI",
+    "CIN",
+    "JAX",
+    "SF",
+    "KC",
+    "DEN",
+    "MIN",
+    "DET",
+    "LAR",
+    "SEA",
+    "GB",
+    "NYG",
+    "HOU"
+   ],
+   "value": 0.0818,
+   "added": "HOU",
+   "gain": 0.0022
+  }
+ ],
+ "caveats": [
+  "one season simulated on this week's lines and futures; the paths after this week are provisional and re-solved weekly",
+  "the field at its average habits where it has no history in this format, with a playoff-saving term whose size is a prior",
+  "the playoff tiebreakers simplified (division record, conference record, then a coin)",
+  "the dollar level rests mostly on how well the field plays the playoffs: the plan is priced both ways and the one with the smaller worst-case regret is written"
+ ]
+}

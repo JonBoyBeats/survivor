@@ -7,7 +7,7 @@
   'use strict';
   const E = window.SurvivorEngine;
   const $ = (s, el) => (el || document).querySelector(s);
-  const app = { index: [], leans: [], leansDocs: {}, plans: [], planDocs: {}, planMode: 'p', week: null, docs: {}, cur: null, sel: {} };
+  const app = { index: [], leans: [], leansDocs: {}, plans: [], planDocs: {}, turkey: [], turkeyDocs: {}, planMode: 'p', week: null, docs: {}, cur: null, sel: {} };
 
   const money = v => (Math.abs(v) >= 1000 ? '$' + Math.round(v).toLocaleString()
     : '$' + v.toFixed(2));
@@ -63,7 +63,9 @@
     catch (e) { app.plans = []; }
     try { app.sims = (await (await fetch('data/sim/index.json', { cache: 'no-cache' })).json()).sims || []; }
     catch (e) { app.sims = []; }
-    const weeks = [...new Set(app.index.concat(app.leans).map(weekKey))]
+    try { app.turkey = (await (await fetch('data/turkey/index.json', { cache: 'no-cache' })).json()).plans || []; }
+    catch (e) { app.turkey = []; }
+    const weeks = [...new Set(app.index.concat(app.leans, app.turkey).map(weekKey))]
       .sort((a, b) => { const [sa, wa] = a.split('-').map(Number), [sb, wb] = b.split('-').map(Number); return sb - sa || wb - wa; });
     const sel = $('#week');
     sel.innerHTML = weeks.map(k => { const [s, w] = k.split('-'); return `<option value="${k}">${s} week ${w}</option>`; }).join('');
@@ -79,13 +81,16 @@
 
   function weekRows() { return app.index.filter(r => weekKey(r) === app.week); }
   function leansRow() { return app.leans.find(r => weekKey(r) === app.week); }
+  function turkeyRows() { return app.turkey.filter(r => weekKey(r) === app.week); }
   function planRows() { return app.plans.filter(r => weekKey(r) === app.week); }
 
   function go(slug) {
     const rows = weekRows();
     const ok = s => (s === 'portfolio' && rows.length) || (s === 'leans' && leansRow())
-      || planRows().some(r => 'plan-' + r.slug === s) || rows.some(r => r.slug === s);
-    show(slug && ok(slug) ? slug : (rows[0] ? rows[0].slug : 'leans'));
+      || planRows().some(r => 'plan-' + r.slug === s) || rows.some(r => r.slug === s)
+      || turkeyRows().some(r => 'turkey-' + r.slug === s);
+    const tk = turkeyRows()[0];
+    show(slug && ok(slug) ? slug : (rows[0] ? rows[0].slug : !leansRow() && tk ? 'turkey-' + tk.slug : 'leans'));
   }
 
   function tabs() {
@@ -97,7 +102,8 @@
       return `<option value="${r.slug}">${esc(r.name)} (${n}/${r.entries} banked)</option>`;
     }).join('') + (rows.length ? '<option value="portfolio">Portfolio &amp; cheat sheet</option>' : '')
       + planRows().map(r => `<option value="plan-${r.slug}">Planner: ${esc(r.name)}, one entry left</option>`).join('')
-      + (leansRow() ? '<option value="leans">Upset leans, every matchup</option>' : '');
+      + (leansRow() ? '<option value="leans">Upset leans, every matchup</option>' : '')
+      + turkeyRows().map(r => `<option value="turkey-${r.slug}">Turkey plan: ${esc(r.name)}</option>`).join('');
     sel.value = app.cur;
     sel.onchange = () => show(sel.value);
   }
@@ -109,6 +115,7 @@
     if (slug === 'portfolio') return renderPortfolio();
     if (slug === 'leans') return renderLeans();
     if (slug.startsWith('plan-')) return renderPlan(slug.slice(5));
+    if (slug.startsWith('turkey-')) return renderTurkey(slug.slice(7));
     const row = weekRows().find(r => r.slug === slug);
     $('#main').innerHTML = '<p class="muted pad">Loading ' + esc(row.name) + '…</p>';
     const key = app.week + '/' + slug;
@@ -866,6 +873,57 @@
       save();
       renderPlan(slug);
     };
+  }
+
+  /* THE TURKEY PLAN (D375): the lineages, each one's pick this week and when
+   * it locks, the provisional path behind it, what the plan is worth against
+   * a field that plays the playoffs greedily and one that plays them
+   * perfectly, every structure that was priced, and the saved-set curve */
+  async function renderTurkey(slug) {
+    const row = turkeyRows().find(r => r.slug === slug);
+    if (!row) { $('#main').innerHTML = '<p class="muted pad">No Turkey plan for this week.</p>'; return; }
+    let d = app.turkeyDocs[row.file];
+    if (!d) {
+      $('#main').innerHTML = '<p class="muted pad">Loading the Turkey plan…</p>';
+      try { d = app.turkeyDocs[row.file] = await (await fetch('data/turkey/' + row.file, { cache: 'no-cache' })).json(); }
+      catch (e) { $('#main').innerHTML = '<p class="pad">The Turkey plan did not load.</p>'; return; }
+      if (app.cur !== 'turkey-' + slug) return;
+    }
+    const pl = d.plan, pr = pl.priced;
+    const usd = v => '$' + Math.round(v).toLocaleString();
+    const lin = pl.lineages.map(r => `<tr><td><b>${esc(r.lineage)}</b></td><td class="num">${r.entries}</td>
+      <td><b>${esc(r.pick)}</b><div class="muted small">${esc(r.game || '')}</div></td>
+      <td>${r.early ? '<span class="tie">early</span> ' : ''}${esc(r.locks)}</td>
+      <td class="path">${Object.entries(r.path).map(([w, t]) => `<span class="muted">${esc(w)}</span> ${esc(t)}`).join(' · ')}</td></tr>`).join('');
+    const early = pl.lineages.filter(r => r.early);
+    const cands = d.candidates.map(c => `<tr${c.structure === pl.structure && c.openers.join() === pl.lineages.map(r => r.pick).join() ? ' class="cur"' : ''}>
+      <td>${esc(c.structure)}</td><td>${esc(c.built_on)}</td><td>${esc(c.openers.join(' '))}</td>
+      <td class="num">${usd(c.priced.greedy.payout)} <span class="se">±${usd(c.priced.greedy.se)}</span></td>
+      <td class="num">${usd(c.priced.optimal.payout)} <span class="se">±${usd(c.priced.optimal.se)}</span></td>
+      <td class="num">${usd(c.worst_regret)}</td></tr>`).join('');
+    const curve = (d.curve || []).map(c => `<tr><td class="num">${c.size}</td><td class="num">${(100 * c.value).toFixed(1)}%</td>
+      <td class="num">${c.gain !== undefined ? '+' + (100 * c.gain).toFixed(1) : ''}</td><td>${esc(c.teams.join(' '))}</td></tr>`).join('');
+    const fp = d.field.picks[String(d.week)] || {};
+    $('#main').innerHTML = `<section class="contest pad">
+      <h2 style="margin-top:0">${esc(d.name || slug)} <span class="muted small">week ${d.week} plan · built ${esc((d.built || '').replace('T', ' ').slice(0, 16))} UTC</span></h2>
+      <div class="cards">
+        <div class="card"><div class="k">Structure</div><div class="v">${esc(pl.structure)}</div><div class="k">${d.ours} entries, lineages of ${pl.lineages[0].entries}</div></div>
+        <div class="card"><div class="k">Expected, greedy field</div><div class="v">${usd(pr.greedy.payout)}</div><div class="k">±${usd(pr.greedy.se)} · paid in ${(100 * pr.greedy.p_paid).toFixed(1)}% of seasons</div></div>
+        <div class="card"><div class="k">Expected, perfect field</div><div class="v">${usd(pr.optimal.payout)}</div><div class="k">±${usd(pr.optimal.se)} · paid in ${(100 * pr.optimal.p_paid).toFixed(1)}%</div></div>
+        <div class="card"><div class="k">Fair share</div><div class="v">${usd(d.fair_share)}</div><div class="k">pot × ours ÷ every entry</div></div>
+      </div>
+      ${early.length ? `<div class="note">Lock before the early kickoffs: ${early.map(r => `lineage ${esc(r.lineage)}'s ${r.entries} entries on <b>${esc(r.pick)}</b>, ${esc(r.locks)}`).join('; ')}.</div>` : '<div class="note">No lineage takes a team playing before Sunday this week.</div>'}
+      <div class="tablewrap"><table><thead><tr><th>Lineage</th><th class="num">Entries</th><th>Week ${d.week}</th><th>Locks</th><th>Provisional path</th></tr></thead><tbody>${lin}</tbody></table></div>
+      <p class="muted small">Entries in a lineage pick the same team every week until the playoffs, where they split their Wild Card picks to cover. Any of our entries can go in any lineage. The path after this week is re-solved every week.</p>
+      <h3>Every structure priced</h3>
+      <div class="tablewrap"><table><thead><tr><th>Structure</th><th>Built against</th><th>Openers</th><th class="num">Greedy field</th><th class="num">Perfect field</th><th class="num">Worst regret</th></tr></thead><tbody>${cands}</tbody></table></div>
+      <p class="muted small">Each plan is priced on ${d.priced_on.toLocaleString()} seasons it was not chosen on, ${d.draws} playoff draws each, the same results for us and the field. The written plan is the one whose worst shortfall against the best plan for either kind of field is smallest.</p>
+      <h3>The saved-set curve</h3>
+      <div class="tablewrap"><table><thead><tr><th class="num">Teams kept</th><th class="num">Survive the playoffs</th><th class="num">Added</th><th>The best set of that size</th></tr></thead><tbody>${curve}</tbody></table></div>
+      <p class="muted small">The chance an entry carrying those teams into the Wild Card round survives all four rounds, picking each round after seeing who is left. Keeping every team gives the most an entry can have.</p>
+      <h3>The field</h3>
+      <p class="small">${esc(d.field.source)}. About ${Math.round(d.field.alive_into_playoffs).toLocaleString()} reach the playoffs and ${d.field.after_super_bowl.greedy} (greedy) to ${d.field.after_super_bowl.optimal} (perfect) survive the Super Bowl on average. This week: ${Object.entries(fp).map(([t, v]) => esc(t) + ' ' + v + '%').join(', ')}.</p>
+      <h3>Caveats</h3><ul class="small">${d.caveats.map(c => '<li>' + esc(c) + '</li>').join('')}</ul></section>`;
   }
 
   async function renderLeans() {
