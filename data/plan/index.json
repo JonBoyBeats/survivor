@@ -1,6 +1,30 @@
 {
  "plans": [
   {
+   "file": "2026_w12_cheese.json",
+   "season": 2026,
+   "week": 12,
+   "slug": "cheese",
+   "name": "Cheese Bowl",
+   "entry": "Entry 6"
+  },
+  {
+   "file": "2026_w12_ryan.json",
+   "season": 2026,
+   "week": 12,
+   "slug": "ryan",
+   "name": "Jim Ryan",
+   "entry": "Entry 3"
+  },
+  {
+   "file": "2026_w12_fivek.json",
+   "season": 2026,
+   "week": 12,
+   "slug": "fivek",
+   "name": "Splash $5k",
+   "entry": "Entry 8"
+  },
+  {
    "file": "2026_w11_cheese.json",
    "season": 2026,
    "week": 11,
